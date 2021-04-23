@@ -8,119 +8,226 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int currentIndex = 0;
+
+  static List<String> denemeListesi = [
+    'ALİBAZİK',
+    'dENEME',
+    'dENEME',
+    'dENEME',
+    'dENEME',
+  ];
+  static List<String> Icecekler = [
+    'Kola',
+    'Kola',
+    'Kola',
+  ];
+  List<List<String>> categorie = [denemeListesi, Icecekler];
   @override
   Widget build(BuildContext context) {
-    List<Widget> texts = [
-      Text('A'),
-      Text('B'),
-      Text('C'),
-    ];
-    List<String> texts2 = [
-      ' Text(A)',
-      'Text(B)',
-      'Text(C)',
-    ];
-    int currentIndex = 0;
-
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center, //Geçici
-        //crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(
-            //En Üstteki Büyük Yazı
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Buraya Bir Text Gelecek!',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Container(
-            // Search Bar
-            padding: EdgeInsets.symmetric(horizontal: 50),
-            child: TextField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Color(0xFFEFEEEE),
-                hintText: 'Search',
-                hintStyle: TextStyle(
-                  color: Color(0xFF787777),
+        backgroundColor: Color(0xFFF2F2F2),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          actions: [
+            IconButton(
+                icon: Icon(
+                  Icons.people,
                 ),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.black,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(30),
+                onPressed: () {})
+          ],
+        ),
+        bottomNavigationBar: CustomBottomNavigationBar(),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(child: CustomTitleForMainPage()),
+              Expanded(child: CustomSearchBar()),
+              Expanded(
+                child: DefaultTabController(
+                  length: 2,
+                  child: TabBar(
+                    isScrollable: true,
+                    labelColor: Colors.orange,
+                    unselectedLabelColor: Colors.grey,
+                    indicatorColor: Colors.orange,
+                    onTap: (index) {
+                      setState(() {
+                        currentIndex = index;
+                      });
+                    },
+                    tabs: [
+                      Tab(
+                        text: 'Yiyecekler',
+                      ),
+                      Tab(
+                        text: 'İçecekler',
+                      ),
+                    ],
                   ),
-                  borderSide: BorderSide.none,
                 ),
               ),
+              Expanded(
+                flex: 5,
+                child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                    itemCount: categorie[currentIndex].length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) {
+                      return YEMEKKARTLARIM(categorie[currentIndex][index]);
+                    }),
+              )
+            ],
+          ),
+        ));
+  }
+
+  Padding YEMEKKARTLARIM(String yemekAdi) {
+    return Padding(
+      padding: EdgeInsets.only(
+        right: 20,
+      ),
+      child: Stack(
+        children: <Widget>[
+          Container(
+            width: 220,
+            //padding: EdgeInsets.only(left: 12, top: 100, right: 12, bottom: 12),
+            margin: EdgeInsets.only(top: 70),
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
             ),
           ),
-          Container(
-            height: 50,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              itemExtent: 120,
-              children: [
-                CustomListViewItem(
-                  title: 'Çok Tüketilen',
-                  textColor: Color(0xFFFA4A0C),
+          Positioned(
+            left: 15,
+            right: 15,
+            bottom: 60,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  yemekAdi,
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
                 ),
-                CustomListViewItem(
-                  title: 'Çok Tüketilen',
-                  textColor: Color(0xFF9A9A9D),
+                SizedBox(
+                  height: 10,
                 ),
-                CustomListViewItem(
-                  title: 'Çok Tüketilen',
-                  textColor: Color(0xFF9A9A9D),
-                ),
-                CustomListViewItem(
-                  title: 'Çok Tüketilen',
-                  textColor: Color(0xFF9A9A9D),
-                ),
+                Text('1200kcal'),
               ],
             ),
           ),
-          Container(
-            height: 250,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [],
+          Positioned(
+            top: 16,
+            left: 5,
+            right: 5,
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(
+                'https://source.unsplash.com/random',
+              ),
+              radius: 80,
             ),
-          )
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        iconSize: 32,
-        elevation: 0,
-        showSelectedLabels: false,
-        selectedItemColor: Color(0xFFFA4A0C),
-        unselectedItemColor: Color(0xFFB1B1B3),
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Ionicons.md_home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Ionicons.ios_water),
-            label: 'Water',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Ionicons.logo_no_smoking),
-            label: 'Smoke',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Ionicons.md_bookmark),
-            label: 'Summary',
           ),
         ],
       ),
+    );
+  }
+}
+
+class CustomTitleForMainPage extends StatelessWidget {
+  const CustomTitleForMainPage({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      //En Üstteki Büyük Yazı
+      alignment: Alignment.centerLeft,
+      child: Text(
+        'Buraya Bir Text Gelecek!',
+        style: TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+}
+
+class CustomSearchBar extends StatelessWidget {
+  const CustomSearchBar({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // Search Bar
+      padding: EdgeInsets.symmetric(horizontal: 50),
+      child: TextField(
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Color(0xFFEFEEEE),
+          hintText: 'Search',
+          hintStyle: TextStyle(
+            color: Color(0xFF787777),
+          ),
+          prefixIcon: Icon(
+            Icons.search,
+            color: Colors.black,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(30),
+            ),
+            borderSide: BorderSide.none,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomBottomNavigationBar extends StatelessWidget {
+  const CustomBottomNavigationBar({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      //onTap: (i) {},
+      currentIndex: 0,
+      backgroundColor: Color(0xFFF2F2F2),
+      iconSize: 32,
+      elevation: 0,
+      showSelectedLabels: false,
+      selectedItemColor: Color(0xFFFA4A0C),
+      unselectedItemColor: Color(0xFFB1B1B3),
+      items: [
+        BottomNavigationBarItem(
+          icon: Icon(
+            Ionicons.md_home,
+          ),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Ionicons.ios_water),
+          label: 'Water',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Ionicons.logo_no_smoking),
+          label: 'Smoke',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Ionicons.md_bookmark),
+          label: 'Summary',
+        ),
+      ],
     );
   }
 }
@@ -158,33 +265,3 @@ class _CustomListViewItemState extends State<CustomListViewItem> {
     );
   }
 }
-/*DefaultTabController(
-            length: 3,
-            child: Container(
-              child: TabBar(
-                onTap: (index) {
-                  setState(() {
-                    currentIndex = index;
-                  });
-                  print(currentIndex);
-                },
-                tabs: [
-                  Tab(
-                    text: 'DENEME',
-                  ),
-                  Tab(
-                    text: 'DENEME',
-                  ),
-                  Tab(
-                    text: 'DENEME',
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            height: 200,
-            child: Text(
-              texts2[currentIndex],
-            ),
-          )*/ 
