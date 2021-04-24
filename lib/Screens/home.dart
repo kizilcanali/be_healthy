@@ -32,10 +32,9 @@ class _HomeState extends State<Home> {
           elevation: 0,
           actions: [
             IconButton(
-                icon: Icon(
-                  Icons.people,
-                ),
-                onPressed: () {})
+              icon: Icon(Icons.people, color: Colors.grey),
+              onPressed: () {},
+            )
           ],
         ),
         bottomNavigationBar: CustomBottomNavigationBar(),
@@ -77,7 +76,7 @@ class _HomeState extends State<Home> {
                     itemCount: categorie[currentIndex].length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext context, int index) {
-                      return YEMEKKARTLARIM(categorie[currentIndex][index]);
+                      return foodCards(categorie[currentIndex][index]);
                     }),
               )
             ],
@@ -85,7 +84,7 @@ class _HomeState extends State<Home> {
         ));
   }
 
-  Padding YEMEKKARTLARIM(String yemekAdi) {
+  Padding foodCards(String yemekAdi) {
     return Padding(
       padding: EdgeInsets.only(
         right: 20,
@@ -150,6 +149,7 @@ class CustomTitleForMainPage extends StatelessWidget {
       child: Text(
         'Buraya Bir Text Gelecek!',
         style: TextStyle(
+          fontFamily: 'Georgia',
           fontSize: 25,
           fontWeight: FontWeight.bold,
         ),

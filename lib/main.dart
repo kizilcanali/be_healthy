@@ -11,11 +11,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Home(),
-      theme: ThemeData(
+      /*theme: ThemeData(
         appBarTheme: AppBarTheme(
           actionsIconTheme: IconThemeData(color: Colors.grey),
         ),
-      ),
+      ),*/
     );
   }
 }
