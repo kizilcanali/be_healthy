@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -11,80 +11,100 @@ class _HomeState extends State<Home> {
   int currentIndex = 0;
 
   static List<String> denemeListesi = [
-    'ALİBAZİK',
-    'dENEME',
-    'dENEME',
-    'dENEME',
-    'dENEME',
+    'Alinazik',
+    'Karnıyarık',
+    'Hoşaf',
+    'Cacık',
+    'İskender',
+    'Adana Dürüm',
   ];
   static List<String> Icecekler = [
+    'Ayran',
     'Kola',
-    'Kola',
-    'Kola',
+    'Şalgam',
   ];
   List<List<String>> categorie = [denemeListesi, Icecekler];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFF2F2F2),
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          actions: [
-            IconButton(
-              icon: Icon(Icons.people, color: Colors.grey),
-              onPressed: () {},
+      backgroundColor: Color(0xFFF2F2F2),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.person,
+              color: Colors.grey,
+              size: 30,
+            ),
+            onPressed: () {},
+          )
+        ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: CustomTitleForMainPage(),
+            ),
+            Expanded(
+              child: CustomSearchBar(),
+            ),
+            Expanded(
+              child: DefaultTabController(
+                length: 5,
+                child: TabBar(
+                  isScrollable: true,
+                  labelColor: Color(0xFFFA4A0C),
+                  unselectedLabelColor: Color(0XFF9A9A9D),
+                  indicatorColor: Color(0xFFFA4A0C),
+                  indicatorWeight: 3,
+                  onTap: (index) {
+                    setState(() {
+                      currentIndex = index;
+                    });
+                  },
+                  tabs: [
+                    Tab(
+                      text: 'Kırmızı Et',
+                    ),
+                    Tab(
+                      text: 'İçecekler',
+                    ),
+                    Tab(
+                      text: 'Çok Tüketilen',
+                    ),
+                    Tab(
+                      text: 'Beyaz Et',
+                    ),
+                    Tab(
+                      text: 'Tatlı',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 5,
+              child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                  itemCount: categorie[currentIndex].length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    return foodCards(categorie[currentIndex][index]);
+                  }),
             )
           ],
         ),
-        bottomNavigationBar: CustomBottomNavigationBar(),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(child: CustomTitleForMainPage()),
-              Expanded(child: CustomSearchBar()),
-              Expanded(
-                child: DefaultTabController(
-                  length: 2,
-                  child: TabBar(
-                    isScrollable: true,
-                    labelColor: Colors.orange,
-                    unselectedLabelColor: Colors.grey,
-                    indicatorColor: Colors.orange,
-                    onTap: (index) {
-                      setState(() {
-                        currentIndex = index;
-                      });
-                    },
-                    tabs: [
-                      Tab(
-                        text: 'Yiyecekler',
-                      ),
-                      Tab(
-                        text: 'İçecekler',
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 5,
-                child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-                    itemCount: categorie[currentIndex].length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (BuildContext context, int index) {
-                      return foodCards(categorie[currentIndex][index]);
-                    }),
-              )
-            ],
-          ),
-        ));
+      ),
+      bottomNavigationBar: CustomBottomNavigationBar(),
+    );
   }
 
-  Padding foodCards(String yemekAdi) {
+  Padding foodCards(String foodName) {
     return Padding(
       padding: EdgeInsets.only(
         right: 20,
@@ -109,13 +129,25 @@ class _HomeState extends State<Home> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  yemekAdi,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                  foodName,
+                  style: GoogleFonts.roboto(
+                    textStyle: TextStyle(
+                      fontSize: 22,
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                Text('1200kcal'),
+                Text(
+                  '1200kcal',
+                  style: GoogleFonts.roboto(
+                    textStyle: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFFA4A0C)),
+                  ),
+                ),
               ],
             ),
           ),
@@ -144,16 +176,18 @@ class CustomTitleForMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: 30,
+      ),
       //En Üstteki Büyük Yazı
       alignment: Alignment.centerLeft,
-      child: Text(
-        'Buraya Bir Text Gelecek!',
-        style: TextStyle(
-          fontFamily: 'Georgia',
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      child: Text('Eat Healthy Stay Healthy',
+          style: GoogleFonts.comfortaa(
+            textStyle: TextStyle(
+              fontSize: 35,
+              fontWeight: FontWeight.bold,
+            ),
+          )),
     );
   }
 }
@@ -168,6 +202,7 @@ class CustomSearchBar extends StatelessWidget {
     return Container(
       // Search Bar
       padding: EdgeInsets.symmetric(horizontal: 50),
+      margin: EdgeInsets.only(top: 20),
       child: TextField(
         decoration: InputDecoration(
           filled: true,
@@ -192,17 +227,21 @@ class CustomSearchBar extends StatelessWidget {
   }
 }
 
-class CustomBottomNavigationBar extends StatelessWidget {
+class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({
     Key key,
   }) : super(key: key);
 
   @override
+  _CustomBottomNavigationBarState createState() =>
+      _CustomBottomNavigationBarState();
+}
+
+class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
+  @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      //onTap: (i) {},
       currentIndex: 0,
-      backgroundColor: Color(0xFFF2F2F2),
       iconSize: 32,
       elevation: 0,
       showSelectedLabels: false,
@@ -210,58 +249,28 @@ class CustomBottomNavigationBar extends StatelessWidget {
       unselectedItemColor: Color(0xFFB1B1B3),
       items: [
         BottomNavigationBarItem(
+          backgroundColor: Color(0xFFF2F2F2),
           icon: Icon(
             Ionicons.md_home,
           ),
           label: 'Home',
         ),
         BottomNavigationBarItem(
+          backgroundColor: Color(0xFFF2F2F2),
           icon: Icon(Ionicons.ios_water),
           label: 'Water',
         ),
         BottomNavigationBarItem(
+          backgroundColor: Color(0xFFF2F2F2),
           icon: Icon(Ionicons.logo_no_smoking),
           label: 'Smoke',
         ),
         BottomNavigationBarItem(
+          backgroundColor: Color(0xFFF2F2F2),
           icon: Icon(Ionicons.md_bookmark),
           label: 'Summary',
         ),
       ],
-    );
-  }
-}
-
-// ListView's TextButton Elements
-class CustomListViewItem extends StatefulWidget {
-  String title;
-  Color textColor;
-  CustomListViewItem({this.title, this.textColor});
-
-  @override
-  _CustomListViewItemState createState() => _CustomListViewItemState();
-}
-
-class _CustomListViewItemState extends State<CustomListViewItem> {
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        //print('isActive  $isActive');
-      },
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
-        child: Center(
-          child: Text(
-            widget.title,
-          ),
-        ),
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(color: Colors.orange, width: 2),
-          ),
-        ),
-      ),
     );
   }
 }
