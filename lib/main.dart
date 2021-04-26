@@ -1,6 +1,7 @@
 import 'package:be_healthy/Screens/consumption_summary.dart';
 import 'package:be_healthy/Screens/home.dart';
 import 'package:be_healthy/Screens/login.dart';
+import 'package:be_healthy/Screens/deneme.dart';
 import 'package:flutter/material.dart';
 
 void main() {

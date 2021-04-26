@@ -12,7 +12,7 @@ class ConsumptionSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ama Yarrak Yersin!'),
+        title: Text('Summary Page!'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -37,12 +37,11 @@ class ConsumptionSummary extends StatelessWidget {
 
 //  []   Dinamik olarak gün ve içerisindeki kaloriler toplamı gelecek.
 //  []   Renk ve ikon ona göre değişecek.
+//  []   Collapse / Expansion İşlemi yapılacak.
 
   GestureDetector dailySummaryCard() {
     return GestureDetector(
-      onTap: () {
-        //Navigator.push(context, MaterialPageRoute(builder: BuildContext(context) => ExpansionPanel()));
-      },
+      onTap: () {},
       child: Stack(
         children: [
           Container(
