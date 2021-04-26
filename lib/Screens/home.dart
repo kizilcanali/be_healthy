@@ -1,3 +1,4 @@
+import 'package:be_healthy/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -176,6 +177,7 @@ class _HomeState extends State<Home> {
                           elevation: 0,
                           actions: [
                             IconButton(
+                              onPressed: () {},
                               icon: Icon(Icons.food_bank),
                               color: Color(0xFFB1B1B3),
                             ),
@@ -195,14 +197,84 @@ class _HomeState extends State<Home> {
                                 Navigator.of(context).pop();
                               },
                             ),
-                            Text(
-                              'Kuzu Çevirme',
-                              style: TextStyle(
-                                  fontSize: 28, fontWeight: FontWeight.bold),
+                            SizedBox(
+                              height: 10,
                             ),
-                            Text('2499kcal'),
-                            Text('InfoBaşlık'),
-                            Text('Info'),
+                            Column(
+                              children: [
+                                Text(
+                                  'Kuzu Çevirme',
+                                  style: TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  '2400kcal',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Color(0xFFFA4A0C),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text(
+                                          'Protein',
+                                          style: kDetailPageTextStyle,
+                                        ),
+                                        Text('20g'),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text(
+                                          'Karbongidrat',
+                                          style: kDetailPageTextStyle,
+                                        ),
+                                        Text('20g'),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text(
+                                          'Yağ',
+                                          style: kDetailPageTextStyle,
+                                        ),
+                                        Text('20g'),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 100,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 50),
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                child: Text(
+                                  'Al Ağzına',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: Size(double.infinity, 63),
+                                  primary: Color(0xFFFA4A0C),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       );
