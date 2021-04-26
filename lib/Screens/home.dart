@@ -56,6 +56,7 @@ class _HomeState extends State<Home> {
               child: DefaultTabController(
                 length: 5,
                 child: TabBar(
+                  labelStyle: TextStyle(fontSize: 19),
                   isScrollable: true,
                   labelColor: Color(0xFFFA4A0C),
                   unselectedLabelColor: Color(0XFF9A9A9D),
@@ -109,60 +110,109 @@ class _HomeState extends State<Home> {
       padding: EdgeInsets.only(
         right: 20,
       ),
-      child: Stack(
-        children: <Widget>[
-          Container(
-            width: 220,
-            //padding: EdgeInsets.only(left: 12, top: 100, right: 12, bottom: 12),
-            margin: EdgeInsets.only(top: 70),
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30),
+      child: InkWell(
+        onTap: () {
+          print('');
+        },
+        child: Stack(
+          children: <Widget>[
+            Container(
+              width: 220,
+              //padding: EdgeInsets.only(left: 12, top: 100, right: 12, bottom: 12),
+              margin: EdgeInsets.only(top: 70),
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+              ),
             ),
-          ),
-          Positioned(
-            left: 15,
-            right: 15,
-            bottom: 60,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  foodName,
-                  style: GoogleFonts.roboto(
-                    textStyle: TextStyle(
-                      fontSize: 22,
+            Positioned(
+              left: 15,
+              right: 15,
+              bottom: 60,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    foodName,
+                    style: GoogleFonts.roboto(
+                      textStyle: TextStyle(
+                        fontSize: 22,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  '1200kcal',
-                  style: GoogleFonts.roboto(
-                    textStyle: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFFA4A0C)),
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            top: 16,
-            left: 5,
-            right: 5,
-            child: CircleAvatar(
-              backgroundImage: NetworkImage(
-                'https://source.unsplash.com/random',
+                  Text(
+                    '1200kcal',
+                    style: GoogleFonts.roboto(
+                      textStyle: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFFA4A0C)),
+                    ),
+                  ),
+                ],
               ),
-              radius: 80,
             ),
-          ),
-        ],
+            Positioned(
+              top: 16,
+              left: 5,
+              right: 5,
+              child: PhotoHero(
+                child: CircleAvatar(
+                  backgroundImage:
+                      NetworkImage('https://source.unsplash.com/random'),
+                  radius: 80,
+                ),
+                photo: 'https://source.unsplash.com/random',
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(builder: (BuildContext context) {
+                      return Scaffold(
+                        backgroundColor: Color(0xFFF6F6F9),
+                        appBar: AppBar(
+                          elevation: 0,
+                          actions: [
+                            IconButton(
+                              icon: Icon(Icons.food_bank),
+                              color: Color(0xFFB1B1B3),
+                            ),
+                          ],
+                          backgroundColor: Colors.transparent,
+                        ),
+                        body: Column(
+                          children: [
+                            PhotoHero(
+                              child: Image.network(
+                                'https://source.unsplash.com/random',
+                                width: double.infinity,
+                                height: 320,
+                              ),
+                              photo: 'https://source.unsplash.com/random',
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            Text(
+                              'Kuzu Çevirme',
+                              style: TextStyle(
+                                  fontSize: 28, fontWeight: FontWeight.bold),
+                            ),
+                            Text('2499kcal'),
+                            Text('InfoBaşlık'),
+                            Text('Info'),
+                          ],
+                        ),
+                      );
+                    }),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -181,7 +231,7 @@ class CustomTitleForMainPage extends StatelessWidget {
       ),
       //En Üstteki Büyük Yazı
       alignment: Alignment.centerLeft,
-      child: Text('Eat Healthy Stay Healthy',
+      child: Text('Sağlıklı Ye \nSağlıklı Yaşa',
           style: GoogleFonts.comfortaa(
             textStyle: TextStyle(
               fontSize: 35,
@@ -271,6 +321,53 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           label: 'Summary',
         ),
       ],
+    );
+  }
+}
+
+class PhotoHero extends StatelessWidget {
+  const PhotoHero({Key key, this.photo, this.onTap, this.width, this.child})
+      : super(key: key);
+
+  final String photo;
+  final VoidCallback onTap;
+  final double width;
+  final Widget child;
+
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
+      child: Hero(
+        tag: photo,
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            child: child,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Photo extends StatelessWidget {
+  Photo({Key key, this.photo, this.color, this.onTap}) : super(key: key);
+
+  final String photo;
+  final Color color;
+  final VoidCallback onTap;
+
+  Widget build(BuildContext context) {
+    return Material(
+      // Slightly opaque color appears where the image has transparency.
+      color: Theme.of(context).primaryColor.withOpacity(0.25),
+      child: InkWell(
+          onTap: onTap,
+          child: Image.asset(
+            photo,
+            fit: BoxFit.contain,
+          )),
     );
   }
 }

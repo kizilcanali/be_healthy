@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:lottie/lottie.dart';
 
 class Deneme extends StatefulWidget {
   @override
@@ -11,6 +12,7 @@ class _DenemeState extends State<Deneme> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF5F5F8),
       body: SafeArea(child: MyStatefulWidget()),
     );
   }
@@ -55,50 +57,66 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
-        child: _buildPanel(),
-      ),
+      child: _buildPanel(),
     );
   }
 
   Widget _buildPanel() {
-    return ExpansionTile(
-      expandedCrossAxisAlignment: CrossAxisAlignment.center,
-      title: CustomSummaryCard(date: '25Nisan', calory: '12312'),
-      trailing: SizedBox.shrink(),
-      children: [
-        ListTile(
-          title: Text('DENEME DENEME DENEME'),
-          subtitle: const Text('To delete this panel, tap the trash can icon'),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 40),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(25),
+        child: ExpansionTile(
+          childrenPadding: EdgeInsets.symmetric(vertical: 20),
+          //tilePadding: EdgeInsets.symmetric(vertical: 10),
+          /*leading: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Image.asset(
+              'images/logo.png',
+              height: 90,
+            ),
+          ),*/
+          backgroundColor: Colors.white,
+          collapsedBackgroundColor: Colors.white,
+          title: Row(
+            //crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Lottie.asset(
+                'images/okayicon.json',
+                width: 100,
+                height: 100,
+              ),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '26 Nisan 21',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      '1500kcal',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFFA4A0C)),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+          children: [Text('Haydar'), Text('Berk')],
         ),
-      ],
+      ),
     );
-    /*return ExpansionPanelList(
-      expansionCallback: (int index, bool isExpanded) {
-        setState(() {
-          _data[index].isExpanded = !isExpanded;
-        });
-      },
-      children: _data.map<ExpansionPanel>((Item item) {
-        return ExpansionPanel(
-          canTapOnHeader: true,
-          headerBuilder: (BuildContext context, bool isExpanded) {
-            return CustomSummaryCard(date: '25 Nisan', calory: '1222');
-          },
-          body: ListTile(
-              title: Text(item.expandedValue),
-              subtitle:
-                  const Text('To delete this panel, tap the trash can icon'),
-              trailing: const Icon(Icons.delete),
-              onTap: () {
-                setState(() {
-                  _data.removeWhere((Item currentItem) => item == currentItem);
-                });
-              }),
-          isExpanded: item.isExpanded,
-        );
-      }).toList(),
-    );*/
   }
 }
 
