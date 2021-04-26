@@ -119,7 +119,6 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             Container(
               width: 220,
-              //padding: EdgeInsets.only(left: 12, top: 100, right: 12, bottom: 12),
               margin: EdgeInsets.only(top: 70),
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
@@ -170,121 +169,162 @@ class _HomeState extends State<Home> {
                 photo: 'https://source.unsplash.com/random',
                 onTap: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute<void>(builder: (BuildContext context) {
-                      return Scaffold(
-                        backgroundColor: Color(0xFFF6F6F9),
-                        appBar: AppBar(
-                          elevation: 0,
-                          actions: [
-                            IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.food_bank),
-                              color: Color(0xFFB1B1B3),
-                            ),
-                          ],
-                          backgroundColor: Colors.transparent,
-                        ),
-                        body: Column(
-                          children: [
-                            PhotoHero(
-                              child: Image.network(
-                                'https://source.unsplash.com/random',
-                                width: double.infinity,
-                                height: 320,
-                              ),
-                              photo: 'https://source.unsplash.com/random',
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Column(
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) {
+                        return Scaffold(
+                          backgroundColor: Color(0xFFF6F6F9),
+                          body: SafeArea(
+                            child: Column(
                               children: [
-                                Text(
-                                  'Kuzu Çevirme',
-                                  style: TextStyle(
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  '2400kcal',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: Color(0xFFFA4A0C),
-                                      fontWeight: FontWeight.bold),
+                                PhotoHero(
+                                  child: Image.network(
+                                    'https://source.unsplash.com/random',
+                                    width: double.infinity,
+                                    height: 320,
+                                  ),
+                                  photo: 'https://source.unsplash.com/random',
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
                                 ),
                                 SizedBox(
-                                  height: 30,
+                                  height: 20,
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                Column(
                                   children: [
-                                    Column(
-                                      children: [
-                                        Text(
-                                          'Protein',
-                                          style: kDetailPageTextStyle,
-                                        ),
-                                        Text('20g'),
-                                      ],
+                                    Text(
+                                      'Kuzu Çevirme',
+                                      style: TextStyle(
+                                          fontSize: 28,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                    Column(
-                                      children: [
-                                        Text(
-                                          'Karbongidrat',
-                                          style: kDetailPageTextStyle,
-                                        ),
-                                        Text('20g'),
-                                      ],
+                                    SizedBox(height: 20),
+                                    Text(
+                                      '2400kcal',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: Color(0xFFFA4A0C),
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                    Column(
+                                    SizedBox(
+                                      height: 60,
+                                    ),
+                                    Table(
                                       children: [
-                                        Text(
-                                          'Yağ',
-                                          style: kDetailPageTextStyle,
+                                        TableRow(
+                                          children: [
+                                            CustomTableCellItem(
+                                              text: 'Protein',
+                                              customTextStyle:
+                                                  kDetailPageTextStyle,
+                                            ),
+                                            CustomTableCellItem(
+                                              text: 'Karbonhidrat',
+                                              customTextStyle:
+                                                  kDetailPageTextStyle,
+                                            ),
+                                            CustomTableCellItem(
+                                              text: 'Yağ',
+                                              customTextStyle:
+                                                  kDetailPageTextStyle,
+                                            ),
+                                          ],
                                         ),
-                                        Text('20g'),
+                                        TableRow(
+                                          children: [
+                                            Divider(
+                                              color: Colors.black,
+                                              thickness: 2,
+                                              indent: 10,
+                                              endIndent: 10,
+                                            ),
+                                            Divider(
+                                              color: Colors.black,
+                                              thickness: 2,
+                                              indent: 4,
+                                              endIndent: 4,
+                                            ),
+                                            Divider(
+                                              color: Colors.black,
+                                              thickness: 2,
+                                              indent: 10,
+                                              endIndent: 10,
+                                            ),
+                                          ],
+                                        ),
+                                        TableRow(
+                                          children: [
+                                            CustomTableCellItem(
+                                              text: '20g',
+                                              customTextStyle:
+                                                  kDetailPageNumericValuesStyles,
+                                            ),
+                                            CustomTableCellItem(
+                                              text: '30g',
+                                              customTextStyle:
+                                                  kDetailPageNumericValuesStyles,
+                                            ),
+                                            CustomTableCellItem(
+                                              text: '15g',
+                                              customTextStyle:
+                                                  kDetailPageNumericValuesStyles,
+                                            ),
+                                          ],
+                                        ),
                                       ],
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 100,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 50),
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                child: Text(
-                                  'Al Ağzına',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: Size(double.infinity, 63),
-                                  primary: Color(0xFFFA4A0C),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
+                                /*SizedBox(
+                                    //height: 100,
+                                    ),*/
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 110, right: 50, left: 50),
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    child: Text(
+                                      'Al Ağzına',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      minimumSize: Size(double.infinity, 63),
+                                      primary: Color(0xFFFA4A0C),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
-                      );
-                    }),
+                          ),
+                        );
+                      },
+                    ),
                   );
                 },
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CustomTableCellItem extends StatelessWidget {
+  String text;
+  TextStyle customTextStyle;
+  CustomTableCellItem({this.text, this.customTextStyle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: Text(
+        text,
+        style: customTextStyle,
       ),
     );
   }

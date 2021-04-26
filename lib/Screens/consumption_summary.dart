@@ -35,10 +35,6 @@ class ConsumptionSummary extends StatelessWidget {
     );
   }
 
-//  []   Dinamik olarak gün ve içerisindeki kaloriler toplamı gelecek.
-//  []   Renk ve ikon ona göre değişecek.
-//  []   Collapse / Expansion İşlemi yapılacak.
-
   GestureDetector dailySummaryCard() {
     return GestureDetector(
       onTap: () {},
