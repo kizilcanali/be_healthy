@@ -1,101 +1,101 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:lottie/lottie.dart';
 
-class ConsumptionSummary extends StatelessWidget {
-  List<Text> deneme = [
-    Text('ŞUNU BUNU'),
-    Text('ŞUNU BUNU'),
-    Text('ŞUNU BUNU'),
-  ];
+class ConsumptionSummary extends StatefulWidget {
+  @override
+  _ConsumptionSummaryState createState() => _ConsumptionSummaryState();
+}
+
+class _ConsumptionSummaryState extends State<ConsumptionSummary> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Summary Page!'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                itemCount: deneme.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (BuildContext context, int index) {
-                  return dailySummaryCard();
-                },
-              ),
-            ),
-          ],
-        ),
+      backgroundColor: Color(0xFFF5F5F8),
+      body: SafeArea(
+        child: MyStatefulWidget(),
       ),
     );
   }
+}
 
-  GestureDetector dailySummaryCard() {
-    return GestureDetector(
-      onTap: () {},
-      child: Stack(
-        children: [
-          Container(
-            height: 100,
-            margin: EdgeInsets.only(top: 30),
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: Colors.green,
-              borderRadius: BorderRadius.circular(30),
-            ),
+class MyStatefulWidget extends StatefulWidget {
+  @override
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: _expandableSummaryCard(),
+    );
+  }
+
+  // [] Detay içerisindeki itemler dinamik gelecek
+  // [] Detaydaki toplamlar yukarıya yazdırılacak
+  // [] Tarihe göre gruplandırma yapılacak.
+
+  Widget _expandableSummaryCard() {
+    String lottieIconName;
+    String dateText;
+    String totalCaloryText;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 40),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(25),
+        child: ExpansionTile(
+          childrenPadding: EdgeInsets.symmetric(vertical: 20),
+          backgroundColor: Colors.white,
+          collapsedBackgroundColor: Colors.white,
+          title: Row(
+            children: [
+              Lottie.asset(
+                'images/okayicon.json',
+                width: 100,
+                height: 100,
+              ),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '26 Nisan 21',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      '1500kcal',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFFA4A0C)),
+                    )
+                  ],
+                ),
+              ),
+            ],
           ),
-          Positioned(
-            left: 25,
-            top: 65,
-            child: Row(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  '25 Nisan',
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                  "Can'ın Leziz Şeyi",
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
-                  width: 150,
-                ),
-                Text(
-                  '2000kcal',
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
+                Text('1111kcal', style: TextStyle(fontWeight: FontWeight.bold)),
               ],
-            ),
-          ),
-          Positioned(
-            left: 165,
-            bottom: 60,
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(3),
-                child: Icon(
-                  FontAwesome.smile_o,
-                  size: 65,
-                  color: Colors.green,
-                ),
-              ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
