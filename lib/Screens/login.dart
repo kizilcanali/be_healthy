@@ -1,6 +1,13 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,17 +28,41 @@ class Login extends StatelessWidget {
                   color: Color(0xFFFFFFFF)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: 90),
                     child: Image.asset(
                       'images/logo.png',
-                      width: 150,
+                      width: 280,
                       height: 150,
                     ),
                   ),
-                  Row(
+                  DefaultTabController(
+                    length: 2,
+                    child: TabBar(
+                      labelStyle: TextStyle(fontSize: 18),
+                      isScrollable: true,
+                      labelColor: Color(0xFFFA4A0C),
+                      unselectedLabelColor: Color(0XFF9A9A9D),
+                      indicatorColor: Color(0xFFFA4A0C),
+                      indicatorWeight: 3,
+                      onTap: (index) {
+                        setState(() {
+                          currentIndex = index;
+                        });
+                      },
+                      tabs: [
+                        Tab(
+                          text: 'Giriş Yap',
+                        ),
+                        Tab(
+                          text: 'Üye Ol',
+                        ),
+                      ],
+                    ),
+                  ),
+                  /*Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       TextButton(
@@ -51,7 +82,7 @@ class Login extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )
+                  )*/
                 ],
               ),
             ),

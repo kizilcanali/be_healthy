@@ -53,51 +53,50 @@ class _HomeState extends State<Home> {
             Expanded(
               child: CustomSearchBar(),
             ),
-            Expanded(
-              child: DefaultTabController(
-                length: 5,
-                child: TabBar(
-                  labelStyle: TextStyle(fontSize: 19),
-                  isScrollable: true,
-                  labelColor: Color(0xFFFA4A0C),
-                  unselectedLabelColor: Color(0XFF9A9A9D),
-                  indicatorColor: Color(0xFFFA4A0C),
-                  indicatorWeight: 3,
-                  onTap: (index) {
-                    setState(() {
-                      currentIndex = index;
-                    });
-                  },
-                  tabs: [
-                    Tab(
-                      text: 'Kırmızı Et',
-                    ),
-                    Tab(
-                      text: 'İçecekler',
-                    ),
-                    Tab(
-                      text: 'Çok Tüketilen',
-                    ),
-                    Tab(
-                      text: 'Beyaz Et',
-                    ),
-                    Tab(
-                      text: 'Tatlı',
-                    ),
-                  ],
-                ),
+            DefaultTabController(
+              length: 5,
+              child: TabBar(
+                labelStyle: TextStyle(fontSize: 19),
+                isScrollable: true,
+                labelColor: Color(0xFFFA4A0C),
+                unselectedLabelColor: Color(0XFF9A9A9D),
+                indicatorColor: Color(0xFFFA4A0C),
+                indicatorWeight: 3,
+                onTap: (index) {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
+                tabs: [
+                  Tab(
+                    text: 'Kırmızı Et',
+                  ),
+                  Tab(
+                    text: 'İçecekler',
+                  ),
+                  Tab(
+                    text: 'Çok Tüketilen',
+                  ),
+                  Tab(
+                    text: 'Beyaz Et',
+                  ),
+                  Tab(
+                    text: 'Tatlı',
+                  ),
+                ],
               ),
             ),
             Expanded(
-              flex: 5,
+              flex: 4,
               child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-                  itemCount: categorie[currentIndex].length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (BuildContext context, int index) {
-                    return foodCards(categorie[currentIndex][index]);
-                  }),
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                itemCount: categorie[currentIndex].length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  return foodCards(categorie[currentIndex][index]);
+                },
+              ),
             )
           ],
         ),
