@@ -33,7 +33,7 @@ class _LoginState extends State<Login> {
                   Container(
                     margin: EdgeInsets.only(top: 90),
                     child: Image.asset(
-                      'images/logo.png',
+                      'assets/images/logo.png',
                       width: 280,
                       height: 150,
                     ),
@@ -62,41 +62,20 @@ class _LoginState extends State<Login> {
                       ],
                     ),
                   ),
-                  /*Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          )),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Sign-up',
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  )*/
                 ],
               ),
             ),
             Column(
               children: [
                 CustomLoginInputField(
-                  topic: 'EmailAdress',
+                  topic: 'Mail Adresi',
                   isTextObscure: false,
                 ),
                 SizedBox(
                   height: 40,
                 ),
                 CustomLoginInputField(
-                  topic: 'Password',
+                  topic: 'Şifre',
                   isTextObscure: true,
                 ),
                 Container(
@@ -104,7 +83,7 @@ class _LoginState extends State<Login> {
                   margin: EdgeInsets.only(left: 40),
                   child: TextButton(
                     child: Text(
-                      'Forgot passcode?',
+                      'Şifreni mi unuttun?',
                       style: TextStyle(
                         color: Color(0xFFFA4A0C),
                         fontWeight: FontWeight.bold,
@@ -118,9 +97,15 @@ class _LoginState extends State<Login> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (currentIndex == 0) {
+                    //make login operation
+                  } else {
+                    //do signup operation
+                  }
+                },
                 child: Text(
-                  'Login',
+                  currentIndex == 0 ? 'Login' : 'Register',
                 ),
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xFFFA4A0C),

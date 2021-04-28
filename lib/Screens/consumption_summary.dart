@@ -53,7 +53,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           title: Row(
             children: [
               Lottie.asset(
-                'images/okayicon.json',
+                'assets/images/okayicon.json',
                 width: 100,
                 height: 100,
               ),

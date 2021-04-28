@@ -2,8 +2,13 @@ import 'package:be_healthy/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sqflite/sqflite.dart';
 
 class Home extends StatefulWidget {
+  final List mealsFromDB;
+  final List categories;
+
+  const Home({Key key, this.mealsFromDB, this.categories}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
 }
@@ -11,20 +16,36 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int currentIndex = 0;
 
-  static List<String> denemeListesi = [
-    'Alinazik',
-    'Karnıyarık',
-    'Hoşaf',
-    'Cacık',
-    'İskender',
-    'Adana Dürüm',
-  ];
-  static List<String> Icecekler = [
-    'Ayran',
-    'Kola',
-    'Şalgam',
-  ];
-  List<List<String>> categorie = [denemeListesi, Icecekler];
+  List tempMealList = [];
+  @override
+  void initState() {
+    super.initState();
+    filterMealsByCategory(0);
+  }
+
+  /** tab index  eşitse gelen yemek kategori  */
+  void filterMealsByCategory(int index) {
+    tempMealList = [];
+    for (int i = 0; i < widget.mealsFromDB.length; i++) {
+      if (widget.mealsFromDB[i]["category"] ==
+          widget.categories[index]["category"]) {
+        tempMealList.add(widget.mealsFromDB[i]);
+      }
+    }
+  }
+
+  List<Tab> tabList(List cat) {
+    List<Tab> temp = [];
+    for (int i = 0; i < widget.categories.length; i++) {
+      temp.add(
+        Tab(
+          text: cat[i]["category"],
+        ),
+      );
+    }
+    return temp;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,47 +75,33 @@ class _HomeState extends State<Home> {
               child: CustomSearchBar(),
             ),
             DefaultTabController(
-              length: 5,
+              length: widget.categories.length,
               child: TabBar(
-                labelStyle: TextStyle(fontSize: 19),
-                isScrollable: true,
-                labelColor: Color(0xFFFA4A0C),
-                unselectedLabelColor: Color(0XFF9A9A9D),
-                indicatorColor: Color(0xFFFA4A0C),
-                indicatorWeight: 3,
-                onTap: (index) {
-                  setState(() {
-                    currentIndex = index;
-                  });
-                },
-                tabs: [
-                  Tab(
-                    text: 'Kırmızı Et',
-                  ),
-                  Tab(
-                    text: 'İçecekler',
-                  ),
-                  Tab(
-                    text: 'Çok Tüketilen',
-                  ),
-                  Tab(
-                    text: 'Beyaz Et',
-                  ),
-                  Tab(
-                    text: 'Tatlı',
-                  ),
-                ],
-              ),
+                  labelStyle: TextStyle(fontSize: 19),
+                  isScrollable: true,
+                  labelColor: Color(0xFFFA4A0C),
+                  unselectedLabelColor: Color(0XFF9A9A9D),
+                  indicatorColor: Color(0xFFFA4A0C),
+                  indicatorWeight: 3,
+                  onTap: (index) {
+                    setState(
+                      () {
+                        currentIndex = index;
+                        filterMealsByCategory(currentIndex);
+                      },
+                    );
+                  },
+                  tabs: tabList(widget.categories)),
             ),
             Expanded(
               flex: 4,
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-                itemCount: categorie[currentIndex].length,
+                itemCount: tempMealList.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
-                  return foodCards(categorie[currentIndex][index]);
+                  return foodCards(tempMealList, index);
                 },
               ),
             )
@@ -105,7 +112,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Padding foodCards(String foodName) {
+  Padding foodCards(dynamic meal, int index) {
     return Padding(
       padding: EdgeInsets.only(
         right: 20,
@@ -133,7 +140,7 @@ class _HomeState extends State<Home> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text(
-                    foodName,
+                    meal[index]["name"],
                     style: GoogleFonts.roboto(
                       textStyle: TextStyle(
                         fontSize: 22,
@@ -144,7 +151,7 @@ class _HomeState extends State<Home> {
                     height: 10,
                   ),
                   Text(
-                    '1200kcal',
+                    meal[index]["calorie"].toString() + ' kcal',
                     style: GoogleFonts.roboto(
                       textStyle: TextStyle(
                           fontSize: 15,
@@ -274,9 +281,6 @@ class _HomeState extends State<Home> {
                                     ),
                                   ],
                                 ),
-                                /*SizedBox(
-                                    //height: 100,
-                                    ),*/
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       top: 110, right: 50, left: 50),
