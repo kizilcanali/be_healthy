@@ -62,4 +62,16 @@ class DatabaseHelper {
         await db.rawQuery("SELECT DISTINCT category FROM $table");
     return resultCategories;
   }
+
+  Future<void> insertSummary(String date, String food) async {
+    var db = await instance.database;
+    await db.rawQuery(
+        "INSERT INTO summary (date, foods) values(?,?)", [date, food]);
+  }
+
+  Future<List> getSummaryTable() async {
+    var db = await instance.database;
+    var resultSummary = await db.rawQuery("SELECT * FROM summary");
+    return resultSummary;
+  }
 }

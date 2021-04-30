@@ -1,6 +1,5 @@
-import 'package:flutter/foundation.dart';
+import 'package:be_healthy/widgets/navbar/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:lottie/lottie.dart';
 
 class ConsumptionSummary extends StatefulWidget {
@@ -11,12 +10,7 @@ class ConsumptionSummary extends StatefulWidget {
 class _ConsumptionSummaryState extends State<ConsumptionSummary> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFF5F5F8),
-      body: SafeArea(
-        child: MyStatefulWidget(),
-      ),
-    );
+    return MyStatefulWidget();
   }
 }
 

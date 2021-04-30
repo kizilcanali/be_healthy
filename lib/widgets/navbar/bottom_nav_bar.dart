@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:provider/provider.dart';
+
+import '../../state_management.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({
@@ -15,7 +18,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      currentIndex: 0,
+      onTap: (index) {
+        print(context.read<Store>().buttomNavIndex);
+        context.read<Store>().trackNavIndexState(index);
+      },
+      currentIndex: context.watch<Store>().buttomNavIndex,
       iconSize: 32,
       elevation: 0,
       showSelectedLabels: false,

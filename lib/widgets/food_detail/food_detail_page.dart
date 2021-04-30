@@ -1,7 +1,6 @@
 import 'package:be_healthy/widgets/button/eat_button_in_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:be_healthy/utilities/constants.dart';
-
 import '../custom_table_cell_item.dart';
 import '../photo_hero.dart';
 
@@ -10,8 +9,10 @@ class FoodDetail extends StatelessWidget {
 
   dynamic meal;
   int index;
+
   @override
   Widget build(BuildContext context) {
+    Map<String, dynamic> consumedFoods;
     return Scaffold(
       backgroundColor: Color(0xFFF6F6F9),
       body: SafeArea(

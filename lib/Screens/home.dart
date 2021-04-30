@@ -1,23 +1,12 @@
-import 'package:be_healthy/utilities/constants.dart';
-import 'package:be_healthy/widgets/button/eat_button_in_detail.dart';
-import 'package:be_healthy/widgets/button/home_custom_icon_button.dart';
-import 'package:be_healthy/widgets/custom_food_cart.dart';
-import 'package:be_healthy/widgets/food_detail/food_detail_page.dart';
 import 'package:be_healthy/widgets/food_list.dart';
-import 'package:be_healthy/widgets/navbar/bottom_nav_bar.dart';
 import 'package:be_healthy/widgets/custom_search_bar.dart';
 import 'package:be_healthy/widgets/custom_title_for_main_page.dart';
-import 'package:be_healthy/widgets/photo_hero.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:be_healthy/widgets/custom_table_cell_item.dart';
+import 'package:provider/provider.dart';
+import '../state_management.dart';
 
 class Home extends StatefulWidget {
-  final List mealsFromDB;
-  final List categories;
-
-  const Home({Key key, this.mealsFromDB, this.categories}) : super(key: key);
+  const Home({Key key}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
 }
@@ -25,6 +14,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int currentIndex = 0;
   List tempMealList = [];
+  Map<String, dynamic> consumedFoods;
 
   @override
   void initState() {
@@ -32,21 +22,20 @@ class _HomeState extends State<Home> {
     filterMealsByCategory(0);
   }
 
-  /** tab index  eşitse gelen yemek kategori  */
+  /* tab index  eşitse gelen yemek kategori  */
   void filterMealsByCategory(int index) {
     tempMealList = [];
-    for (int i = 0; i < widget.mealsFromDB.length; i++) {
-      if (widget.mealsFromDB[i]["category"] ==
-          widget.categories[index]["category"]) {
-        tempMealList.add(widget.mealsFromDB[i]);
+    for (int i = 0; i < context.read<Store>().mealsFromDBState.length; i++) {
+      if (context.read<Store>().mealsFromDBState[i]["category"] ==
+          context.read<Store>().mealsFromDBState[index]["category"]) {
+        tempMealList.add(context.read<Store>().mealsFromDBState[i]);
       }
     }
-    //print(widget.categories);
   }
 
   List<Tab> tabList(List cat) {
     List<Tab> temp = [];
-    for (int i = 0; i < widget.categories.length; i++) {
+    for (int i = 0; i < context.read<Store>().categories.length; i++) {
       temp.add(
         Tab(
           text: cat[i]["category"],
@@ -58,49 +47,40 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFF2F2F2),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: [custom_icon_button_home()],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: CustomTitleForMainPage(),
+          ),
+          Expanded(
+            child: CustomSearchBar(),
+          ),
+          //Category selection place.
+          DefaultTabController(
+            length: context.read<Store>().categories.length,
+            child: TabBar(
+                labelStyle: TextStyle(fontSize: 19),
+                isScrollable: true,
+                labelColor: Color(0xFFFA4A0C),
+                unselectedLabelColor: Color(0XFF9A9A9D),
+                indicatorColor: Color(0xFFFA4A0C),
+                indicatorWeight: 3,
+                onTap: (index) {
+                  setState(
+                    () {
+                      currentIndex = index;
+                      filterMealsByCategory(currentIndex);
+                    },
+                  );
+                },
+                tabs: tabList(context.read<Store>().categories)),
+          ),
+          //Listed food cards.
+          food_list(tempMealList: tempMealList)
+        ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: CustomTitleForMainPage(),
-            ),
-            Expanded(
-              child: CustomSearchBar(),
-            ),
-            //Category selection place.
-            DefaultTabController(
-              length: widget.categories.length,
-              child: TabBar(
-                  labelStyle: TextStyle(fontSize: 19),
-                  isScrollable: true,
-                  labelColor: Color(0xFFFA4A0C),
-                  unselectedLabelColor: Color(0XFF9A9A9D),
-                  indicatorColor: Color(0xFFFA4A0C),
-                  indicatorWeight: 3,
-                  onTap: (index) {
-                    setState(
-                      () {
-                        currentIndex = index;
-                        filterMealsByCategory(currentIndex);
-                      },
-                    );
-                  },
-                  tabs: tabList(widget.categories)),
-            ),
-            //Listed food cards.
-            food_list(tempMealList: tempMealList)
-          ],
-        ),
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }
