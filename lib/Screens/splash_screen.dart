@@ -46,13 +46,15 @@ class _SplashScreenState extends State<SplashScreen> {
         }
     ]
     }""";
+    //await dbHelper.removeAll();
 
     mealsFromDB = await dbHelper.getRandomMealsByCategory();
     categoriesList = await dbHelper.getCategories();
     //await dbHelper.insertSummary("30 Nisan", food);
     List summaryFoods = await dbHelper.getSummaryTable();
-    //print(summaryFoods[0]["foods"]);
 
+    //print("ilk food: $a");
+    //print("sum from db $summaryFoods");
     context.read<Store>().newMeals(mealsFromDB);
     context.read<Store>().newCategories(categoriesList);
 
@@ -61,9 +63,11 @@ class _SplashScreenState extends State<SplashScreen> {
       tempSummaryList.add(
         {
           "date": summaryFoods[i]["date"],
-          "foods": jsonDecode(
-            summaryFoods[i]["foods"],
-          ),
+          "foods": [
+            jsonDecode(
+              summaryFoods[i]["foods"],
+            )
+          ],
         },
       );
     }

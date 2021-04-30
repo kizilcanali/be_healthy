@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   final List<dynamic> meals = [];
   final List<dynamic> categories = [];
   final List<dynamic> summaryFoods = [];
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

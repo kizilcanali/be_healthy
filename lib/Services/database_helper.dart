@@ -65,13 +65,25 @@ class DatabaseHelper {
 
   Future<void> insertSummary(String date, String food) async {
     var db = await instance.database;
-    await db.rawQuery(
-        "INSERT INTO summary (date, foods) values(?,?)", [date, food]);
+    var check =
+        await db.rawQuery("SELECT * FROM summary WHERE date = ?", [date]);
+    if (check.length == 0) {
+      await db.rawQuery(
+          "INSERT INTO summary (date, foods) values(?,?)", [date, food]);
+    } else {
+      await db.rawQuery(
+          "UPDATE summary SET foods = ? WHERE date = ? ", [food, date]);
+    }
   }
 
   Future<List> getSummaryTable() async {
     var db = await instance.database;
     var resultSummary = await db.rawQuery("SELECT * FROM summary");
     return resultSummary;
+  }
+
+  Future<void> removeAll() async {
+    var db = await instance.database;
+    await db.delete("summary");
   }
 }

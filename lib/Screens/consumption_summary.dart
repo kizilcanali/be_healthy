@@ -24,7 +24,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     List sumFoods = context.read<Store>().summaryFoods;
-
+    //print("sumfoods: $sumFoods");
     return ListView.builder(
       shrinkWrap: true,
       //physics: BouncingScrollPhysics(),
@@ -42,10 +42,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   // [] Detaydaki toplamlar yukarıya yazdırılacak
   // [] Tarihe göre gruplandırma yapılacak.
 
-  Widget _expandableSummaryCard(String dateText, Map<String, dynamic> foods) {
+  Widget _expandableSummaryCard(String dateText, List foods) {
     String lottieIconName;
     String totalCaloryText;
-    //print(foods);
+    //print(foods[0]);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 40),
       child: ClipRRect(
@@ -91,17 +91,17 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             ListView.builder(
               shrinkWrap: true,
               //padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-              itemCount: foods["foods"].length,
+              itemCount: foods.length,
               //scrollDirection: Axis.vertical,
               itemBuilder: (BuildContext context, int index) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      foods["foods"][index]["name"],
+                      foods[index]["name"],
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text(foods["foods"][index]["calorie"].toString(),
+                    Text(foods[index]["calorie"].toString(),
                         style: TextStyle(fontWeight: FontWeight.bold)),
                   ],
                 );

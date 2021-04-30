@@ -34,8 +34,21 @@ class Store extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addFoodsToSummary(dynamic foodObject) {
-    _summaryFoods.add(foodObject);
+  void addFoodsToSummary(String day, dynamic foodObject) {
+    //print("Foodobject: $foodObject");
+    if (_summaryFoods.length > 0 &&
+        _summaryFoods[_summaryFoods.length - 1]["date"] == day) {
+      _summaryFoods[_summaryFoods.length - 1]["foods"].add(foodObject);
+    } else {
+      print("buraya girdi uyii");
+      _summaryFoods.add(
+        {
+          "date": day,
+          "foods": [foodObject]
+        },
+      );
+    }
+    //print(_summaryFoods);
     notifyListeners();
   }
 }
