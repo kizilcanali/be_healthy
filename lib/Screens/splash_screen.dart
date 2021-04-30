@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 "fat": 35
         }
     ]
-}""";
+    }""";
 
     mealsFromDB = await dbHelper.getRandomMealsByCategory();
     categoriesList = await dbHelper.getCategories();
@@ -55,8 +55,21 @@ class _SplashScreenState extends State<SplashScreen> {
 
     context.read<Store>().newMeals(mealsFromDB);
     context.read<Store>().newCategories(categoriesList);
-    Map<String, dynamic> summaryMap = jsonDecode(summaryFoods[1]["foods"]);
-    print(summaryMap["foods"][1]["name"]);
+
+    List tempSummaryList = [];
+    for (int i = 0; i < summaryFoods.length; i++) {
+      tempSummaryList.add(
+        {
+          "date": summaryFoods[i]["date"],
+          "foods": jsonDecode(
+            summaryFoods[i]["foods"],
+          ),
+        },
+      );
+    }
+
+    context.read<Store>().newSummaryFoods(tempSummaryList);
+    //print(tempSummaryList);
   }
 
   @override

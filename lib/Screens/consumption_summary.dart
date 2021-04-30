@@ -1,6 +1,7 @@
-import 'package:be_healthy/widgets/navbar/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import '../state_management.dart';
 
 class ConsumptionSummary extends StatefulWidget {
   @override
@@ -22,8 +23,18 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: _expandableSummaryCard(),
+    List sumFoods = context.read<Store>().summaryFoods;
+
+    return ListView.builder(
+      shrinkWrap: true,
+      //physics: BouncingScrollPhysics(),
+      //padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+      itemCount: sumFoods.length,
+      //scrollDirection: Axis.vertical,
+      itemBuilder: (BuildContext context, int index) {
+        return _expandableSummaryCard(
+            sumFoods[index]["date"], sumFoods[index]["foods"]);
+      },
     );
   }
 
@@ -31,17 +42,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   // [] Detaydaki toplamlar yukarıya yazdırılacak
   // [] Tarihe göre gruplandırma yapılacak.
 
-  Widget _expandableSummaryCard() {
+  Widget _expandableSummaryCard(String dateText, Map<String, dynamic> foods) {
     String lottieIconName;
-    String dateText;
     String totalCaloryText;
-
+    //print(foods);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 40),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(25),
         child: ExpansionTile(
-          childrenPadding: EdgeInsets.symmetric(vertical: 20),
+          //childrenPadding: EdgeInsets.symmetric(vertical: 20),
           backgroundColor: Colors.white,
           collapsedBackgroundColor: Colors.white,
           title: Row(
@@ -56,7 +66,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '26 Nisan 21',
+                      dateText,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style:
@@ -78,16 +88,25 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             ],
           ),
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  "Can'ın Leziz Şeyi",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text('1111kcal', style: TextStyle(fontWeight: FontWeight.bold)),
-              ],
-            )
+            ListView.builder(
+              shrinkWrap: true,
+              //padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+              itemCount: foods["foods"].length,
+              //scrollDirection: Axis.vertical,
+              itemBuilder: (BuildContext context, int index) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      foods["foods"][index]["name"],
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(foods["foods"][index]["calorie"].toString(),
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                  ],
+                );
+              },
+            ),
           ],
         ),
       ),

@@ -12,12 +12,13 @@ class MyApp extends StatelessWidget {
   int index = 0;
   final List<dynamic> meals = [];
   final List<dynamic> categories = [];
+  final List<dynamic> summaryFoods = [];
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ListenableProvider<Store>(
-          create: (_) => Store(index, meals, categories),
+          create: (_) => Store(index, meals, categories, summaryFoods),
         ),
       ],
       child: MaterialApp(

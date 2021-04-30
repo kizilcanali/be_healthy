@@ -10,9 +10,10 @@ class FoodDetail extends StatelessWidget {
   dynamic meal;
   int index;
 
+  Map<String, dynamic> consumedFoods;
+
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> consumedFoods;
     return Scaffold(
       backgroundColor: Color(0xFFF6F6F9),
       body: SafeArea(
@@ -24,7 +25,7 @@ class FoodDetail extends StatelessWidget {
                 width: double.infinity,
                 height: 320,
               ),
-              photo: 'tag',
+              photo: 'tag1',
               onTap: () {
                 Navigator.of(context).pop();
               },
@@ -118,4 +119,6 @@ class FoodDetail extends StatelessWidget {
       ),
     );
   }
+
+  void addFoodsToSummary(String date, String food) {}
 }

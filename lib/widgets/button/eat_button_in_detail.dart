@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
 class InDetailEatButton extends StatelessWidget {
+  final Function onPress;
+  const InDetailEatButton({this.onPress});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 110, right: 50, left: 50),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPress,
         child: Text(
           'Bugün Tükettim',
           style: TextStyle(color: Colors.white),

@@ -1,7 +1,6 @@
 import 'package:be_healthy/widgets/photo_hero.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'food_detail/food_detail_page.dart';
 
 class FoodCard extends StatelessWidget {
@@ -67,7 +66,7 @@ class FoodCard extends StatelessWidget {
                       NetworkImage('https://source.unsplash.com/random'),
                   radius: 80,
                 ),
-                photo: 'https://source.unsplash.com/random',
+                photo: 'tag{$index}',
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute<void>(
