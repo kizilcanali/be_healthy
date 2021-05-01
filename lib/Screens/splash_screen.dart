@@ -15,20 +15,51 @@ class _SplashScreenState extends State<SplashScreen> {
   DatabaseHelper dbHelper = DatabaseHelper.instance;
   List mealsFromDB = [];
   List categoriesList;
-  List summaryValues;
+  List summaryFoods;
+
   @override
   void initState() {
     super.initState();
 
-    deneme();
+    whenStarting();
     Future.delayed(Duration(seconds: 1), () async {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => HomeBody()));
     });
   }
 
-  Future<void> deneme() async {
-    String food = """{
+  Future<void> whenStarting() async {
+    //await dbHelper.removeAll();
+
+    mealsFromDB = await dbHelper.getRandomMealsByCategory();
+    categoriesList = await dbHelper.getCategories();
+    //await dbHelper.insertSummary("30 Nisan", food);
+    summaryFoods = await dbHelper.getSummaryTable();
+
+    //print("ilk food: $a");
+    //print("sum from db $summaryFoods");
+    context.read<Store>().newMeals(mealsFromDB);
+    context.read<Store>().newCategories(categoriesList);
+
+    List tempSummaryList = [];
+    for (int i = 0; i < summaryFoods.length; i++) {
+      tempSummaryList.add(
+        {
+          "date": summaryFoods[i]["date"],
+          "foods": jsonDecode(
+            summaryFoods[i]["foods"],
+          )
+        },
+      );
+    }
+    print("summary from db: $summaryFoods");
+    print("temp sum list: $tempSummaryList");
+
+    context.read<Store>().newSummaryFoods(tempSummaryList);
+
+    //print(tempSummaryList);
+    //
+    /*String food = """{
     "foods": [
         {
             "name" : "Mantı",
@@ -45,35 +76,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 "fat": 35
         }
     ]
-    }""";
-    //await dbHelper.removeAll();
-
-    mealsFromDB = await dbHelper.getRandomMealsByCategory();
-    categoriesList = await dbHelper.getCategories();
-    //await dbHelper.insertSummary("30 Nisan", food);
-    List summaryFoods = await dbHelper.getSummaryTable();
-
-    //print("ilk food: $a");
-    //print("sum from db $summaryFoods");
-    context.read<Store>().newMeals(mealsFromDB);
-    context.read<Store>().newCategories(categoriesList);
-
-    List tempSummaryList = [];
-    for (int i = 0; i < summaryFoods.length; i++) {
-      tempSummaryList.add(
-        {
-          "date": summaryFoods[i]["date"],
-          "foods": [
-            jsonDecode(
-              summaryFoods[i]["foods"],
-            )
-          ],
-        },
-      );
-    }
-
-    context.read<Store>().newSummaryFoods(tempSummaryList);
-    //print(tempSummaryList);
+    }""";*/
   }
 
   @override

@@ -28,7 +28,7 @@ class InDetailEatButton extends StatelessWidget {
                 ["foods"],
           );
 
-          a = a.substring(1, a.length);
+          //a = a.substring(1, a.length);
           print("Kaydettiğimiz $a");
           await dbHelper.insertSummary(
             day,

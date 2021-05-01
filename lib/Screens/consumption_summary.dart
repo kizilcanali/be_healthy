@@ -38,10 +38,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 
-  // [] Detay içerisindeki itemler dinamik gelecek
-  // [] Detaydaki toplamlar yukarıya yazdırılacak
-  // [] Tarihe göre gruplandırma yapılacak.
-
   Widget _expandableSummaryCard(String dateText, List foods) {
     String lottieIconName;
     String totalCaloryText;
