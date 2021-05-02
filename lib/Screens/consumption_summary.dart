@@ -1,3 +1,5 @@
+import 'package:be_healthy/Widgets/custom_table_cell_item.dart';
+import 'package:be_healthy/Widgets/food_detail/expandable_summary_card.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -24,88 +26,32 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     List sumFoods = context.read<Store>().summaryFoods;
+
     //print("sumfoods: $sumFoods");
     return ListView.builder(
       shrinkWrap: true,
-      //physics: BouncingScrollPhysics(),
-      //padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
       itemCount: sumFoods.length,
-      //scrollDirection: Axis.vertical,
       itemBuilder: (BuildContext context, int index) {
-        return _expandableSummaryCard(
-            sumFoods[index]["date"], sumFoods[index]["foods"]);
-      },
-    );
-  }
+        //Calculate total calorie of day.
+        int sumOfSummaryCalories(List calories) {
+          int sumCal = 0;
+          if (calories.length != 0) {
+            for (int i = 0; i < calories.length; i++) {
+              sumCal += calories[i]["calorie"];
+            }
+          }
+          return sumCal;
+        }
 
-  Widget _expandableSummaryCard(String dateText, List foods) {
-    String lottieIconName;
-    String totalCaloryText;
-    //print(foods[0]);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 40),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(25),
-        child: ExpansionTile(
-          //childrenPadding: EdgeInsets.symmetric(vertical: 20),
-          backgroundColor: Colors.white,
-          collapsedBackgroundColor: Colors.white,
-          title: Row(
-            children: [
-              Lottie.asset(
-                'assets/images/okayicon.json',
-                width: 100,
-                height: 100,
-              ),
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      dateText,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      '1500kcal',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFFFA4A0C)),
-                    )
-                  ],
-                ),
-              ),
-            ],
+        //Summary page cards.
+        return ExpandableSummaryCard(
+          dateText: sumFoods[index]["date"],
+          foods: sumFoods[index]["foods"],
+          totalCal: sumOfSummaryCalories(
+            sumFoods[index]["foods"],
           ),
-          children: [
-            ListView.builder(
-              shrinkWrap: true,
-              //padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-              itemCount: foods.length,
-              //scrollDirection: Axis.vertical,
-              itemBuilder: (BuildContext context, int index) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      foods[index]["name"],
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(foods[index]["calorie"].toString(),
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ],
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+        );
+      },
     );
   }
 }

@@ -40,7 +40,7 @@ class Store extends ChangeNotifier {
         _summaryFoods[_summaryFoods.length - 1]["date"] == day) {
       _summaryFoods[_summaryFoods.length - 1]["foods"].add(foodObject);
     } else {
-      print("buraya girdi uyii");
+      //print("buraya girdi uyii");
       _summaryFoods.add(
         {
           "date": day,

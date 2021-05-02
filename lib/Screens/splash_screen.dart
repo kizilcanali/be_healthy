@@ -52,8 +52,8 @@ class _SplashScreenState extends State<SplashScreen> {
         },
       );
     }
-    print("summary from db: $summaryFoods");
-    print("temp sum list: $tempSummaryList");
+    //print("summary from db: $summaryFoods");
+    //print("temp sum list: $tempSummaryList");
 
     context.read<Store>().newSummaryFoods(tempSummaryList);
 
