@@ -1,7 +1,6 @@
 import 'package:be_healthy/Utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import '../custom_table_cell_item.dart';
 
 class ExpandableSummaryCard extends StatelessWidget {
   final String dateText;
@@ -19,7 +18,8 @@ class ExpandableSummaryCard extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(25),
         child: ExpansionTile(
-          //childrenPadding: EdgeInsets.symmetric(vertical: 10),
+          //trailing: Icon(Icons.arrow_downward),
+
           backgroundColor: Colors.white,
           collapsedBackgroundColor: Colors.white,
           title: Row(
@@ -82,7 +82,11 @@ class ExpandableSummaryCard extends StatelessWidget {
                   },
                 ),
                 SizedBox(
-                  height: 4,
+                  height: 0,
+                  child: Divider(
+                    color: Colors.black,
+                    thickness: 2,
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -90,7 +94,7 @@ class ExpandableSummaryCard extends StatelessWidget {
                   textBaseline: TextBaseline.alphabetic,
                   children: [
                     Text(
-                      "P: ",
+                      "Protein: ",
                       style: kSummaryPageNutritionTextStyle,
                     ),
                     Text(
@@ -99,7 +103,7 @@ class ExpandableSummaryCard extends StatelessWidget {
                     ),
                     SizedBox(width: 15),
                     Text(
-                      "C: ",
+                      "K.hidrat: ",
                       style: kSummaryPageNutritionTextStyle,
                     ),
                     Text(
@@ -108,7 +112,7 @@ class ExpandableSummaryCard extends StatelessWidget {
                     ),
                     SizedBox(width: 15),
                     Text(
-                      "F: ",
+                      "Yağ: ",
                       style: kSummaryPageNutritionTextStyle,
                     ),
                     Text(

@@ -5,7 +5,7 @@ const kDetailPageTextStyle =
 const kDetailPageNumericValuesStyles = TextStyle(
     fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFFFA4A0C));
 const kSummaryPageNutritionTextStyle = TextStyle(
-  fontSize: 18,
+  fontSize: 14,
   fontWeight: FontWeight.bold,
   color: Color(0xFFFA4A0C),
 );
