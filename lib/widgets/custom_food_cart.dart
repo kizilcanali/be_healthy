@@ -40,6 +40,7 @@ class FoodCard extends StatelessWidget {
                         fontSize: 22,
                       ),
                     ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(
                     height: 10,

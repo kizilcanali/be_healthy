@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
     context.read<Store>().newSummaryFoods(tempSummaryList);
 
     //print(tempSummaryList);
-    //
+
     /*String food = """{
     "foods": [
         {

@@ -1,3 +1,4 @@
+import 'package:be_healthy/Utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import '../custom_table_cell_item.dart';
@@ -69,10 +70,10 @@ class ExpandableSummaryCard extends StatelessWidget {
                             children: [
                               Text(
                                 foods[index]["name"],
+                                style: kSummaryPageNameTextStyle,
                               ),
-                              Text(
-                                foods[index]["calorie"].toString() + " kcal",
-                              ),
+                              Text(foods[index]["calorie"].toString() + " kcal",
+                                  style: kSummaryPageCaloryTextStyle),
                             ],
                           ),
                         ],
@@ -80,11 +81,45 @@ class ExpandableSummaryCard extends StatelessWidget {
                     );
                   },
                 ),
-                Row(children: [
-                  Text("P: ${sumOfNutritionValues[0][0]} g"),
-                  Text("C: ${sumOfNutritionValues[0][1]} g"),
-                  Text("F: ${sumOfNutritionValues[0][2]} g"),
-                ])
+                SizedBox(
+                  height: 4,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.alphabetic,
+                  children: [
+                    Text(
+                      "P: ",
+                      style: kSummaryPageNutritionTextStyle,
+                    ),
+                    Text(
+                      sumOfNutritionValues[0][0].toString() + "g ",
+                      style: kSummaryPageNutritionNumericTextStyle,
+                    ),
+                    SizedBox(width: 15),
+                    Text(
+                      "C: ",
+                      style: kSummaryPageNutritionTextStyle,
+                    ),
+                    Text(
+                      sumOfNutritionValues[0][1].toString() + "g ",
+                      style: kSummaryPageNutritionNumericTextStyle,
+                    ),
+                    SizedBox(width: 15),
+                    Text(
+                      "F: ",
+                      style: kSummaryPageNutritionTextStyle,
+                    ),
+                    Text(
+                      sumOfNutritionValues[0][2].toString() + "g ",
+                      style: kSummaryPageNutritionNumericTextStyle,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 8,
+                ),
               ],
             ),
           ],
