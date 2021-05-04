@@ -81,12 +81,14 @@ class ExpandableSummaryCard extends StatelessWidget {
                     );
                   },
                 ),
+                Divider(
+                  color: Colors.grey,
+                  thickness: 2,
+                  indent: 30,
+                  endIndent: 30,
+                ),
                 SizedBox(
-                  height: 0,
-                  child: Divider(
-                    color: Colors.black,
-                    thickness: 2,
-                  ),
+                  height: 5,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
