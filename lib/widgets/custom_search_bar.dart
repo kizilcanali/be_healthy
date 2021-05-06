@@ -15,7 +15,7 @@ class CustomSearchBar extends StatelessWidget {
         decoration: InputDecoration(
           filled: true,
           fillColor: Color(0xFFEFEEEE),
-          hintText: 'Search',
+          hintText: 'Yemek Ara',
           hintStyle: TextStyle(
             color: Color(0xFF787777),
           ),
