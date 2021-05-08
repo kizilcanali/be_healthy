@@ -1,3 +1,6 @@
+import 'package:be_healthy/Widgets/custom_login_input_field.dart';
+import 'package:be_healthy/Widgets/login_input_field.dart';
+import 'package:be_healthy/Widgets/register_input_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -65,35 +68,9 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
-            Column(
-              children: [
-                CustomLoginInputField(
-                  topic: 'Mail Adresi',
-                  isTextObscure: false,
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                CustomLoginInputField(
-                  topic: 'Şifre',
-                  isTextObscure: true,
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  margin: EdgeInsets.only(left: 40),
-                  child: TextButton(
-                    child: Text(
-                      'Şifreni mi unuttun?',
-                      style: TextStyle(
-                        color: Color(0xFFFA4A0C),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
-              ],
-            ),
+            currentIndex == 0
+                ? LoginInputs()
+                : RegisterInputs(), //lastly here not tested
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
               child: ElevatedButton(
@@ -118,41 +95,6 @@ class _LoginState extends State<Login> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class CustomLoginInputField extends StatelessWidget {
-  String topic;
-  bool isTextObscure;
-  CustomLoginInputField({this.topic, this.isTextObscure});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 50),
-      child: Column(
-        children: [
-          Container(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              topic,
-              style: TextStyle(
-                  color: Color(0xFF919191), fontWeight: FontWeight.bold),
-            ),
-          ),
-          TextField(
-            obscureText: isTextObscure,
-            style: TextStyle(
-              color: Colors.black,
-            ),
-            decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

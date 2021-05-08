@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:be_healthy/Services/database_helper.dart';
 import 'package:provider/provider.dart';
 import 'home_body.dart';
+import 'login.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -24,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     whenStarting();
     Future.delayed(Duration(seconds: 1), () async {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomeBody()));
+          context, MaterialPageRoute(builder: (context) => Login()));
     });
   }
 

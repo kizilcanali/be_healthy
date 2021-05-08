@@ -26,7 +26,7 @@ class FoodDetail extends StatelessWidget {
           children: [
             PhotoHero(
               child: Image.network(
-                'https://source.unsplash.com/random',
+                'https://source.unsplash.com/random?steak',
                 width: double.infinity,
                 height: 320,
               ),
@@ -101,15 +101,15 @@ class FoodDetail extends StatelessWidget {
                     TableRow(
                       children: [
                         CustomTableCellItem(
-                          text: meal[index]["protein"].toString(),
+                          text: meal[index]["protein"].toString() + " g",
                           customTextStyle: kDetailPageNumericValuesStyles,
                         ),
                         CustomTableCellItem(
-                          text: meal[index]["carhbohydrate"].toString(),
+                          text: meal[index]["carhbohydrate"].toString() + " g",
                           customTextStyle: kDetailPageNumericValuesStyles,
                         ),
                         CustomTableCellItem(
-                          text: meal[index]["fat"].toString(),
+                          text: meal[index]["fat"].toString() + " g",
                           customTextStyle: kDetailPageNumericValuesStyles,
                         ),
                       ],
