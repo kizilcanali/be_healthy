@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class CustomLoginInputField extends StatelessWidget {
   String topic;
   bool isTextObscure;
-  CustomLoginInputField({this.topic, this.isTextObscure});
+  TextEditingController textValue;
+  CustomLoginInputField({this.topic, this.isTextObscure, this.textValue});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,6 +20,7 @@ class CustomLoginInputField extends StatelessWidget {
             ),
           ),
           TextField(
+            controller: textValue,
             obscureText: isTextObscure,
             style: TextStyle(
               color: Colors.black,

@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 
 class AuthenticationService {
   final FirebaseAuth _auth;
@@ -11,29 +13,66 @@ class AuthenticationService {
     await _auth.signOut();
   }
 
-  Future<void> signedIn(String email, String password) async {
+  Future<String> signedIn(
+      String email, String password, BuildContext context) async {
     try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
       return 'Signed In';
     } on FirebaseException catch (e) {
+      print(e.message);
+      //Yanlış şifre girildiyse.
+      if (e.code == "wrong-password") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              "Yanlış Şifre Girdiniz!",
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      } //Kullanıcı bulunamadıysa.
+      else if (e.code == "user-not-found") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Kullanıcı Bulunamadı.',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }
+      return e.message;
+    } catch (e) {
       return e.message;
     }
   }
 
-  Future<void> signUp(
-      String email, String password, String name, String phoneNumber) async {
+  Future<String> signUp(
+      String email, String password, String name, BuildContext context) async {
     try {
-      UserCredential userCredential = await _auth
-          .createUserWithEmailAndPassword(email: email, password: password);
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       var user = _auth.currentUser;
       if (user != null) {
         await user.updateProfile(displayName: name);
-        //DB YE KAYITI ÇAĞIRIYOR.
       }
+      Navigator.of(context).pushNamed("/home");
       return 'Signed Up';
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      if (e.code == "email-already-in-use") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Hesap zaten var',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+        return 'The account already exists for that email';
+      }
+    } catch (e) {
+      return "BURAYI DÖNDÜK";
     }
   }
 }

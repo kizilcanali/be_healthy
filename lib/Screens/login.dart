@@ -71,28 +71,6 @@ class _LoginState extends State<Login> {
             currentIndex == 0
                 ? LoginInputs()
                 : RegisterInputs(), //lastly here not tested
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: ElevatedButton(
-                onPressed: () {
-                  if (currentIndex == 0) {
-                    //make login operation
-                  } else {
-                    //do signup operation
-                  }
-                },
-                child: Text(
-                  currentIndex == 0 ? 'Login' : 'Register',
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xFFFA4A0C),
-                  minimumSize: Size(double.infinity, 63),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(38),
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),

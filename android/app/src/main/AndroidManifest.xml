@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.behealthy.be_healthy">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="be_healthy"
         android:icon="@mipmap/ic_launcher">
