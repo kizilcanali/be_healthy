@@ -27,7 +27,7 @@ class CustomLoginInputField extends StatelessWidget {
             ),
             decoration: InputDecoration(
               enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black),
+                borderSide: BorderSide(color: Colors.grey),
               ),
             ),
           ),

@@ -28,8 +28,11 @@ class LoginInputs extends StatelessWidget {
           isTextObscure: true,
           textValue: password,
         ),
+        SizedBox(
+          height: 60,
+        ),
         custom_enterence_page_button(
-            buttonText: "Giriş Yap",
+            buttonText: 'Giriş Yap',
             onPress: () {
               authService.signedIn(
                   email.text.trim(), password.text.trim(), context);

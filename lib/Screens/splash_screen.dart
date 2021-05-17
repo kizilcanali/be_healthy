@@ -1,11 +1,9 @@
 import 'dart:convert';
-
+import 'package:be_healthy/Screens/login.dart';
 import 'package:be_healthy/state_management.dart';
 import 'package:flutter/material.dart';
 import 'package:be_healthy/Services/database_helper.dart';
 import 'package:provider/provider.dart';
-import 'home_body.dart';
-import 'login.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

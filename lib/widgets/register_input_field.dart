@@ -20,23 +20,33 @@ class RegisterInputs extends StatelessWidget {
           isTextObscure: false,
           textValue: name,
         ),
+        SizedBox(
+          height: 20,
+        ),
         CustomLoginInputField(
           topic: 'Mail Adresi',
           isTextObscure: false,
           textValue: email,
+        ),
+        SizedBox(
+          height: 20,
         ),
         CustomLoginInputField(
           topic: 'Şifre',
           isTextObscure: false,
           textValue: password,
         ),
+        SizedBox(
+          height: 40,
+        ),
         custom_enterence_page_button(
-            buttonText: "Register",
-            onPress: () {
-              print("${email.text} ${password.text}, ${name.text}");
-              authService.signUp(email.text.trim(), password.text.trim(),
-                  name.text.trim(), context);
-            }),
+          buttonText: 'Kayıt Ol',
+          onPress: () {
+            print("${email.text} ${password.text}, ${name.text}");
+            authService.signUp(email.text.trim(), password.text.trim(),
+                name.text.trim(), context);
+          },
+        ),
       ],
     );
   }

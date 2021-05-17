@@ -17,7 +17,8 @@ class AuthenticationService {
       String email, String password, BuildContext context) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
+      //Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
+      Navigator.of(context).pushNamed("/home");
       return 'Signed In';
     } on FirebaseException catch (e) {
       print(e.message);
