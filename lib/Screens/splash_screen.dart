@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:be_healthy/Screens/login.dart';
+import 'package:be_healthy/Screens/profile.dart';
+import 'package:be_healthy/Screens/water.dart';
 import 'package:be_healthy/state_management.dart';
 import 'package:flutter/material.dart';
 import 'package:be_healthy/Services/database_helper.dart';
@@ -23,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     whenStarting();
     Future.delayed(Duration(seconds: 1), () async {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Login()));
+          context, MaterialPageRoute(builder: (context) => Water()));
     });
   }
 

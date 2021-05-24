@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 const kDetailPageTextStyle =
     TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
@@ -18,4 +19,7 @@ const kSummaryPageCaloryTextStyle = TextStyle(
 );
 const kSummaryPageNameTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
+);
+const kProfileInfoTextStyle = TextStyle(
+  fontSize: 24,
 );
