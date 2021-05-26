@@ -13,7 +13,7 @@ class CustomWaterPageHistoryCard extends StatelessWidget {
         Container(
           width: double.infinity,
           margin: EdgeInsets.symmetric(vertical: 5, horizontal: 25),
-          padding: EdgeInsets.symmetric(vertical: 15),
+          padding: EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
             color: completed < target ? Color(0xFFFA4A0C) : Color(0xFF0CB3FA),
             shape: BoxShape.rectangle,

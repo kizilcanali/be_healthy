@@ -2,6 +2,7 @@ import 'package:be_healthy/Widgets/waterPage/customProgressBar.dart';
 import 'package:be_healthy/Widgets/waterPage/customWaterAmountButtons.dart';
 import 'package:be_healthy/Widgets/waterPage/customWaterPageHistoryCard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class Water extends StatefulWidget {
   @override
@@ -24,7 +25,7 @@ class _WaterState extends State<Water> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               CustomWaterButton(
-                iconData: Icons.access_alarm_outlined,
+                iconData: MaterialCommunityIcons.water_percent,
                 waterAmount: "100ml",
               ),
               CustomWaterButton(
@@ -38,16 +39,16 @@ class _WaterState extends State<Water> {
             ],
           ),
           SizedBox(
-            height: 5,
+            height: 16,
           ),
           SizedBox(
-            height: 200,
+            height: 250,
             child: ListView.builder(
               itemCount: 5,
               physics: BouncingScrollPhysics(),
               itemBuilder: (context, int index) {
                 return CustomWaterPageHistoryCard(
-                  completed: 1500,
+                  completed: 3000,
                   target: 3000,
                   date: "24/05/2021",
                 );
