@@ -12,7 +12,7 @@ class customSmokePageInfoCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-      padding: EdgeInsets.only(top: 20, bottom: 20, left: 30),
+      padding: EdgeInsets.only(top: 10, bottom: 10, left: 30),
       decoration: BoxDecoration(
         color: Color(0x80C4C4C4),
         shape: BoxShape.rectangle,
@@ -40,6 +40,7 @@ class customSmokePageInfoCard extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),

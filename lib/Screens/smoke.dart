@@ -10,7 +10,7 @@ class Smoke extends StatelessWidget {
         children: [
           CustomSmokePageTopContainer(),
           SizedBox(
-            height: 15,
+            height: 10,
           ),
           SizedBox(
             height: 265,

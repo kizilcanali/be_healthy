@@ -25,7 +25,7 @@ class CustomSmokePageTopContainer extends StatelessWidget {
           ),
           Icon(
             Icons.smoke_free,
-            color: Color(0xFFFA4A0C),
+            color: Color(0xFFD14818),
             size: 92,
           ),
           Text(
