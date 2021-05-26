@@ -1,5 +1,6 @@
 import 'package:be_healthy/Widgets/waterPage/customProgressBar.dart';
 import 'package:be_healthy/Widgets/waterPage/customWaterAmountButtons.dart';
+import 'package:be_healthy/Widgets/waterPage/customWaterPageHistoryCard.dart';
 import 'package:flutter/material.dart';
 
 class Water extends StatefulWidget {
@@ -36,7 +37,10 @@ class _WaterState extends State<Water> {
                   waterAmount: "500ml",
                 ),
               ],
-            )
+            ),
+            SizedBox(
+              height: 5,
+            ),
           ],
         ),
       ),
