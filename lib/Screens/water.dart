@@ -14,35 +14,47 @@ class _WaterState extends State<Water> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            CustomProgressBar(percentage: percentage),
-            SizedBox(
-              height: 25,
+      body: Column(
+        children: [
+          CustomProgressBar(percentage: percentage),
+          SizedBox(
+            height: 25,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              CustomWaterButton(
+                iconData: Icons.access_alarm_outlined,
+                waterAmount: "100ml",
+              ),
+              CustomWaterButton(
+                iconData: Icons.golf_course_sharp,
+                waterAmount: "200ml",
+              ),
+              CustomWaterButton(
+                iconData: Icons.account_tree_rounded,
+                waterAmount: "500ml",
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          SizedBox(
+            height: 200,
+            child: ListView.builder(
+              itemCount: 5,
+              physics: BouncingScrollPhysics(),
+              itemBuilder: (context, int index) {
+                return CustomWaterPageHistoryCard(
+                  completed: 1500,
+                  target: 3000,
+                  date: "24/05/2021",
+                );
+              },
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomWaterButton(
-                  iconData: Icons.access_alarm_outlined,
-                  waterAmount: "100ml",
-                ),
-                CustomWaterButton(
-                  iconData: Icons.golf_course_sharp,
-                  waterAmount: "200ml",
-                ),
-                CustomWaterButton(
-                  iconData: Icons.account_tree_rounded,
-                  waterAmount: "500ml",
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

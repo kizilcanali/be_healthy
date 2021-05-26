@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CustomWaterPageHistoryCard extends StatelessWidget {
-  Color cardColor;
   int completed = 0;
   int target = 0;
   String date;
 
-  CustomWaterPageHistoryCard(
-      {this.cardColor, this.completed, this.target, this.date});
+  CustomWaterPageHistoryCard({this.completed, this.target, this.date});
   @override
   Widget build(BuildContext context) {
     return Stack(
