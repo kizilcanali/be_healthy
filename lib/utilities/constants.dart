@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 const kDetailPageTextStyle =
     TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
@@ -23,3 +22,7 @@ const kSummaryPageNameTextStyle = TextStyle(
 const kProfileInfoTextStyle = TextStyle(
   fontSize: 24,
 );
+const kSmokePageParameterStyleNumeric =
+    TextStyle(fontSize: 48, color: Colors.white);
+const kSmokePageParameterStyleText =
+    TextStyle(fontSize: 14, color: Color(0xFFADADAF));

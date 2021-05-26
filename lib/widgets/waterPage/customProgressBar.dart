@@ -15,7 +15,6 @@ class CustomProgressBar extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(top: 5),
         child: CircularPercentIndicator(
-          startAngle: 270,
           radius: 250.0,
           lineWidth: 20.0,
           animation: true,
