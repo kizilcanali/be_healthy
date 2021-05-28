@@ -18,9 +18,7 @@ class _WaterState extends State<Water> {
       body: Column(
         children: [
           CustomProgressBar(percentage: percentage),
-          SizedBox(
-            height: 25,
-          ),
+          SizedBox(height: 25),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -38,9 +36,7 @@ class _WaterState extends State<Water> {
               ),
             ],
           ),
-          SizedBox(
-            height: 16,
-          ),
+          SizedBox(height: 16),
           SizedBox(
             height: 250,
             child: ListView.builder(

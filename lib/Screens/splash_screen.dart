@@ -18,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   List mealsFromDB = [];
   List categoriesList;
   List summaryFoods;
+  List summaryWater;
 
   @override
   void initState() {
@@ -32,14 +33,39 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> whenStarting() async {
     //await dbHelper.removeAll();
-
+    //await dbHelper.insertSummary("30 Nisan", food);
     mealsFromDB = await dbHelper.getRandomMealsByCategory();
     categoriesList = await dbHelper.getCategories();
-    //await dbHelper.insertSummary("30 Nisan", food);
     summaryFoods = await dbHelper.getSummaryTable();
 
-    //print("ilk food: $a");
-    //print("sum from db $summaryFoods");
+    summaryWater = await dbHelper.getWaterTable();
+
+    List tempWaterList = [];
+    for (int i = 0; i < summaryWater.length; i++) {
+      tempWaterList.add(
+        {
+          "date": summaryWater[i]["date"],
+          "current_amount": summaryWater[i]["current_amount"],
+          "target": summaryWater[i]["target"],
+        },
+      );
+    }
+
+    var nowDate = DateTime.now();
+    String day = nowDate.day.toString() + " / " + nowDate.month.toString();
+
+    if (tempWaterList.length > 0 &&
+        tempWaterList[tempWaterList.length - 1]["date"] != day) {
+      tempWaterList.add(
+        {
+          "date": day,
+          "current_amount": 0,
+          "target": 3000,
+        },
+      );
+    }
+    context.read<Store>().newSummaryWater(tempWaterList);
+
     context.read<Store>().newMeals(mealsFromDB);
     context.read<Store>().newCategories(categoriesList);
 
@@ -54,31 +80,7 @@ class _SplashScreenState extends State<SplashScreen> {
         },
       );
     }
-    //print("summary from db: $summaryFoods");
-    //print("temp sum list: $tempSummaryList");
-
     context.read<Store>().newSummaryFoods(tempSummaryList);
-
-    //print(tempSummaryList);
-
-    /*String food = """{
-    "foods": [
-        {
-            "name" : "Mantı",
-                "calorie": 1500,
-                "protein": 10,
-                "carbohydrate": 12,
-                "fat": 10
-        },
-        {
-            "name" : "Kuzu Çevirme",
-                "calorie": 1000,
-                "protein": 12,
-                "carbohydrate": 24,
-                "fat": 35
-        }
-    ]
-    }""";*/
   }
 
   @override

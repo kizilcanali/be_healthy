@@ -86,4 +86,28 @@ class DatabaseHelper {
     var db = await instance.database;
     await db.delete("summary");
   }
+
+  Future<void> insertWater(String date, int currentAmount, int target) async {
+    var db = await instance.database;
+    var check = await db.rawQuery("SELECT * FROM water WHERE date = ?", [date]);
+    if (check.length == 0) {
+      await db.rawQuery(
+          "INSERT INTO water (date, current_amount, target) values (?,?,?)",
+          [date, currentAmount, target]);
+    } else {
+      await db.rawQuery(
+          "UPDATE water SET current_amount = ? WHERE date = ?", [date]);
+    }
+  }
+
+  Future<List> getWaterTable() async {
+    var db = await instance.database;
+    var waterSummary = await db.rawQuery("SELECT * FROM water");
+    return waterSummary;
+  }
+
+  Future<void> removeWaterHistory() async {
+    var db = await instance.database;
+    await db.delete("water");
+  }
 }

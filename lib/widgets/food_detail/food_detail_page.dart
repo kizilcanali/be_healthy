@@ -1,13 +1,8 @@
-import 'dart:convert';
-
-import 'package:be_healthy/Services/database_helper.dart';
 import 'package:be_healthy/widgets/button/eat_button_in_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:be_healthy/utilities/constants.dart';
 import '../custom_table_cell_item.dart';
 import '../photo_hero.dart';
-import 'package:provider/provider.dart';
-import 'package:be_healthy/state_management.dart';
 
 class FoodDetail extends StatelessWidget {
   FoodDetail({this.meal, this.index});
@@ -125,11 +120,11 @@ class FoodDetail extends StatelessWidget {
     );
   }
 
-  Future<void> addFoodsToSummary(BuildContext context) async {
+  /*Future<void> addFoodsToSummary(BuildContext context) async {
     DatabaseHelper dbHelper = DatabaseHelper.instance;
     var nowDate = DateTime.now();
     String day = nowDate.day.toString() + " / " + nowDate.month.toString();
     await dbHelper.insertSummary(day, jsonEncode(meal));
     context.read<Store>().addFoodsToSummary(day, meal);
-  }
+  }*/
 }
