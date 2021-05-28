@@ -54,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
     var nowDate = DateTime.now();
     String day = nowDate.day.toString() + " / " + nowDate.month.toString();
 
-    if (tempWaterList.length > 0 &&
+    if (tempWaterList.length == 0 ||
         tempWaterList[tempWaterList.length - 1]["date"] != day) {
       tempWaterList.add(
         {
@@ -63,6 +63,8 @@ class _SplashScreenState extends State<SplashScreen> {
           "target": 3000,
         },
       );
+      print("buradayım selam");
+      dbHelper.insertWater(day, 0, 3000);
     }
     context.read<Store>().newSummaryWater(tempWaterList);
 

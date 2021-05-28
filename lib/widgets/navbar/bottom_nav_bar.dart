@@ -51,6 +51,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           icon: Icon(Ionicons.md_bookmark),
           label: 'Summary',
         ),
+        BottomNavigationBarItem(
+          backgroundColor: Color(0xFFF2F2F2),
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
       ],
     );
   }

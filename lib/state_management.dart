@@ -86,6 +86,7 @@ class Store extends ChangeNotifier {
 
   void addWaterToSummary(int currentAmount) {
     _summaryWater[_summaryWater.length - 1]["current_amount"] += currentAmount;
+    _currentAmount = _summaryWater[_summaryWater.length - 1]["current_amount"];
     notifyListeners();
   }
 }
