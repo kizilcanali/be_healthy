@@ -33,14 +33,19 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> whenStarting() async {
     //await dbHelper.removeAll();
-    //await dbHelper.insertSummary("30 Nisan", food);
+
+    //GET Datas when starting
     mealsFromDB = await dbHelper.getRandomMealsByCategory();
     categoriesList = await dbHelper.getCategories();
     summaryFoods = await dbHelper.getSummaryTable();
-
     summaryWater = await dbHelper.getWaterTable();
 
+    //Take current time.
+    var nowDate = DateTime.now();
+    String day = nowDate.day.toString() + " / " + nowDate.month.toString();
+
     List tempWaterList = [];
+    print(tempWaterList);
     for (int i = 0; i < summaryWater.length; i++) {
       tempWaterList.add(
         {
@@ -50,9 +55,6 @@ class _SplashScreenState extends State<SplashScreen> {
         },
       );
     }
-
-    var nowDate = DateTime.now();
-    String day = nowDate.day.toString() + " / " + nowDate.month.toString();
 
     if (tempWaterList.length == 0 ||
         tempWaterList[tempWaterList.length - 1]["date"] != day) {
@@ -68,6 +70,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }
     context.read<Store>().newSummaryWater(tempWaterList);
 
+    // Food part
     context.read<Store>().newMeals(mealsFromDB);
     context.read<Store>().newCategories(categoriesList);
 

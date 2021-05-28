@@ -24,13 +24,14 @@ class Store extends ChangeNotifier {
   List<dynamic> get summaryFoods => _summaryFoods;
 
   Store(
-      this._buttomNavIndex,
-      this._mealsFromDBState,
-      this._categories,
-      this._summaryFoods,
-      this._currentAmount,
-      this._target,
-      this._summaryWater);
+    this._buttomNavIndex,
+    this._mealsFromDBState,
+    this._categories,
+    this._summaryFoods,
+    this._currentAmount,
+    this._target,
+    this._summaryWater,
+  );
 
   void newSummaryWater(List newWater) {
     _summaryWater = newWater;
@@ -80,7 +81,6 @@ class Store extends ChangeNotifier {
         },
       );
     }
-    //print(_summaryFoods);
     notifyListeners();
   }
 

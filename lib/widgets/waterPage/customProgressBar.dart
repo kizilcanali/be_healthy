@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:flutter/widgets.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import '../../state_management.dart';
 import 'package:provider/provider.dart';
@@ -11,14 +12,22 @@ class CustomProgressBar extends StatefulWidget {
 class _CustomProgressBarState extends State<CustomProgressBar> {
   @override
   Widget build(BuildContext context) {
-    double calculatePercent() {
-      double percentage = 0;
+    int calculatePercent() {
+      int percentage = 0;
       if (context.read<Store>().currentAmount != 0) {
-        percentage = (context.read<Store>().currentAmount * 100) /
-            context.read<Store>().target;
+        percentage =
+            ((context.read<Store>().currentAmount * 100) ~/ 3000).toInt();
       }
-      print(percentage);
+
       return percentage;
+    }
+
+    double calculateProgressing(int percent) {
+      if (percent / 100 > 1) {
+        return 1;
+      } else {
+        return percent / 100;
+      }
     }
 
     return Center(
@@ -28,7 +37,7 @@ class _CustomProgressBarState extends State<CustomProgressBar> {
           radius: 250.0,
           lineWidth: 20.0,
           animation: true,
-          percent: 0.1,
+          percent: calculateProgressing(calculatePercent()),
           center: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

@@ -13,7 +13,7 @@ class CustomProfileParameterEditCard extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            height: 100,
+            height: 90,
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               color: Colors.white,

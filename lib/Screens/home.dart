@@ -47,39 +47,41 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: CustomTitleForMainPage(),
-          ),
-          Expanded(
-            child: CustomSearchBar(),
-          ),
-          //Category selection place.
-          DefaultTabController(
-            length: context.read<Store>().categories.length,
-            child: TabBar(
-                labelStyle: TextStyle(fontSize: 19),
-                isScrollable: true,
-                labelColor: Color(0xFFFA4A0C),
-                unselectedLabelColor: Color(0XFF9A9A9D),
-                indicatorColor: Color(0xFFFA4A0C),
-                indicatorWeight: 3,
-                onTap: (index) {
-                  setState(
-                    () {
-                      currentIndex = index;
-                      filterMealsByCategory(currentIndex);
-                    },
-                  );
-                },
-                tabs: tabList(context.read<Store>().categories)),
-          ),
-          //Listed food cards.
-          food_list(tempMealList: tempMealList)
-        ],
+    return SafeArea(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: CustomTitleForMainPage(),
+            ),
+            Expanded(
+              child: CustomSearchBar(),
+            ),
+            //Category selection place.
+            DefaultTabController(
+              length: context.read<Store>().categories.length,
+              child: TabBar(
+                  labelStyle: TextStyle(fontSize: 19),
+                  isScrollable: true,
+                  labelColor: Color(0xFFFA4A0C),
+                  unselectedLabelColor: Color(0XFF9A9A9D),
+                  indicatorColor: Color(0xFFFA4A0C),
+                  indicatorWeight: 3,
+                  onTap: (index) {
+                    setState(
+                      () {
+                        currentIndex = index;
+                        filterMealsByCategory(currentIndex);
+                      },
+                    );
+                  },
+                  tabs: tabList(context.read<Store>().categories)),
+            ),
+            //Listed food cards.
+            food_list(tempMealList: tempMealList)
+          ],
+        ),
       ),
     );
   }
