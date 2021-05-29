@@ -3,6 +3,10 @@ import 'package:be_healthy/Widgets/profilePage/customProfileParameterCard.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
+  TextEditingController waterTarget = TextEditingController();
+  TextEditingController caloryTarget = TextEditingController();
+  TextEditingController smokePrice = TextEditingController();
+  TextEditingController smokeCount = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,26 +14,9 @@ class ProfilePage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(
-              height: 40,
-            ),
-            CustomProfilePageInfoCard(),
-            SizedBox(
-              height: 15,
-            ),
-            CustomProfileParameterEditCard(),
-            SizedBox(
-              height: 15,
-            ),
-            CustomProfileParameterEditCard(),
-            SizedBox(
-              height: 15,
-            ),
-            CustomProfileParameterEditCard(),
-            SizedBox(
-              height: 15,
-            ),
-            CustomProfileParameterEditCard(),
+            Center(
+              child: Text("YAPIM AŞAMASINDA"),
+            )
           ],
         ),
       ),

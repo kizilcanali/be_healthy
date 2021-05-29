@@ -32,11 +32,12 @@ class LoginInputs extends StatelessWidget {
           height: 60,
         ),
         custom_enterence_page_button(
-            buttonText: 'Giriş Yap',
-            onPress: () {
-              authService.signedIn(
-                  email.text.trim(), password.text.trim(), context);
-            }),
+          buttonText: 'Giriş Yap',
+          onPress: () {
+            authService.signedIn(
+                email.text.trim(), password.text.trim(), context);
+          },
+        ),
       ],
     );
   }

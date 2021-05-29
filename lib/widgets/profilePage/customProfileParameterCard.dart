@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomProfileParameterEditCard extends StatelessWidget {
-  const CustomProfileParameterEditCard({
-    Key key,
-  }) : super(key: key);
+  TextEditingController textValue;
+  String topic;
+
+  CustomProfileParameterEditCard({this.textValue, this.topic});
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +13,9 @@ class CustomProfileParameterEditCard extends StatelessWidget {
       child: Stack(
         children: [
           Container(
+            padding: EdgeInsets.symmetric(horizontal: 80),
             width: double.infinity,
-            height: 90,
+            height: 140,
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               color: Colors.white,
@@ -21,26 +23,37 @@ class CustomProfileParameterEditCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 25,
-            left: 70,
-            child: Column(
-              children: [
-                Text(
-                  'Günlük Kalori Hedefi',
-                  style: TextStyle(fontSize: 24),
+            top: 40,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 80),
+              child: TextField(
+                controller: textValue,
+                style: TextStyle(
+                  color: Colors.black,
                 ),
-                Text(
-                  'Girdiği Miktar',
-                  style: TextStyle(fontSize: 17),
-                ), //Bu değişecek
-              ],
+                decoration: InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
+              ),
             ),
           ),
           Positioned(
-            top: 25,
+            top: 20,
+            left: 100,
+            child: Text(
+              topic,
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 63,
             left: 290,
             child: IconButton(
-              icon: Icon(Icons.edit),
+              icon: Icon(Icons.send),
               onPressed: () {},
             ),
           ),

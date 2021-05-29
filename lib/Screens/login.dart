@@ -1,6 +1,6 @@
-import 'package:be_healthy/Widgets/custom_login_input_field.dart';
-import 'package:be_healthy/Widgets/login_input_field.dart';
-import 'package:be_healthy/Widgets/register_input_field.dart';
+import 'package:be_healthy/Widgets/login_register/custom_login_input_field.dart';
+import 'package:be_healthy/Widgets/login_register/login_input_field.dart';
+import 'package:be_healthy/Widgets/login_register/register_input_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 

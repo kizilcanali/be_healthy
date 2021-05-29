@@ -1,7 +1,7 @@
-import 'package:be_healthy/widgets/photo_hero.dart';
+import 'package:be_healthy/widgets/home/photo_hero.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'food_detail/food_detail_page.dart';
+import '../food_detail/food_detail_page.dart';
 
 class FoodCard extends StatelessWidget {
   FoodCard({this.meal, this.index});

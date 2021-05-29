@@ -1,7 +1,8 @@
 import 'package:be_healthy/Services/authentication_service.dart';
+import 'package:be_healthy/Widgets/button/enterence_page_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'button/enterence_page_button.dart';
+
 import 'custom_login_input_field.dart';
 
 class RegisterInputs extends StatelessWidget {

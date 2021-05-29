@@ -1,8 +1,8 @@
 import 'package:be_healthy/widgets/button/eat_button_in_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:be_healthy/utilities/constants.dart';
-import '../custom_table_cell_item.dart';
-import '../photo_hero.dart';
+import '../home/custom_table_cell_item.dart';
+import '../home/photo_hero.dart';
 
 class FoodDetail extends StatelessWidget {
   FoodDetail({this.meal, this.index});

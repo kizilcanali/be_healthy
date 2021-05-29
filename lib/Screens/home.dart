@@ -1,6 +1,6 @@
-import 'package:be_healthy/widgets/food_list.dart';
-import 'package:be_healthy/widgets/custom_search_bar.dart';
-import 'package:be_healthy/widgets/custom_title_for_main_page.dart';
+import 'package:be_healthy/Widgets/home/custom_search_bar.dart';
+import 'package:be_healthy/Widgets/home/custom_title_for_main_page.dart';
+import 'package:be_healthy/Widgets/home/food_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../state_management.dart';
