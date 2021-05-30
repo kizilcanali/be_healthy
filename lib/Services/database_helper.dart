@@ -110,4 +110,30 @@ class DatabaseHelper {
     var db = await instance.database;
     await db.delete("water");
   }
+
+  Future<void> initialTargetAssigner() async {
+    var db = await instance.database;
+    await db.rawQuery(
+        "INSERT INTO targets (calory, water, smoke_count, smoke_price) values (0,0,0,0)");
+  }
+
+  Future<void> updateTargetValue(String selectedTarget, int target) async {
+    var db = await instance.database;
+    await db.rawQuery("UPDATE targets SET $selectedTarget = ?", [target]);
+  }
+
+  Future<Object> getTargets(String selectedTarget) async {
+    var db = await instance.database;
+    var targets = await db.rawQuery("SELECT $selectedTarget FROM targets");
+    if (targets != null) {
+      return targets[0];
+    }
+    return null;
+  }
+
+  Future<bool> isTargetEmpty() async {
+    var db = await instance.database;
+    var targets = await db.query("targets");
+    return targets.length == 0;
+  }
 }

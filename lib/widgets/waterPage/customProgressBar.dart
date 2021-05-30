@@ -15,8 +15,9 @@ class _CustomProgressBarState extends State<CustomProgressBar> {
     int calculatePercent() {
       int percentage = 0;
       if (context.read<Store>().currentAmount != 0) {
-        percentage =
-            ((context.read<Store>().currentAmount * 100) ~/ 3000).toInt();
+        percentage = ((context.read<Store>().currentAmount * 100) ~/
+                context.read<Store>().target)
+            .toInt();
       }
 
       return percentage;
@@ -36,7 +37,7 @@ class _CustomProgressBarState extends State<CustomProgressBar> {
         child: CircularPercentIndicator(
           radius: 250.0,
           lineWidth: 20.0,
-          animation: true,
+          animation: false,
           percent: calculateProgressing(calculatePercent()),
           center: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +54,7 @@ class _CustomProgressBarState extends State<CustomProgressBar> {
                 height: 35,
               ),
               Text(
-                "${context.read<Store>().currentAmount} / ${context.read<Store>().target}",
+                "${context.watch<Store>().currentAmount} / ${context.read<Store>().target}",
                 style: TextStyle(
                   fontSize: 18.0,
                   color: Color(0xFFFA4A0C),

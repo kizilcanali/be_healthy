@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
+import 'Services/database_helper.dart';
+
 class Store extends ChangeNotifier {
+  DatabaseHelper dbHelper = DatabaseHelper.instance;
+
   //Navbar index
   int _buttomNavIndex;
   //Food part
@@ -11,12 +15,18 @@ class Store extends ChangeNotifier {
   List<dynamic> _summaryWater;
   int _currentAmount;
   int _target;
+  int _caloryTarget;
+  int _smokeCount;
+  int _smokePrice;
 
   //Nav index get func
   int get buttomNavIndex => _buttomNavIndex;
   //Water get funcs
   int get currentAmount => _currentAmount;
   int get target => _target;
+  int get caloryTarget => _caloryTarget;
+  int get smokeCount => _smokeCount;
+  int get smokePrice => _smokePrice;
   List<dynamic> get summaryWater => _summaryWater;
   //Food get funcs
   List<dynamic> get mealsFromDBState => _mealsFromDBState;
@@ -24,14 +34,42 @@ class Store extends ChangeNotifier {
   List<dynamic> get summaryFoods => _summaryFoods;
 
   Store(
-    this._buttomNavIndex,
-    this._mealsFromDBState,
-    this._categories,
-    this._summaryFoods,
-    this._currentAmount,
-    this._target,
-    this._summaryWater,
-  );
+      this._buttomNavIndex,
+      this._mealsFromDBState,
+      this._categories,
+      this._summaryFoods,
+      this._currentAmount,
+      this._target,
+      this._summaryWater,
+      this._caloryTarget,
+      this._smokeCount,
+      this._smokePrice);
+
+  //TARGET SETTERS
+
+  void newCaloryTarget(int caloryTarget) async {
+    _caloryTarget = caloryTarget;
+    //await dbHelper.updateTargetValue("calory", _caloryTarget);
+    notifyListeners();
+  }
+
+  void newSmokeCount(int smokeCount) async {
+    _smokeCount = smokeCount;
+    //await dbHelper.updateTargetValue("smoke_count", _smokeCount);
+    notifyListeners();
+  }
+
+  void newSmokePrice(int smokePrice) async {
+    _smokePrice = smokePrice;
+    //await dbHelper.updateTargetValue("smoke_price", _smokePrice);
+    notifyListeners();
+  }
+
+  void newTarget(int targetWater) async {
+    _target = targetWater;
+    //await dbHelper.updateTargetValue("water", _target);
+    notifyListeners();
+  }
 
   void newSummaryWater(List newWater) {
     _summaryWater = newWater;
@@ -40,11 +78,6 @@ class Store extends ChangeNotifier {
 
   void newCurrentAmount(int currentWaterAmount) {
     _currentAmount = currentWaterAmount;
-    notifyListeners();
-  }
-
-  void newTarget(int targetWater) {
-    _target = targetWater;
     notifyListeners();
   }
 
@@ -86,7 +119,7 @@ class Store extends ChangeNotifier {
 
   void addWaterToSummary(int currentAmount) {
     _summaryWater[_summaryWater.length - 1]["current_amount"] += currentAmount;
-    _currentAmount = _summaryWater[_summaryWater.length - 1]["current_amount"];
+    newCurrentAmount(_summaryWater[_summaryWater.length - 1]["current_amount"]);
     notifyListeners();
   }
 }

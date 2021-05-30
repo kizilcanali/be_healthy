@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
 
-class CustomProfileParameterEditCard extends StatelessWidget {
-  TextEditingController textValue;
-  String topic;
+class CustomProfileParameterEditCard extends StatefulWidget {
+  final String textValue;
+  final String topic;
+  final Function stateChanger;
+  CustomProfileParameterEditCard(
+      {this.topic, this.textValue, this.stateChanger});
 
-  CustomProfileParameterEditCard({this.textValue, this.topic});
+  @override
+  _CustomProfileParameterEditCardState createState() =>
+      _CustomProfileParameterEditCardState();
+}
+
+class _CustomProfileParameterEditCardState
+    extends State<CustomProfileParameterEditCard> {
+  String newTarget;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    newTarget = widget.textValue;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +40,26 @@ class CustomProfileParameterEditCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 40,
+            top: 50,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 80),
-              child: TextField(
-                controller: textValue,
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-                decoration: InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
+              child: SizedBox(
+                width: 180,
+                child: TextFormField(
+                  onChanged: (newTargetAtFunc) {
+                    setState(() {
+                      newTarget = newTargetAtFunc;
+                    });
+                  },
+                  initialValue: widget.textValue,
+                  keyboardType: TextInputType.number,
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                  decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
                   ),
                 ),
               ),
@@ -41,20 +67,24 @@ class CustomProfileParameterEditCard extends StatelessWidget {
           ),
           Positioned(
             top: 20,
-            left: 100,
+            left: 115,
             child: Text(
-              topic,
+              widget.topic,
               style: TextStyle(
                 fontSize: 20,
               ),
             ),
           ),
           Positioned(
-            top: 63,
+            top: 45,
             left: 290,
             child: IconButton(
               icon: Icon(Icons.send),
-              onPressed: () {},
+              onPressed: () {
+                widget.stateChanger(int.parse(newTarget));
+
+                print("Güncellendi");
+              },
             ),
           ),
         ],

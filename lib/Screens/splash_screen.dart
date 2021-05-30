@@ -19,7 +19,10 @@ class _SplashScreenState extends State<SplashScreen> {
   List categoriesList;
   List summaryFoods;
   List summaryWater;
-
+  int smokeCount;
+  int smokePrice;
+  int waterTarget;
+  int caloryTarget;
   @override
   void initState() {
     super.initState();
@@ -33,6 +36,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> whenStarting() async {
     //await dbHelper.removeAll();
+
+    var isTargetsEmpty = await dbHelper.isTargetEmpty();
+
+    if (!isTargetsEmpty) {
+      print("girildi");
+      await dbHelper.initialTargetAssigner();
+    }
 
     //GET Datas when starting
     mealsFromDB = await dbHelper.getRandomMealsByCategory();
@@ -55,7 +65,6 @@ class _SplashScreenState extends State<SplashScreen> {
         },
       );
     }
-
     if (tempWaterList.length == 0 ||
         tempWaterList[tempWaterList.length - 1]["date"] != day) {
       tempWaterList.add(
@@ -68,7 +77,14 @@ class _SplashScreenState extends State<SplashScreen> {
       print("buradayım selam");
       dbHelper.insertWater(day, 0, 3000);
     }
+
     context.read<Store>().newSummaryWater(tempWaterList);
+
+    // GET TARGETS FROM DB
+    context.read<Store>().newCaloryTarget(caloryTarget);
+    context.read<Store>().newTarget(waterTarget);
+    context.read<Store>().newSmokeCount(smokeCount);
+    context.read<Store>().newSmokePrice(smokePrice);
 
     // Food part
     context.read<Store>().newMeals(mealsFromDB);

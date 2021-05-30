@@ -19,14 +19,26 @@ class MyApp extends StatelessWidget {
   final List<dynamic> summaryWater = [];
   final int currentWater = 0;
   final int targetWater = 0;
+  final int targetCalory = 0;
+  final int smokeCount = 0;
+  final int smokePrice = 0;
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ListenableProvider<Store>(
-          create: (_) => Store(index, meals, categories, summaryFoods,
-              currentWater, targetWater, summaryWater),
+          create: (_) => Store(
+              index,
+              meals,
+              categories,
+              summaryFoods,
+              currentWater,
+              targetWater,
+              summaryWater,
+              targetCalory,
+              smokeCount,
+              smokePrice),
         ),
       ],
       child: MaterialApp(
