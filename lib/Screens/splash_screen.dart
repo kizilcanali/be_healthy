@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:be_healthy/Screens/home_body.dart';
 import 'package:be_healthy/Screens/login.dart';
-import 'package:be_healthy/Screens/profile.dart';
-import 'package:be_healthy/Screens/water.dart';
 import 'package:be_healthy/state_management.dart';
 import 'package:flutter/material.dart';
 import 'package:be_healthy/Services/database_helper.dart';
@@ -23,6 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   int smokePrice;
   int waterTarget;
   int caloryTarget;
+
   @override
   void initState() {
     super.initState();
@@ -38,7 +37,6 @@ class _SplashScreenState extends State<SplashScreen> {
     //await dbHelper.removeAll();
 
     var isTargetsEmpty = await dbHelper.isTargetEmpty();
-
     if (!isTargetsEmpty) {
       print("girildi");
       await dbHelper.initialTargetAssigner();
@@ -55,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
     String day = nowDate.day.toString() + " / " + nowDate.month.toString();
 
     List tempWaterList = [];
-    print(tempWaterList);
+    print("temp water list: $tempWaterList");
     for (int i = 0; i < summaryWater.length; i++) {
       tempWaterList.add(
         {
@@ -67,6 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }
     if (tempWaterList.length == 0 ||
         tempWaterList[tempWaterList.length - 1]["date"] != day) {
+      print("Boşsa su ekleme if i ne girdim");
       tempWaterList.add(
         {
           "date": day,
@@ -74,7 +73,6 @@ class _SplashScreenState extends State<SplashScreen> {
           "target": 3000,
         },
       );
-      print("buradayım selam");
       dbHelper.insertWater(day, 0, 3000);
     }
 
