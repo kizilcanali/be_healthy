@@ -79,10 +79,10 @@ class _SplashScreenState extends State<SplashScreen> {
         {
           "date": day,
           "current_amount": 0,
-          "target": context.watch<Store>().target,
+          "target": 0,
         },
       );
-      dbHelper.insertWater(0, context.watch<Store>().target);
+      dbHelper.insertWater(0, 0);
     }
     print("yeniden tempe bakalım eklemiş mi $tempWaterList");
 

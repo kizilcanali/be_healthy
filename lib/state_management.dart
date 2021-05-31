@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import 'Services/database_helper.dart';
 
 class Store extends ChangeNotifier {
@@ -81,7 +80,6 @@ class Store extends ChangeNotifier {
 
   void newCurrentAmount(int currentWaterAmount) {
     _currentAmount = currentWaterAmount;
-
     notifyListeners();
   }
 
@@ -92,6 +90,7 @@ class Store extends ChangeNotifier {
 
   void newMeals(List newList) {
     _mealsFromDBState = newList;
+    print(_mealsFromDBState);
     notifyListeners();
   }
 
