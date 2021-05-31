@@ -82,8 +82,7 @@ class _CustomProfileParameterEditCardState
               icon: Icon(Icons.send),
               onPressed: () {
                 widget.stateChanger(int.parse(newTarget));
-
-                print("Güncellendi");
+                //print("profile yazılan hedef: $newTarget");
               },
             ),
           ),

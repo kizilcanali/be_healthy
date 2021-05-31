@@ -3,6 +3,10 @@ import 'package:be_healthy/Widgets/waterPage/customWaterAmountButtons.dart';
 import 'package:be_healthy/Widgets/waterPage/customWaterPageHistoryCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:path/path.dart';
+import 'package:provider/provider.dart';
+
+import '../state_management.dart';
 
 class Water extends StatefulWidget {
   @override
@@ -39,13 +43,15 @@ class _WaterState extends State<Water> {
             SizedBox(
               height: 305,
               child: ListView.builder(
-                itemCount: 5,
+                itemCount: context.read<Store>().summaryWater.length,
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, int index) {
                   return CustomWaterPageHistoryCard(
-                    completed: 3000,
-                    target: 3000,
-                    date: "24/05/2021",
+                    completed: context.watch<Store>().summaryWater[index]
+                        ["current_amount"],
+                    target: context.watch<Store>().summaryWater[index]
+                        ["target"],
+                    date: context.watch<Store>().summaryWater[index]["date"],
                   );
                 },
               ),

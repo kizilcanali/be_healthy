@@ -87,17 +87,21 @@ class DatabaseHelper {
     await db.delete("summary");
   }
 
-  Future<void> insertWater(String date, int currentAmount, int target) async {
+  Future<void> insertWater(int currentAmount, int target) async {
     var db = await instance.database;
-    var check = await db.rawQuery("SELECT * FROM water WHERE date = ?", [date]);
+    var check =
+        await db.rawQuery("SELECT * FROM water WHERE date = ?", [getDate()]);
     if (check.length == 0) {
       await db.rawQuery(
           "INSERT INTO water (date, current_amount, target) values (?,?,?)",
-          [date, currentAmount, target]);
-    } else {
-      await db.rawQuery(
-          "UPDATE water SET current_amount = ? WHERE date = ?", [date]);
+          [getDate(), currentAmount, target]);
     }
+  }
+
+  Future<void> updateCurrentAmount(int currentAmount) async {
+    var db = await instance.database;
+    await db.rawQuery("UPDATE water SET current_amount = ? WHERE date = ?",
+        [currentAmount, getDate()]);
   }
 
   Future<List> getWaterTable() async {
@@ -113,8 +117,15 @@ class DatabaseHelper {
 
   Future<void> initialTargetAssigner() async {
     var db = await instance.database;
+    await db.rawQuery("INSERT INTO targets values (0,0,0,0)");
+  }
+
+  Future<void> updateLastTarget(int newTarget) async {
+    var db = await instance.database;
+    var nowDate = DateTime.now();
+    String day = nowDate.day.toString() + " / " + nowDate.month.toString();
     await db.rawQuery(
-        "INSERT INTO targets (calory, water, smoke_count, smoke_price) values (0,0,0,0)");
+        "UPDATE water SET target = ? WHERE date = ?", [newTarget, day]);
   }
 
   Future<void> updateTargetValue(String selectedTarget, int target) async {
@@ -122,11 +133,11 @@ class DatabaseHelper {
     await db.rawQuery("UPDATE targets SET $selectedTarget = ?", [target]);
   }
 
-  Future<Object> getTargets(String selectedTarget) async {
+  Future<int> getTargets(String selectedTarget) async {
     var db = await instance.database;
     var targets = await db.rawQuery("SELECT $selectedTarget FROM targets");
     if (targets != null) {
-      return targets[0];
+      return targets[0][selectedTarget];
     }
     return null;
   }
@@ -134,6 +145,13 @@ class DatabaseHelper {
   Future<bool> isTargetEmpty() async {
     var db = await instance.database;
     var targets = await db.query("targets");
+    print("targets from db: $targets");
     return targets.length == 0;
+  }
+
+  String getDate() {
+    var nowDate = DateTime.now();
+    String day = nowDate.day.toString() + " / " + nowDate.month.toString();
+    return day;
   }
 }

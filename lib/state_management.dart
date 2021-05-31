@@ -49,25 +49,28 @@ class Store extends ChangeNotifier {
 
   void newCaloryTarget(int caloryTarget) async {
     _caloryTarget = caloryTarget;
-    //await dbHelper.updateTargetValue("calory", _caloryTarget);
+    await dbHelper.updateTargetValue("calory", _caloryTarget);
     notifyListeners();
   }
 
   void newSmokeCount(int smokeCount) async {
     _smokeCount = smokeCount;
-    //await dbHelper.updateTargetValue("smoke_count", _smokeCount);
+    await dbHelper.updateTargetValue("smoke_count", _smokeCount);
     notifyListeners();
   }
 
   void newSmokePrice(int smokePrice) async {
     _smokePrice = smokePrice;
-    //await dbHelper.updateTargetValue("smoke_price", _smokePrice);
+    await dbHelper.updateTargetValue("smoke_price", _smokePrice);
     notifyListeners();
   }
 
   void newTarget(int targetWater) async {
     _target = targetWater;
-    //await dbHelper.updateTargetValue("water", _target);
+    //print("state management _target value: $_target");
+    await dbHelper.updateTargetValue("water", _target);
+    await dbHelper.updateLastTarget(_target);
+    _summaryWater[_summaryWater.length - 1]["target"] = _target;
     notifyListeners();
   }
 
@@ -78,6 +81,7 @@ class Store extends ChangeNotifier {
 
   void newCurrentAmount(int currentWaterAmount) {
     _currentAmount = currentWaterAmount;
+
     notifyListeners();
   }
 
@@ -120,6 +124,8 @@ class Store extends ChangeNotifier {
   void addWaterToSummary(int currentAmount) {
     _summaryWater[_summaryWater.length - 1]["current_amount"] += currentAmount;
     newCurrentAmount(_summaryWater[_summaryWater.length - 1]["current_amount"]);
+    dbHelper.updateCurrentAmount(_currentAmount);
+    //print(_summaryWater);
     notifyListeners();
   }
 }

@@ -14,8 +14,15 @@ class _CustomProgressBarState extends State<CustomProgressBar> {
   Widget build(BuildContext context) {
     int calculatePercent() {
       int percentage = 0;
-      if (context.read<Store>().currentAmount != 0) {
-        percentage = ((context.read<Store>().currentAmount * 100) ~/
+      if (context
+                  .watch<Store>()
+                  .summaryWater[context.watch<Store>().summaryWater.length - 1]
+              ["current_amount"] !=
+          0) {
+        percentage = ((context.watch<Store>().summaryWater[
+                            context.watch<Store>().summaryWater.length - 1]
+                        ["current_amount"] *
+                    100) ~/
                 context.read<Store>().target)
             .toInt();
       }
@@ -54,7 +61,7 @@ class _CustomProgressBarState extends State<CustomProgressBar> {
                 height: 35,
               ),
               Text(
-                "${context.watch<Store>().currentAmount} / ${context.read<Store>().target}",
+                "${context.watch<Store>().summaryWater[context.watch<Store>().summaryWater.length - 1]["current_amount"]} / ${context.read<Store>().target}",
                 style: TextStyle(
                   fontSize: 18.0,
                   color: Color(0xFFFA4A0C),

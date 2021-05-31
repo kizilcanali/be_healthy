@@ -4,7 +4,7 @@ import '../../state_management.dart';
 import 'package:provider/provider.dart';
 
 class CustomWaterButton extends StatefulWidget {
-  IconData iconData;
+  final IconData iconData;
   String waterAmount;
   CustomWaterButton({this.iconData, this.waterAmount});
 
@@ -18,7 +18,9 @@ class _CustomWaterButtonState extends State<CustomWaterButton> {
     return RawMaterialButton(
       onPressed: () {
         //print(widget.waterAmount);
-        context.read<Store>().addWaterToSummary(int.parse(widget.waterAmount));
+        context.read<Store>().addWaterToSummary(
+              int.parse(widget.waterAmount),
+            );
       },
       fillColor: Color(0xFFFA4A0C),
       child: Column(
