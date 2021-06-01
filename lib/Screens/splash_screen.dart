@@ -74,7 +74,6 @@ class _SplashScreenState extends State<SplashScreen> {
     }
     if (tempWaterList.length == 0 ||
         tempWaterList[tempWaterList.length - 1]["date"] != day) {
-      print("Boşsa su ekleme if i ne girdim");
       tempWaterList.add(
         {
           "date": day,
@@ -84,7 +83,7 @@ class _SplashScreenState extends State<SplashScreen> {
       );
       dbHelper.insertWater(0, 0);
     }
-    print("yeniden tempe bakalım eklemiş mi $tempWaterList");
+    //print("yeniden tempe bakalım eklemiş mi $tempWaterList");
 
     context.read<Store>().newSummaryWater(tempWaterList);
 

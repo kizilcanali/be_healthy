@@ -82,6 +82,7 @@ class DatabaseHelper {
     return resultSummary;
   }
 
+  //Clear summary table.
   Future<void> removeAll() async {
     var db = await instance.database;
     await db.delete("summary");
@@ -98,12 +99,14 @@ class DatabaseHelper {
     }
   }
 
+  //Update the current amount that the day we are in.
   Future<void> updateCurrentAmount(int currentAmount) async {
     var db = await instance.database;
     await db.rawQuery("UPDATE water SET current_amount = ? WHERE date = ?",
         [currentAmount, getDate()]);
   }
 
+  //Get water table elements.
   Future<List> getWaterTable() async {
     var db = await instance.database;
     var waterSummary = await db.rawQuery("SELECT * FROM water");
@@ -115,24 +118,26 @@ class DatabaseHelper {
     await db.delete("water");
   }
 
+  //Assign 0 to all targets table elements initially.
   Future<void> initialTargetAssigner() async {
     var db = await instance.database;
     await db.rawQuery("INSERT INTO targets values (0,0,0,0)");
   }
 
+  //Update the water table's last element's target value.
   Future<void> updateLastTarget(int newTarget) async {
     var db = await instance.database;
-    var nowDate = DateTime.now();
-    String day = nowDate.day.toString() + " / " + nowDate.month.toString();
     await db.rawQuery(
-        "UPDATE water SET target = ? WHERE date = ?", [newTarget, day]);
+        "UPDATE water SET target = ? WHERE date = ?", [newTarget, getDate()]);
   }
 
+  // Assign the new value to selected target column.
   Future<void> updateTargetValue(String selectedTarget, int target) async {
     var db = await instance.database;
     await db.rawQuery("UPDATE targets SET $selectedTarget = ?", [target]);
   }
 
+  //Get the selected target (which you want to reach eg. calory, water) from targets table.
   Future<int> getTargets(String selectedTarget) async {
     var db = await instance.database;
     var targets = await db.rawQuery("SELECT $selectedTarget FROM targets");
@@ -142,10 +147,11 @@ class DatabaseHelper {
     return null;
   }
 
+  //Is Target table empty if yes return true.
   Future<bool> isTargetEmpty() async {
     var db = await instance.database;
     var targets = await db.query("targets");
-    print("targets from db: $targets");
+    //print("targets from db: $targets");
     return targets.length == 0;
   }
 
@@ -153,5 +159,12 @@ class DatabaseHelper {
     var nowDate = DateTime.now();
     String day = nowDate.day.toString() + " / " + nowDate.month.toString();
     return day;
+  }
+
+  //GET SMOKE PROGRESS TABLE ELEMENTS
+  Future<List> getSmokeProgressTable() async {
+    var db = await instance.database;
+    var smokeProgressList = db.rawQuery("SELECT * FROM smoke_progress");
+    return smokeProgressList;
   }
 }
