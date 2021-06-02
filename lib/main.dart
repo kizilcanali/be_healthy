@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:be_healthy/routes.dart';
 import 'package:be_healthy/state_management.dart';
 import 'package:flutter/material.dart';
@@ -23,22 +25,25 @@ class MyApp extends StatelessWidget {
   final int smokeCount = 0;
   final int smokePrice = 0;
 
+  final List<dynamic> smokeProgressData = [];
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ListenableProvider<Store>(
           create: (_) => Store(
-              index,
-              meals,
-              categories,
-              summaryFoods,
-              currentWater,
-              targetWater,
-              summaryWater,
-              targetCalory,
-              smokeCount,
-              smokePrice),
+            index,
+            meals,
+            categories,
+            summaryFoods,
+            currentWater,
+            targetWater,
+            summaryWater,
+            targetCalory,
+            smokeCount,
+            smokePrice,
+            smokeProgressData,
+          ),
         ),
       ],
       child: MaterialApp(

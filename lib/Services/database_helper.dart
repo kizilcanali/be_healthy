@@ -72,8 +72,16 @@ class DatabaseHelper {
           "INSERT INTO summary (date, foods) values(?,?)", [date, food]);
     } else {
       await db.rawQuery(
-          "UPDATE summary SET foods = ? WHERE date = ? ", [food, date]);
+          "UPDATE summary SET foods = ? WHERE d-99ate = ? ", [food, date]);
     }
+  }
+
+  //GET SMOKE PROGRESS TABLE ELEMENTS
+  Future<List> getSmokeProgressTable() async {
+    var db = await instance.database;
+    var smokeProgressList = db.rawQuery("SELECT * FROM smoke_progress");
+
+    return smokeProgressList;
   }
 
   Future<List> getSummaryTable() async {
@@ -159,12 +167,5 @@ class DatabaseHelper {
     var nowDate = DateTime.now();
     String day = nowDate.day.toString() + " / " + nowDate.month.toString();
     return day;
-  }
-
-  //GET SMOKE PROGRESS TABLE ELEMENTS
-  Future<List> getSmokeProgressTable() async {
-    var db = await instance.database;
-    var smokeProgressList = db.rawQuery("SELECT * FROM smoke_progress");
-    return smokeProgressList;
   }
 }

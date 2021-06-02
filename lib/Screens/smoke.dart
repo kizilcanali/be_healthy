@@ -1,8 +1,13 @@
 import 'package:be_healthy/Widgets/smokePage/customSmokePageInfoCard.dart';
 import 'package:be_healthy/Widgets/smokePage/customSmokePageTopContainer.dart';
+import 'package:be_healthy/state_management.dart';
 import 'package:flutter/material.dart';
+import 'package:be_healthy/Services/database_helper.dart';
+import 'package:provider/provider.dart';
 
 class Smoke extends StatelessWidget {
+  DatabaseHelper dbHelper = DatabaseHelper.instance;
+  List returnedSmokeValues;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +24,12 @@ class Smoke extends StatelessWidget {
                 itemCount: 5,
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, int index) {
-                  return customSmokePageInfoCard();
+                  return customSmokePageInfoCard(
+                    context.read<Store>().smokeProgressData[index]
+                        ["appearing_text"],
+                    context.read<Store>().smokeProgressData[index]
+                        ["description"],
+                  );
                 },
               ),
             )

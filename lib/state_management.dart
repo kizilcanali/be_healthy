@@ -18,8 +18,15 @@ class Store extends ChangeNotifier {
   int _smokeCount;
   int _smokePrice;
 
+  //Smoke
+  List<dynamic> _smokeProgressData;
+
+  //Smoke get func
+  List<dynamic> get smokeProgressData => _smokeProgressData;
+
   //Nav index get func
   int get buttomNavIndex => _buttomNavIndex;
+
   //Water get funcs
   int get currentAmount => _currentAmount;
   int get target => _target;
@@ -27,6 +34,7 @@ class Store extends ChangeNotifier {
   int get smokeCount => _smokeCount;
   int get smokePrice => _smokePrice;
   List<dynamic> get summaryWater => _summaryWater;
+
   //Food get funcs
   List<dynamic> get mealsFromDBState => _mealsFromDBState;
   List<dynamic> get categories => _categories;
@@ -42,10 +50,15 @@ class Store extends ChangeNotifier {
       this._summaryWater,
       this._caloryTarget,
       this._smokeCount,
-      this._smokePrice);
+      this._smokePrice,
+      this._smokeProgressData);
+
+  void newSmokeProgress(List smokeProgress) async {
+    _smokeProgressData = smokeProgress;
+    notifyListeners();
+  }
 
   //TARGET SETTERS
-
   void newCaloryTarget(int caloryTarget) async {
     _caloryTarget = caloryTarget;
     await dbHelper.updateTargetValue("calory", _caloryTarget);
@@ -90,7 +103,7 @@ class Store extends ChangeNotifier {
 
   void newMeals(List newList) {
     _mealsFromDBState = newList;
-    print(_mealsFromDBState);
+    //print(_mealsFromDBState);
     notifyListeners();
   }
 

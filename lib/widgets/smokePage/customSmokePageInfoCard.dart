@@ -3,9 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class customSmokePageInfoCard extends StatelessWidget {
-  const customSmokePageInfoCard({
-    Key key,
-  }) : super(key: key);
+  final String appearingHour, description;
+
+  customSmokePageInfoCard(this.appearingHour, this.description);
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +33,13 @@ class customSmokePageInfoCard extends StatelessWidget {
             width: 30,
           ),
           Text(
-            "Kan Basıncı Normale Döndü",
+            "$appearingHour $description",
             style: GoogleFonts.notoSans(
               textStyle: TextStyle(
                 color: Colors.black,
-                fontSize: 18,
+                fontSize: 14,
               ),
             ),
-            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),

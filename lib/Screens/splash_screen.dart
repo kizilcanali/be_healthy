@@ -18,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   List categoriesList;
   List summaryFoods;
   List summaryWater;
+  List smokeProgressData;
 
   int smokeCount;
   int smokePrice;
@@ -45,9 +46,16 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> whenStarting() async {
     //await dbHelper.removeAll();
 
+    //TEST AREA
+
+    smokeProgressData = await dbHelper.getSmokeProgressTable();
+    context.read<Store>().newSmokeProgress(smokeProgressData);
+    print(smokeProgressData[0]);
+    //TEST AREA
+
     var isTargetsEmpty = await dbHelper.isTargetEmpty();
     if (isTargetsEmpty) {
-      print("girildi");
+      //print("girildi");
       await dbHelper.initialTargetAssigner();
     }
 
@@ -62,7 +70,7 @@ class _SplashScreenState extends State<SplashScreen> {
     String day = nowDate.day.toString() + " / " + nowDate.month.toString();
 
     List tempWaterList = [];
-    print("temp water list: $tempWaterList");
+    //print("temp water list: $tempWaterList");
     for (int i = 0; i < summaryWater.length; i++) {
       tempWaterList.add(
         {
@@ -72,13 +80,17 @@ class _SplashScreenState extends State<SplashScreen> {
         },
       );
     }
+    // BURADA VERDİĞİMİZ 0 DEĞERİNİ STATE DEN ÇEKİNCE HATA VERDİ FİXLENECEK.
     if (tempWaterList.length == 0 ||
         tempWaterList[tempWaterList.length - 1]["date"] != day) {
       tempWaterList.add(
         {
           "date": day,
           "current_amount": 0,
-          "target": 0,
+          "target": context
+                  .read<Store>()
+                  .summaryWater[context.read<Store>().summaryWater.length - 1]
+              ["target"],
         },
       );
       dbHelper.insertWater(0, 0);
