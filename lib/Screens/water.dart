@@ -3,7 +3,6 @@ import 'package:be_healthy/Widgets/waterPage/customWaterAmountButtons.dart';
 import 'package:be_healthy/Widgets/waterPage/customWaterPageHistoryCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 import '../state_management.dart';

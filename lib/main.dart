@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:be_healthy/routes.dart';
 import 'package:be_healthy/state_management.dart';
 import 'package:flutter/material.dart';

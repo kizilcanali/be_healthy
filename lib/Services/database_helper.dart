@@ -149,10 +149,11 @@ class DatabaseHelper {
   Future<int> getTargets(String selectedTarget) async {
     var db = await instance.database;
     var targets = await db.rawQuery("SELECT $selectedTarget FROM targets");
-    if (targets != null) {
+    print("targets : $targets");
+    if (targets.length != 0) {
       return targets[0][selectedTarget];
     }
-    return null;
+    return 0;
   }
 
   //Is Target table empty if yes return true.

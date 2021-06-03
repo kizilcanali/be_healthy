@@ -82,6 +82,7 @@ class Store extends ChangeNotifier {
     //print("state management _target value: $_target");
     await dbHelper.updateTargetValue("water", _target);
     await dbHelper.updateLastTarget(_target);
+    print("_summaryWater: $_summaryWater");
     _summaryWater[_summaryWater.length - 1]["target"] = _target;
     notifyListeners();
   }
@@ -134,9 +135,14 @@ class Store extends ChangeNotifier {
   }
 
   void addWaterToSummary(int currentAmount) {
-    _summaryWater[_summaryWater.length - 1]["current_amount"] += currentAmount;
-    newCurrentAmount(_summaryWater[_summaryWater.length - 1]["current_amount"]);
-    dbHelper.updateCurrentAmount(_currentAmount);
+    if (_target != 0) {
+      _summaryWater[_summaryWater.length - 1]["current_amount"] +=
+          currentAmount;
+      newCurrentAmount(
+          _summaryWater[_summaryWater.length - 1]["current_amount"]);
+      dbHelper.updateCurrentAmount(_currentAmount);
+    }
+
     //print(_summaryWater);
     notifyListeners();
   }

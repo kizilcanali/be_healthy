@@ -22,11 +22,10 @@ class _CustomProgressBarState extends State<CustomProgressBar> {
         percentage = ((context.watch<Store>().summaryWater[
                             context.watch<Store>().summaryWater.length - 1]
                         ["current_amount"] *
-                    100) ~/
+                    100) /
                 context.read<Store>().target)
             .toInt();
       }
-
       return percentage;
     }
 
