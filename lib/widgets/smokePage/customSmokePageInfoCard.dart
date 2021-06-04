@@ -32,13 +32,16 @@ class customSmokePageInfoCard extends StatelessWidget {
           SizedBox(
             width: 30,
           ),
-          Text(
-            "$appearingHour $description",
-            style: GoogleFonts.notoSans(
-              textStyle: TextStyle(
-                color: Colors.black,
-                fontSize: 14,
+          Flexible(
+            child: Text(
+              "$appearingHour $description",
+              style: GoogleFonts.notoSans(
+                textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                ),
               ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],

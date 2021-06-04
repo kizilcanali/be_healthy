@@ -1,10 +1,25 @@
+import 'dart:async';
 import 'package:be_healthy/Utilities/constants.dart';
+import 'package:be_healthy/Utilities/stopWatchBrain.dart';
 import 'package:flutter/material.dart';
 
-class CustomSmokePageTopContainer extends StatelessWidget {
+class CustomSmokePageTopContainer extends StatefulWidget {
   const CustomSmokePageTopContainer({
     Key key,
   }) : super(key: key);
+
+  @override
+  _CustomSmokePageTopContainerState createState() =>
+      _CustomSmokePageTopContainerState();
+}
+
+class _CustomSmokePageTopContainerState
+    extends State<CustomSmokePageTopContainer> {
+  Stream<int> timerStream;
+  StreamSubscription<int> timerSubscription;
+  String hourStr = "00";
+  String minutesStr = "00";
+  String secondsStr = "00";
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +44,32 @@ class CustomSmokePageTopContainer extends StatelessWidget {
             size: 92,
           ),
           Text(
-            "3g 16s 37d 23sn",
+            "$hourStr:$minutesStr:$secondsStr",
             style: TextStyle(
               color: Color(0xFFFA4A0C),
               fontSize: 48,
             ),
           ),
+          ElevatedButton(
+            onPressed: () {
+              timerStream = stopWatchStream();
+              timerSubscription = timerStream.listen((int newTick) {
+                setState(() {
+                  hourStr = ((newTick / (60 * 60)) % 60)
+                      .floor()
+                      .toString()
+                      .padLeft(2, "0");
+                  minutesStr =
+                      ((newTick / 60) % 60).floor().toString().padLeft(2, "0");
+                  secondsStr =
+                      (newTick % 60).floor().toString().padLeft(2, "0");
+                });
+              });
+            },
+            child: Text("BAS BANA"),
+          ),
           SizedBox(
-            height: 60,
+            height: 40,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
