@@ -17,6 +17,9 @@ class _CustomSmokePageTopContainerState
     extends State<CustomSmokePageTopContainer> {
   Stream<int> timerStream;
   StreamSubscription<int> timerSubscription;
+  String yearStr = "00";
+  String monthStr = "00";
+  String dayStr = "00";
   String hourStr = "00";
   String minutesStr = "00";
   String secondsStr = "00";
@@ -44,7 +47,7 @@ class _CustomSmokePageTopContainerState
             size: 92,
           ),
           Text(
-            "$hourStr:$minutesStr:$secondsStr",
+            "$yearStr:$monthStr:$dayStr:$hourStr:$minutesStr:$secondsStr",
             style: TextStyle(
               color: Color(0xFFFA4A0C),
               fontSize: 48,
@@ -55,6 +58,18 @@ class _CustomSmokePageTopContainerState
               timerStream = stopWatchStream();
               timerSubscription = timerStream.listen((int newTick) {
                 setState(() {
+                  yearStr = (newTick / (60 * 60 * 24 * 365) % 60)
+                      .floor()
+                      .toString()
+                      .padLeft(2, "0");
+                  monthStr = (newTick / (60 * 60 * 24 * 30) % 60)
+                      .floor()
+                      .toString()
+                      .padLeft(2, "0");
+                  dayStr = ((newTick / (60 * 60 * 24) % 60)
+                      .floor()
+                      .toString()
+                      .padLeft(2, "0"));
                   hourStr = ((newTick / (60 * 60)) % 60)
                       .floor()
                       .toString()
@@ -63,6 +78,7 @@ class _CustomSmokePageTopContainerState
                       ((newTick / 60) % 60).floor().toString().padLeft(2, "0");
                   secondsStr =
                       (newTick % 60).floor().toString().padLeft(2, "0");
+                  print("($newTick % 60 = $secondsStr");
                 });
               });
             },
