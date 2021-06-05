@@ -1,4 +1,3 @@
-import 'package:be_healthy/Widgets/profilePage/customProfilePageInfoCard.dart';
 import 'package:be_healthy/Widgets/profilePage/customProfileParameterCard.dart';
 import 'package:be_healthy/state_management.dart';
 import 'package:flutter/material.dart';

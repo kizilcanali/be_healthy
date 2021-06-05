@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class custom_enterence_page_button extends StatelessWidget {
-  String buttonText;
-  Function onPress;
-  custom_enterence_page_button({
+class Custom_enterence_page_button extends StatelessWidget {
+  final String buttonText;
+  final Function onPress;
+  Custom_enterence_page_button({
     this.buttonText,
     this.onPress,
   });

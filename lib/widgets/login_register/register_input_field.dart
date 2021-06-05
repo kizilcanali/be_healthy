@@ -40,7 +40,7 @@ class RegisterInputs extends StatelessWidget {
         SizedBox(
           height: 40,
         ),
-        custom_enterence_page_button(
+        Custom_enterence_page_button(
           buttonText: 'Kayıt Ol',
           onPress: () {
             print("${email.text} ${password.text}, ${name.text}");

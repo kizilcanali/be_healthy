@@ -6,8 +6,9 @@ import 'package:be_healthy/Services/database_helper.dart';
 import 'package:provider/provider.dart';
 
 class Smoke extends StatelessWidget {
-  DatabaseHelper dbHelper = DatabaseHelper.instance;
-  List returnedSmokeValues;
+  final DatabaseHelper dbHelper = DatabaseHelper.instance;
+  final List returnedSmokeValues = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +25,7 @@ class Smoke extends StatelessWidget {
                 itemCount: 5,
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, int index) {
-                  return customSmokePageInfoCard(
+                  return CustomSmokePageInfoCard(
                     context.read<Store>().smokeProgressData[index]
                         ["appearing_text"],
                     context.read<Store>().smokeProgressData[index]

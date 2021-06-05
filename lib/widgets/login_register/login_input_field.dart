@@ -31,7 +31,7 @@ class LoginInputs extends StatelessWidget {
         SizedBox(
           height: 60,
         ),
-        custom_enterence_page_button(
+        Custom_enterence_page_button(
           buttonText: 'Giriş Yap',
           onPress: () {
             authService.signedIn(

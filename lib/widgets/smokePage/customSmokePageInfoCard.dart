@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class customSmokePageInfoCard extends StatelessWidget {
+class CustomSmokePageInfoCard extends StatelessWidget {
   final String appearingHour, description;
 
-  customSmokePageInfoCard(this.appearingHour, this.description);
+  CustomSmokePageInfoCard(this.appearingHour, this.description);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class customSmokePageInfoCard extends StatelessWidget {
             backgroundColor: Color(0x80FA4A0C),
           ),
           SizedBox(
-            width: 30,
+            width: 10,
           ),
           Flexible(
             child: Text(

@@ -29,9 +29,23 @@ class ExpandableSummaryCard extends StatelessWidget {
                 width: 100,
                 height: 100,
               ),*/
+              SizedBox(
+                width: 10,
+              ),
               context.read<Store>().caloryTarget < totalCal
-                  ? Icon(Icons.sms_failed)
-                  : Icon(Icons.set_meal_outlined),
+                  ? Icon(
+                      Icons.thumb_up_off_alt,
+                      size: 50,
+                      color: Colors.green,
+                    )
+                  : Icon(
+                      Icons.thumb_down_off_alt,
+                      size: 50,
+                      color: Colors.red,
+                    ),
+              SizedBox(
+                width: 50,
+              ),
               Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

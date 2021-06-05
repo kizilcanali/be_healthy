@@ -21,7 +21,7 @@ class InDetailEatButton extends StatelessWidget {
               nowDate.day.toString() + " / " + nowDate.month.toString();
           context.read<Store>().addFoodsToSummary(day, meal);
 
-          var a = jsonEncode(
+          var lastFoodOfSummary = jsonEncode(
             context
                     .read<Store>()
                     .summaryFoods[context.read<Store>().summaryFoods.length - 1]
@@ -29,10 +29,10 @@ class InDetailEatButton extends StatelessWidget {
           );
 
           //a = a.substring(1, a.length);
-          print("Kaydettiğimiz $a");
+          //print("Kaydettiğimiz $a");
           await dbHelper.insertSummary(
             day,
-            a,
+            lastFoodOfSummary,
           );
         },
         child: Text(
