@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
     tempMealList = [];
     for (int i = 0; i < context.read<Store>().mealsFromDBState.length; i++) {
       if (context.read<Store>().mealsFromDBState[i]["category"] ==
-          context.read<Store>().mealsFromDBState[index]["category"]) {
+          context.read<Store>().categories[index]["category"]) {
         //mealsFromDBState[index] -> context.read<Store>().categories[index]["category"] ile değiştirilmeli. !!!!!
         tempMealList.add(context.read<Store>().mealsFromDBState[i]);
       }

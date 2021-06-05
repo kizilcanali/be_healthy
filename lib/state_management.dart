@@ -89,6 +89,7 @@ class Store extends ChangeNotifier {
 
   void newSummaryWater(List newWater) {
     _summaryWater = newWater;
+
     notifyListeners();
   }
 

@@ -14,10 +14,14 @@ Stream<int> stopWatchStream() {
     streamController.add(counter);
   }
 
-  void startStopWatch() {
+  void startStopWatch() async {
     //timer = Timer.periodic(timeInterval, tick);
-    var savedTime = dbHelper.getSavedSmokeTime();
+    List savedTime = await dbHelper.getSavedSmokeTime();
     var nowDate = DateTime.now();
+    /*
+    DateTime diff = DateTime.parse(savedTime[0]["saved_time"]);
+    Duration differenceBtwSavedNow = nowDate.difference(diff);
+    */
   }
 
   void stopStopWatch() {
