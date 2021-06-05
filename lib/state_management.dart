@@ -82,7 +82,7 @@ class Store extends ChangeNotifier {
     //print("state management _target value: $_target");
     await dbHelper.updateTargetValue("water", _target);
     await dbHelper.updateLastTarget(_target);
-    print("_summaryWater: $_summaryWater");
+    //print("_summaryWater: $_summaryWater");
     _summaryWater[_summaryWater.length - 1]["target"] = _target;
     notifyListeners();
   }

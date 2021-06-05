@@ -81,8 +81,8 @@ class _SplashScreenState extends State<SplashScreen> {
       );
     }
 
-    // BURADA VERDİĞİMİZ 0 DEĞERİNİ STATE DEN ÇEKİNCE HATA VERDİ FİXLENECEK.
-    print("target : $waterTarget");
+    //print("target : $waterTarget");
+    print("calory target: $caloryTarget");
     if (tempWaterList.length == 0 ||
         tempWaterList[tempWaterList.length - 1]["date"] != day) {
       tempWaterList.add(
@@ -94,10 +94,10 @@ class _SplashScreenState extends State<SplashScreen> {
       );
       dbHelper.insertWater(0, waterTarget);
     }
-    print("yeniden tempe bakalım eklemiş mi $tempWaterList");
+    //print("yeniden tempe bakalım eklemiş mi $tempWaterList");
 
     context.read<Store>().newSummaryWater(tempWaterList);
-    print(context.read<Store>().summaryWater);
+    //print(context.read<Store>().summaryWater);
     // GET TARGETS FROM DB
     context.read<Store>().newCaloryTarget(caloryTarget);
     context.read<Store>().newTarget(waterTarget);

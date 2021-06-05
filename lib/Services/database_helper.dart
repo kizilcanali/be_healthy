@@ -72,7 +72,7 @@ class DatabaseHelper {
           "INSERT INTO summary (date, foods) values(?,?)", [date, food]);
     } else {
       await db.rawQuery(
-          "UPDATE summary SET foods = ? WHERE d-99ate = ? ", [food, date]);
+          "UPDATE summary SET foods = ? WHERE date = ? ", [food, date]);
     }
   }
 
@@ -149,7 +149,7 @@ class DatabaseHelper {
   Future<int> getTargets(String selectedTarget) async {
     var db = await instance.database;
     var targets = await db.rawQuery("SELECT $selectedTarget FROM targets");
-    print("targets : $targets");
+    //print("targets : $targets");
     if (targets.length != 0) {
       return targets[0][selectedTarget];
     }

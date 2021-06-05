@@ -1,6 +1,8 @@
 import 'package:be_healthy/Utilities/constants.dart';
+import 'package:be_healthy/state_management.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class ExpandableSummaryCard extends StatelessWidget {
   final String dateText;
@@ -18,17 +20,18 @@ class ExpandableSummaryCard extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(25),
         child: ExpansionTile(
-          //trailing: Icon(Icons.arrow_downward),
-
           backgroundColor: Colors.white,
           collapsedBackgroundColor: Colors.white,
           title: Row(
             children: [
-              Lottie.asset(
+              /*Lottie.asset(
                 'assets/images/okayicon.json',
                 width: 100,
                 height: 100,
-              ),
+              ),*/
+              context.read<Store>().caloryTarget < totalCal
+                  ? Icon(Icons.sms_failed)
+                  : Icon(Icons.set_meal_outlined),
               Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
