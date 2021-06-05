@@ -19,6 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   List summaryFoods;
   List summaryWater;
   List smokeProgressData;
+  List x;
 
   @override
   void initState() {
@@ -41,11 +42,14 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> whenStarting() async {
     //await dbHelper.removeAll();
 
-    //TEST AREA
     smokeProgressData = await dbHelper.getSmokeProgressTable();
     context.read<Store>().newSmokeProgress(smokeProgressData);
-    //print(smokeProgressData[0]);
-    //TEST AREA
+
+    //print(smokeProgressData);
+    //-----------------------------TEST AREA ------------------------------------------
+    x = await dbHelper.getSavedSmokeTime();
+    print("db deki saved time: ${x[0]["saved_time"]}");
+    //-----------------------------TEST AREA ------------------------------------------
 
     int caloryTarget = await dbHelper.getTargets("calory");
     int waterTarget = await dbHelper.getTargets("water");

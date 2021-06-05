@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:be_healthy/Services/database_helper.dart';
 import 'package:be_healthy/Utilities/constants.dart';
 import 'package:be_healthy/Utilities/stopWatchBrain.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ class CustomSmokePageTopContainer extends StatefulWidget {
 
 class _CustomSmokePageTopContainerState
     extends State<CustomSmokePageTopContainer> {
+  DatabaseHelper dbHelper = DatabaseHelper.instance;
+
   Stream<int> timerStream;
   StreamSubscription<int> timerSubscription;
   String yearStr = "00";
@@ -54,8 +57,11 @@ class _CustomSmokePageTopContainerState
             ),
           ),
           ElevatedButton(
-            onPressed: () {
-              timerStream = stopWatchStream();
+            onPressed: () async {
+              await dbHelper
+                  .insertSavedTimeToDB(); //Save current time to db when pressed to the butt
+
+              /* timerStream = stopWatchStream();
               timerSubscription = timerStream.listen((int newTick) {
                 setState(() {
                   yearStr = (newTick / (60 * 60 * 24 * 365) % 60)
@@ -80,7 +86,7 @@ class _CustomSmokePageTopContainerState
                       (newTick % 60).floor().toString().padLeft(2, "0");
                   print("($newTick % 60 = $secondsStr");
                 });
-              });
+              });*/
             },
             child: Text("BAS BANA"),
           ),

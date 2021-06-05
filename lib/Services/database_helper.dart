@@ -132,6 +132,41 @@ class DatabaseHelper {
     await db.rawQuery("INSERT INTO targets values (0,0,0,0)");
   }
 
+  Future<void> insertSavedTimeToDB() async {
+    var db = await instance.database;
+    var now = DateTime.now();
+    String nowDate = now.year.toString().padLeft(2, "0") +
+        ":" +
+        now.month.toString().padLeft(2, "0") +
+        ":" +
+        now.day.toString().padLeft(2, "0") +
+        ":" +
+        now.hour.toString().padLeft(2, "0") +
+        ":" +
+        now.minute.toString().padLeft(2, "0") +
+        ":" +
+        now.second.toString().padLeft(2, "0");
+    print(nowDate);
+    var isExist = db.rawQuery("SELECT * FROM smoke_time_progress");
+    //print("is exist: ${isExist.toString()}");
+    if (isExist != null) {
+      print("varsa");
+      await db
+          .rawQuery("UPDATE smoke_time_progress SET saved_time = ?", [nowDate]);
+    } else {
+      print("yoksa");
+      await db.rawQuery(
+          "INSERT INTO smoke_time_progress (saved_time) values (?)", [nowDate]);
+    }
+  }
+
+  Future<List> getSavedSmokeTime() async {
+    var db = await instance.database;
+    var savedTime = await db.rawQuery("SELECT * FROM smoke_time_progress");
+    //print("saved time from db: $savedTime");
+    return savedTime;
+  }
+
   //Update the water table's last element's target value.
   Future<void> updateLastTarget(int newTarget) async {
     var db = await instance.database;

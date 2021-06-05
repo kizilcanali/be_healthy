@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:be_healthy/Services/database_helper.dart';
+
 Stream<int> stopWatchStream() {
+  DatabaseHelper dbHelper = DatabaseHelper.instance;
   StreamController<int> streamController;
   Timer timer;
   Duration timeInterval = Duration(seconds: 1);
@@ -12,7 +15,9 @@ Stream<int> stopWatchStream() {
   }
 
   void startStopWatch() {
-    timer = Timer.periodic(timeInterval, tick);
+    //timer = Timer.periodic(timeInterval, tick);
+    var savedTime = dbHelper.getSavedSmokeTime();
+    var nowDate = DateTime.now();
   }
 
   void stopStopWatch() {
