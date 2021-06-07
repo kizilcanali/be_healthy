@@ -13,18 +13,15 @@ class _CustomProgressBarState extends State<CustomProgressBar> {
   @override
   Widget build(BuildContext context) {
     int calculatePercent() {
+      var lastElementCurrentAmount = context
+              .watch<Store>()
+              .summaryWater[context.watch<Store>().summaryWater.length - 1]
+          ["current_amount"];
       int percentage = 0;
-      if (context
-                  .watch<Store>()
-                  .summaryWater[context.watch<Store>().summaryWater.length - 1]
-              ["current_amount"] !=
-          0) {
-        percentage = ((context.watch<Store>().summaryWater[
-                            context.watch<Store>().summaryWater.length - 1]
-                        ["current_amount"] *
-                    100) /
-                context.read<Store>().target)
-            .toInt();
+      if (lastElementCurrentAmount != 0) {
+        percentage =
+            ((lastElementCurrentAmount * 100) / context.read<Store>().target)
+                .toInt();
       }
       return percentage;
     }

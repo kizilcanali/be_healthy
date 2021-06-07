@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
     //print(smokeProgressData);
     //-----------------------------TEST AREA ------------------------------------------
     x = await dbHelper.getSavedSmokeTime();
-    print("db deki saved time: ${x[0]["saved_time"]}");
+    print("db deki saved time: $x");
     //-----------------------------TEST AREA ------------------------------------------
 
     int caloryTarget = await dbHelper.getTargets("calory");

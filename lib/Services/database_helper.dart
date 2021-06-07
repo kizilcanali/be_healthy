@@ -146,10 +146,10 @@ class DatabaseHelper {
         now.minute.toString().padLeft(2, "0") +
         ":" +
         now.second.toString().padLeft(2, "0");
-    print(nowDate);
-    var isExist = db.rawQuery("SELECT * FROM smoke_time_progress");
-    //print("is exist: ${isExist.toString()}");
-    if (isExist != null) {
+
+    Future<List> getSmokeTimeData = getSavedSmokeTime();
+    List isExist = await getSmokeTimeData;
+    if (isExist.length != 0) {
       print("varsa");
       await db
           .rawQuery("UPDATE smoke_time_progress SET saved_time = ?", [nowDate]);
@@ -163,7 +163,6 @@ class DatabaseHelper {
   Future<List> getSavedSmokeTime() async {
     var db = await instance.database;
     var savedTime = await db.rawQuery("SELECT * FROM smoke_time_progress");
-    //print("saved time from db: $savedTime");
     return savedTime;
   }
 
