@@ -18,10 +18,8 @@ Stream<int> stopWatchStream() {
     //timer = Timer.periodic(timeInterval, tick);
     List savedTime = await dbHelper.getSavedSmokeTime();
     var nowDate = DateTime.now();
-    /*
-    DateTime diff = DateTime.parse(savedTime[0]["saved_time"]);
-    Duration differenceBtwSavedNow = nowDate.difference(diff);
-    */
+    DateTime timeFromDB = DateTime.parse(savedTime[0]["saved_time"]);
+    var difference = nowDate.difference(timeFromDB).inSeconds;
   }
 
   void stopStopWatch() {

@@ -135,7 +135,8 @@ class DatabaseHelper {
   Future<void> insertSavedTimeToDB() async {
     var db = await instance.database;
     var now = DateTime.now();
-    String nowDate = now.year.toString().padLeft(2, "0") +
+    String nowDate = now.toString();
+    /*String nowDate = now.year.toString().padLeft(2, "0") +
         ":" +
         now.month.toString().padLeft(2, "0") +
         ":" +
@@ -146,9 +147,8 @@ class DatabaseHelper {
         now.minute.toString().padLeft(2, "0") +
         ":" +
         now.second.toString().padLeft(2, "0");
-
-    Future<List> getSmokeTimeData = getSavedSmokeTime();
-    List isExist = await getSmokeTimeData;
+*/
+    List isExist = await getSavedSmokeTime();
     if (isExist.length != 0) {
       print("varsa");
       await db

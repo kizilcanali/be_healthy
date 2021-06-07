@@ -40,6 +40,10 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> whenStarting() async {
+    //Take current time.
+    var nowDate = DateTime.now();
+    String day = nowDate.day.toString() + " / " + nowDate.month.toString();
+
     //await dbHelper.removeAll();
 
     smokeProgressData = await dbHelper.getSmokeProgressTable();
@@ -47,8 +51,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
     //print(smokeProgressData);
     //-----------------------------TEST AREA ------------------------------------------
-    x = await dbHelper.getSavedSmokeTime();
-    print("db deki saved time: $x");
+    //x = await dbHelper.getSavedSmokeTime();
+    //print("db deki saved time: $x");
+
     //-----------------------------TEST AREA ------------------------------------------
 
     int caloryTarget = await dbHelper.getTargets("calory");
@@ -68,10 +73,6 @@ class _SplashScreenState extends State<SplashScreen> {
     categoriesList = await dbHelper.getCategories();
     summaryFoods = await dbHelper.getSummaryTable();
     summaryWater = await dbHelper.getWaterTable();
-
-    //Take current time.
-    var nowDate = DateTime.now();
-    String day = nowDate.day.toString() + " / " + nowDate.month.toString();
 
     List tempWaterList = [];
     //print("temp water list: $tempWaterList");
