@@ -17,7 +17,10 @@ class Store extends ChangeNotifier {
   int _caloryTarget;
   int _smokeCount;
   int _smokePrice;
+  //Smoke clickedCheck
+  bool _isClicked = false;
 
+  bool get isClicked => _isClicked;
   //Smoke
   List<dynamic> _smokeProgressData;
 
@@ -51,7 +54,13 @@ class Store extends ChangeNotifier {
       this._caloryTarget,
       this._smokeCount,
       this._smokePrice,
-      this._smokeProgressData);
+      this._smokeProgressData,
+      this._isClicked);
+
+  void setIsClicked(bool clickedState) {
+    _isClicked = clickedState;
+    notifyListeners();
+  }
 
   void newSmokeProgress(List smokeProgress) async {
     _smokeProgressData = smokeProgress;

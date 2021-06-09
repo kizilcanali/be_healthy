@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:be_healthy/Services/database_helper.dart';
 import 'package:be_healthy/Utilities/constants.dart';
 import 'package:be_healthy/Utilities/stopWatchBrain.dart';
+import 'package:be_healthy/state_management.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CustomSmokePageTopContainer extends StatefulWidget {
   const CustomSmokePageTopContainer({
@@ -26,6 +28,31 @@ class _CustomSmokePageTopContainerState
   String hourStr = "00";
   String minutesStr = "00";
   String secondsStr = "00";
+  bool isClicked = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    var t = Timer.periodic(
+      Duration(seconds: 1),
+      (Timer timer) {
+        setState(
+          () {
+            startStopWatch();
+          },
+        );
+      },
+    );
+  }
+
+  Future<int> startStopWatch() async {
+    List savedTime = await dbHelper.getSavedSmokeTime();
+    var nowDate = DateTime.now();
+    DateTime timeFromDB = DateTime.parse(savedTime[0]["saved_time"]);
+    var difference = nowDate.difference(timeFromDB).inSeconds;
+    return difference;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +85,10 @@ class _CustomSmokePageTopContainerState
           ),
           ElevatedButton(
             onPressed: () async {
+              setState(() {
+                isClicked = !isClicked;
+              });
+
               await dbHelper
                   .insertSavedTimeToDB(); //Save current time to db when pressed to the butt
 
@@ -88,7 +119,9 @@ class _CustomSmokePageTopContainerState
                 });
               });*/
             },
-            child: Text("BAS BANA"),
+            child: context.watch<Store>().isClicked
+                ? Text("Zamanı Sıfırla")
+                : Text("Sayacı Başlat"),
           ),
           SizedBox(
             height: 40,
