@@ -19,7 +19,6 @@ class _SplashScreenState extends State<SplashScreen> {
   List summaryFoods;
   List summaryWater;
   List smokeProgressData;
-  List x;
 
   @override
   void initState() {
@@ -44,26 +43,24 @@ class _SplashScreenState extends State<SplashScreen> {
     var nowDate = DateTime.now();
     String day = nowDate.day.toString() + " / " + nowDate.month.toString();
 
-    //await dbHelper.removeAll();
+    List savedSmokeTimeTable = await dbHelper.getSavedSmokeTime();
+    print("smoke time table: $savedSmokeTimeTable");
+    if (savedSmokeTimeTable.length == 0) {
+      print("buradayım");
+      await dbHelper.initialIsClickedAssigner();
+    }
+    print(savedSmokeTimeTable);
 
     smokeProgressData = await dbHelper.getSmokeProgressTable();
     context.read<Store>().newSmokeProgress(smokeProgressData);
-
-    //print(smokeProgressData);
-    //-----------------------------TEST AREA ------------------------------------------
-    //x = await dbHelper.getSavedSmokeTime();
-    //print("db deki saved time: $x");
-    //-----------------------------TEST AREA ------------------------------------------
 
     int caloryTarget = await dbHelper.getTargets("calory");
     int waterTarget = await dbHelper.getTargets("water");
     int smokeCount = await dbHelper.getTargets("smoke_count");
     int smokePrice = await dbHelper.getTargets("smoke_price");
-    //print("water target :$waterTarget");
 
     var isTargetsEmpty = await dbHelper.isTargetEmpty();
     if (isTargetsEmpty) {
-      //print("girildi");
       await dbHelper.initialTargetAssigner();
     }
 
@@ -74,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen> {
     summaryWater = await dbHelper.getWaterTable();
 
     List tempWaterList = [];
-    //print("temp water list: $tempWaterList");
+
     for (int i = 0; i < summaryWater.length; i++) {
       tempWaterList.add(
         {
@@ -85,8 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
       );
     }
 
-    //print("target : $waterTarget");
-    print("calory target: $caloryTarget");
+    //print("calory target: $caloryTarget");
     if (tempWaterList.length == 0 ||
         tempWaterList[tempWaterList.length - 1]["date"] != day) {
       tempWaterList.add(
@@ -98,10 +94,9 @@ class _SplashScreenState extends State<SplashScreen> {
       );
       dbHelper.insertWater(0, waterTarget);
     }
-    //print("yeniden tempe bakalım eklemiş mi $tempWaterList");
 
     context.read<Store>().newSummaryWater(tempWaterList);
-    //print(context.read<Store>().summaryWater);
+
     // GET TARGETS FROM DB
     context.read<Store>().newCaloryTarget(caloryTarget);
     context.read<Store>().newTarget(waterTarget);

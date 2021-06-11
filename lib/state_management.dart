@@ -17,10 +17,7 @@ class Store extends ChangeNotifier {
   int _caloryTarget;
   int _smokeCount;
   int _smokePrice;
-  //Smoke clickedCheck
-  bool _isClicked = false;
 
-  bool get isClicked => _isClicked;
   //Smoke
   List<dynamic> _smokeProgressData;
 
@@ -44,23 +41,18 @@ class Store extends ChangeNotifier {
   List<dynamic> get summaryFoods => _summaryFoods;
 
   Store(
-      this._buttomNavIndex,
-      this._mealsFromDBState,
-      this._categories,
-      this._summaryFoods,
-      this._currentAmount,
-      this._target,
-      this._summaryWater,
-      this._caloryTarget,
-      this._smokeCount,
-      this._smokePrice,
-      this._smokeProgressData,
-      this._isClicked);
-
-  void setIsClicked(bool clickedState) {
-    _isClicked = clickedState;
-    notifyListeners();
-  }
+    this._buttomNavIndex,
+    this._mealsFromDBState,
+    this._categories,
+    this._summaryFoods,
+    this._currentAmount,
+    this._target,
+    this._summaryWater,
+    this._caloryTarget,
+    this._smokeCount,
+    this._smokePrice,
+    this._smokeProgressData,
+  );
 
   void newSmokeProgress(List smokeProgress) async {
     _smokeProgressData = smokeProgress;

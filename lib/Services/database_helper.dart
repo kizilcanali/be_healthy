@@ -80,7 +80,6 @@ class DatabaseHelper {
   Future<List> getSmokeProgressTable() async {
     var db = await instance.database;
     var smokeProgressList = db.rawQuery("SELECT * FROM smoke_progress");
-
     return smokeProgressList;
   }
 
@@ -132,31 +131,34 @@ class DatabaseHelper {
     await db.rawQuery("INSERT INTO targets values (0,0,0,0)");
   }
 
+  Future<int> insertIsClicked(int newState) async {
+    var db = await instance.database;
+    //BOŞKEN NULL DONMUYOR OLABİLİR DİKKAT EDİLECEK
+
+    await db
+        .rawQuery("UPDATE smoke_time_progress SET is_clicked = ?", [newState]);
+
+    return newState;
+  }
+
+  Future<void> initialIsClickedAssigner() async {
+    var db = await instance.database;
+    //List isExist = await getSavedSmokeTime();
+    await db.rawQuery(
+      "INSERT INTO smoke_time_progress values (0,0)",
+    );
+  }
+
   Future<void> insertSavedTimeToDB() async {
     var db = await instance.database;
     var now = DateTime.now();
     String nowDate = now.toString();
-    /*String nowDate = now.year.toString().padLeft(2, "0") +
-        ":" +
-        now.month.toString().padLeft(2, "0") +
-        ":" +
-        now.day.toString().padLeft(2, "0") +
-        ":" +
-        now.hour.toString().padLeft(2, "0") +
-        ":" +
-        now.minute.toString().padLeft(2, "0") +
-        ":" +
-        now.second.toString().padLeft(2, "0");
-*/
+
     List isExist = await getSavedSmokeTime();
     if (isExist.length != 0) {
       print("varsa");
       await db
           .rawQuery("UPDATE smoke_time_progress SET saved_time = ?", [nowDate]);
-    } else {
-      print("yoksa");
-      await db.rawQuery(
-          "INSERT INTO smoke_time_progress (saved_time) values (?)", [nowDate]);
     }
   }
 

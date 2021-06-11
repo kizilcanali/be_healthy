@@ -20,8 +20,6 @@ class _CustomSmokePageTopContainerState
     extends State<CustomSmokePageTopContainer> {
   DatabaseHelper dbHelper = DatabaseHelper.instance;
 
-  Stream<int> timerStream;
-  StreamSubscription<int> timerSubscription;
   String yearStr = "00";
   String monthStr = "00";
   String dayStr = "00";
@@ -29,28 +27,52 @@ class _CustomSmokePageTopContainerState
   String minutesStr = "00";
   String secondsStr = "00";
   bool isClicked = false;
-
+  List savedSmokeTimeTable = [];
+  int isClickedValue;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    getInitialValues();
+
     var t = Timer.periodic(
       Duration(seconds: 1),
       (Timer timer) {
         setState(
           () {
-            startStopWatch();
+            if (isClickedValue == 1) {
+              startStopWatch();
+            }
           },
         );
       },
     );
   }
 
-  Future<int> startStopWatch() async {
-    List savedTime = await dbHelper.getSavedSmokeTime();
+  Future<void> getInitialValues() async {
+    savedSmokeTimeTable = await dbHelper.getSavedSmokeTime();
+    isClickedValue = savedSmokeTimeTable[0]["is_clicked"];
+    print("initteki saved db $savedSmokeTimeTable");
+  }
+
+  int startStopWatch() {
     var nowDate = DateTime.now();
-    DateTime timeFromDB = DateTime.parse(savedTime[0]["saved_time"]);
+    DateTime timeFromDB = DateTime.parse(savedSmokeTimeTable[0]["saved_time"]);
     var difference = nowDate.difference(timeFromDB).inSeconds;
+    yearStr = (difference / (60 * 60 * 24 * 365) % 60)
+        .floor()
+        .toString()
+        .padLeft(2, "0");
+    monthStr = (difference / (60 * 60 * 24 * 30) % 60)
+        .floor()
+        .toString()
+        .padLeft(2, "0");
+    dayStr =
+        ((difference / (60 * 60 * 24) % 60).floor().toString().padLeft(2, "0"));
+    hourStr =
+        ((difference / (60 * 60)) % 60).floor().toString().padLeft(2, "0");
+    minutesStr = ((difference / 60) % 60).floor().toString().padLeft(2, "0");
+    secondsStr = (difference % 60).floor().toString().padLeft(2, "0");
+
     return difference;
   }
 
@@ -85,43 +107,21 @@ class _CustomSmokePageTopContainerState
           ),
           ElevatedButton(
             onPressed: () async {
+              //Save current time to db when pressed to the butt
+              await dbHelper.insertSavedTimeToDB();
+              var newState = isClickedValue == 0
+                  ? await dbHelper.insertIsClicked(1)
+                  : await dbHelper.insertIsClicked(0);
+
               setState(() {
-                isClicked = !isClicked;
+                isClickedValue = newState;
               });
 
-              await dbHelper
-                  .insertSavedTimeToDB(); //Save current time to db when pressed to the butt
-
-              /* timerStream = stopWatchStream();
-              timerSubscription = timerStream.listen((int newTick) {
-                setState(() {
-                  yearStr = (newTick / (60 * 60 * 24 * 365) % 60)
-                      .floor()
-                      .toString()
-                      .padLeft(2, "0");
-                  monthStr = (newTick / (60 * 60 * 24 * 30) % 60)
-                      .floor()
-                      .toString()
-                      .padLeft(2, "0");
-                  dayStr = ((newTick / (60 * 60 * 24) % 60)
-                      .floor()
-                      .toString()
-                      .padLeft(2, "0"));
-                  hourStr = ((newTick / (60 * 60)) % 60)
-                      .floor()
-                      .toString()
-                      .padLeft(2, "0");
-                  minutesStr =
-                      ((newTick / 60) % 60).floor().toString().padLeft(2, "0");
-                  secondsStr =
-                      (newTick % 60).floor().toString().padLeft(2, "0");
-                  print("($newTick % 60 = $secondsStr");
-                });
-              });*/
+              print(isClickedValue);
             },
-            child: context.watch<Store>().isClicked
-                ? Text("Zamanı Sıfırla")
-                : Text("Sayacı Başlat"),
+            child: isClickedValue == 0
+                ? Text("Sayacı Başlat")
+                : Text("Sayacı Sıfırla"),
           ),
           SizedBox(
             height: 40,
