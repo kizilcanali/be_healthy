@@ -29,12 +29,13 @@ class _CustomSmokePageTopContainerState
   bool isClicked = false;
   List savedSmokeTimeTable = [];
   int isClickedValue;
+  Timer t;
   @override
   void initState() {
     super.initState();
     getInitialValues();
 
-    var t = Timer.periodic(
+    t = Timer.periodic(
       Duration(seconds: 1),
       (Timer timer) {
         setState(
@@ -46,6 +47,12 @@ class _CustomSmokePageTopContainerState
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    t.cancel();
   }
 
   Future<void> getInitialValues() async {
@@ -117,7 +124,7 @@ class _CustomSmokePageTopContainerState
                 isClickedValue = newState;
               });
 
-              print(isClickedValue);
+              //print(isClickedValue);
             },
             child: isClickedValue == 0
                 ? Text("Sayacı Başlat")
