@@ -43,14 +43,6 @@ class _SplashScreenState extends State<SplashScreen> {
     var nowDate = DateTime.now();
     String day = nowDate.day.toString() + " / " + nowDate.month.toString();
 
-    List savedSmokeTimeTable = await dbHelper.getSavedSmokeTime();
-    print("smoke time table: $savedSmokeTimeTable");
-    if (savedSmokeTimeTable.length == 0) {
-      print("buradayım");
-      await dbHelper.initialIsClickedAssigner();
-    }
-    print(savedSmokeTimeTable);
-
     smokeProgressData = await dbHelper.getSmokeProgressTable();
     context.read<Store>().newSmokeProgress(smokeProgressData);
 

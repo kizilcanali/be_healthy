@@ -133,8 +133,6 @@ class DatabaseHelper {
 
   Future<int> insertIsClicked(int newState) async {
     var db = await instance.database;
-    //BOŞKEN NULL DONMUYOR OLABİLİR DİKKAT EDİLECEK
-
     await db
         .rawQuery("UPDATE smoke_time_progress SET is_clicked = ?", [newState]);
 
@@ -143,13 +141,21 @@ class DatabaseHelper {
 
   Future<void> initialIsClickedAssigner() async {
     var db = await instance.database;
-    //List isExist = await getSavedSmokeTime();
+    String x = "0000-00-00 00:00:00.0000";
     await db.rawQuery(
-      "INSERT INTO smoke_time_progress values (0,0)",
+      "INSERT INTO smoke_time_progress values (?,?)",
+      [x, 0],
     );
   }
 
-  Future<void> insertSavedTimeToDB() async {
+  Future<String> updateSavedTime() async {
+    var db = await instance.database;
+    await db.rawQuery("UPDATE smoke_time_progress SET saved_time = ?",
+        ["0000-00-00 00:00:00.0000"]);
+    return "0000-00-00 00:00:00.0000";
+  }
+
+  Future<String> insertSavedTimeToDB() async {
     var db = await instance.database;
     var now = DateTime.now();
     String nowDate = now.toString();
@@ -160,6 +166,7 @@ class DatabaseHelper {
       await db
           .rawQuery("UPDATE smoke_time_progress SET saved_time = ?", [nowDate]);
     }
+    return nowDate;
   }
 
   Future<List> getSavedSmokeTime() async {

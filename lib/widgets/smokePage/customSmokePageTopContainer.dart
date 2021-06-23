@@ -3,6 +3,7 @@ import 'package:be_healthy/Services/database_helper.dart';
 import 'package:be_healthy/Utilities/constants.dart';
 import 'package:be_healthy/Utilities/stopWatchBrain.dart';
 import 'package:be_healthy/state_management.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,25 +27,45 @@ class _CustomSmokePageTopContainerState
   String hourStr = "00";
   String minutesStr = "00";
   String secondsStr = "00";
+
+  int smokePriceText = 0;
+  int smokeAmountText = 0;
+  String smokePriceTextString = "0";
+  String smokeAmountTextString = "0";
   bool isClicked = false;
+
   List savedSmokeTimeTable = [];
+  List forCheckIsClicked = [];
   int isClickedValue;
   Timer t;
+  DateTime timeFromDB;
+  String totalString = "";
+
   @override
   void initState() {
     super.initState();
+
     getInitialValues();
 
     t = Timer.periodic(
       Duration(seconds: 1),
       (Timer timer) {
-        setState(
-          () {
-            if (isClickedValue == 1) {
-              startStopWatch();
-            }
-          },
-        );
+        setState(() {
+          if (isClickedValue == 1) {
+            startStopWatch();
+
+            //print(context.read<Store>().smokeCount);
+            smokeAmountTextString = minutelyInfoCalculator(
+                context.read<Store>().smokeCount, smokeAmountText);
+
+            smokePriceTextString = minutelyInfoCalculator(
+                context.read<Store>().smokePrice, smokePriceText);
+          } else {
+            totalString = "00:00:00:00:00:00";
+            smokePriceTextString = "0";
+            smokeAmountTextString = "0";
+          }
+        });
       },
     );
   }
@@ -58,12 +79,13 @@ class _CustomSmokePageTopContainerState
   Future<void> getInitialValues() async {
     savedSmokeTimeTable = await dbHelper.getSavedSmokeTime();
     isClickedValue = savedSmokeTimeTable[0]["is_clicked"];
-    print("initteki saved db $savedSmokeTimeTable");
+    //print(savedSmokeTimeTable);
   }
 
   int startStopWatch() {
     var nowDate = DateTime.now();
-    DateTime timeFromDB = DateTime.parse(savedSmokeTimeTable[0]["saved_time"]);
+    timeFromDB = DateTime.parse(savedSmokeTimeTable[0]["saved_time"]);
+
     var difference = nowDate.difference(timeFromDB).inSeconds;
     yearStr = (difference / (60 * 60 * 24 * 365) % 60)
         .floor()
@@ -80,7 +102,27 @@ class _CustomSmokePageTopContainerState
     minutesStr = ((difference / 60) % 60).floor().toString().padLeft(2, "0");
     secondsStr = (difference % 60).floor().toString().padLeft(2, "0");
 
+    totalString = "$yearStr:$monthStr:$dayStr:$hourStr:$minutesStr:$secondsStr";
     return difference;
+  }
+
+  void resetTimer() async {
+    await dbHelper.updateSavedTime();
+  }
+
+  String minutelyInfoCalculator(var fromStateTarget, int text) {
+    int oneMinAmount = 0;
+    if (fromStateTarget == 0) {
+      text = 0;
+    } else {
+      oneMinAmount = (fromStateTarget / 1440).toInt();
+      if ((startStopWatch() % 60) == 0) {
+        setState(() {
+          text += oneMinAmount;
+        });
+      }
+    }
+    return text.toString();
   }
 
   @override
@@ -106,7 +148,7 @@ class _CustomSmokePageTopContainerState
             size: 92,
           ),
           Text(
-            "$yearStr:$monthStr:$dayStr:$hourStr:$minutesStr:$secondsStr",
+            totalString,
             style: TextStyle(
               color: Color(0xFFFA4A0C),
               fontSize: 48,
@@ -114,19 +156,25 @@ class _CustomSmokePageTopContainerState
           ),
           ElevatedButton(
             onPressed: () async {
-              //Save current time to db when pressed to the butt
-              await dbHelper.insertSavedTimeToDB();
-              var newState = isClickedValue == 0
-                  ? await dbHelper.insertIsClicked(1)
-                  : await dbHelper.insertIsClicked(0);
+              var newState;
+
+              if (isClickedValue == 0) {
+                newState = await dbHelper.insertIsClicked(1);
+                await dbHelper.insertSavedTimeToDB();
+                print("if = 0 isClicked $newState");
+                getInitialValues();
+              } else {
+                newState = await dbHelper.insertIsClicked(0);
+                resetTimer();
+
+                print("if = 1 isClicked $newState");
+              }
 
               setState(() {
                 isClickedValue = newState;
               });
-
-              //print(isClickedValue);
             },
-            child: isClickedValue == 0
+            child: isClickedValue == 0 || isClickedValue == null
                 ? Text("Sayacı Başlat")
                 : Text("Sayacı Sıfırla"),
           ),
@@ -139,7 +187,7 @@ class _CustomSmokePageTopContainerState
               Column(
                 children: [
                   Text(
-                    "25",
+                    smokeAmountTextString,
                     style: kSmokePageParameterStyleNumeric,
                   ),
                   Text(
@@ -151,7 +199,7 @@ class _CustomSmokePageTopContainerState
               Column(
                 children: [
                   Text(
-                    "20TL",
+                    smokePriceTextString,
                     style: kSmokePageParameterStyleNumeric,
                   ),
                   Text(

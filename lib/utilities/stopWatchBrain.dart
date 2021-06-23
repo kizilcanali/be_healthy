@@ -1,39 +1,36 @@
 import 'dart:async';
-
 import 'package:be_healthy/Services/database_helper.dart';
 
-class stopWatchBrain {
+class StopWatchBrain {
   DatabaseHelper dbHelper = DatabaseHelper.instance;
-}
+/*
+  Stream<int> stopWatchStream() {
+    StreamController<int> streamController;
+    Timer timer;
+    Duration timeInterval = Duration(seconds: 1);
+    int counter = 0;
 
-
-
-
-
-/*Stream<int> stopWatchStream() {
-  
-  //StreamController<int> streamController;
-  //Timer timer;
-  //Duration timeInterval = Duration(seconds: 1);
-  //int counter = 0;
-
-  /*void tick(_) {
-    counter += 1;
-    streamController.add(counter);
-  }*/
-  
-  /* void stopStopWatch() {
-    if (timer != null) {
-      timer.cancel();
-      timer = null;
-      counter = 0;
-      streamController.close();
+    void tick(_) {
+      counter++;
+      streamController.add(counter);
     }
-  }
 
-  streamController =
-      StreamController<int>(onListen: startStopWatch, onCancel: stopStopWatch);
+   void startStopWatch() {
+      timer = Timer.periodic(timeInterval, tick);
+    }
 
-  return streamController.stream;*/
+    void stopStopWatch() {
+      if (timer != null) {
+        timer.cancel();
+        timer = null;
+        counter = 0;
+        streamController.close();
+      }
+    }
+
+    streamController = StreamController<int>(
+        onListen: startStopWatch, onCancel: stopStopWatch);
+
+    return streamController.stream;
+  }*/
 }
-*/
