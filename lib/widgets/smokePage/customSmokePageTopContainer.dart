@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:be_healthy/Services/database_helper.dart';
 import 'package:be_healthy/Utilities/constants.dart';
-import 'package:be_healthy/Utilities/stopWatchBrain.dart';
 import 'package:be_healthy/state_management.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +27,8 @@ class _CustomSmokePageTopContainerState
   String minutesStr = "00";
   String secondsStr = "00";
 
-  int smokePriceText = 0;
-  int smokeAmountText = 0;
+  double smokePriceText = 0;
+  double smokeAmountText = 0;
   String smokePriceTextString = "0";
   String smokeAmountTextString = "0";
   bool isClicked = false;
@@ -54,12 +53,18 @@ class _CustomSmokePageTopContainerState
           if (isClickedValue == 1) {
             startStopWatch();
 
-            //print(context.read<Store>().smokeCount);
-            smokeAmountTextString = minutelyInfoCalculator(
-                context.read<Store>().smokeCount, smokeAmountText);
+            if (context.read<Store>().smokeCount != 0 &&
+                startStopWatch() % 60 == 0) {
+              smokeAmountTextString =
+                  ((context.read<Store>().smokeCount / 1440) *
+                          (startStopWatch() / 60))
+                      .toString();
+            }
 
-            smokePriceTextString = minutelyInfoCalculator(
+            /*smokePriceTextString = minutelyInfoCalculator(
                 context.read<Store>().smokePrice, smokePriceText);
+
+            smokePriceText = double.parse(smokePriceTextString);*/
           } else {
             totalString = "00:00:00:00:00:00";
             smokePriceTextString = "0";
@@ -87,6 +92,7 @@ class _CustomSmokePageTopContainerState
     timeFromDB = DateTime.parse(savedSmokeTimeTable[0]["saved_time"]);
 
     var difference = nowDate.difference(timeFromDB).inSeconds;
+
     yearStr = (difference / (60 * 60 * 24 * 365) % 60)
         .floor()
         .toString()
@@ -110,18 +116,19 @@ class _CustomSmokePageTopContainerState
     await dbHelper.updateSavedTime();
   }
 
-  String minutelyInfoCalculator(var fromStateTarget, int text) {
-    int oneMinAmount = 0;
+  String minutelyInfoCalculator(int fromStateTarget, double text) {
+    double oneMinAmount = 0;
+    double howMuchMinHave = startStopWatch() / 60;
     if (fromStateTarget == 0) {
       text = 0;
     } else {
-      oneMinAmount = (fromStateTarget / 1440).toInt();
+      oneMinAmount = (fromStateTarget / 1440);
+      //print("one min amount: $oneMinAmount");
       if ((startStopWatch() % 60) == 0) {
-        setState(() {
-          text += oneMinAmount;
-        });
+        text = oneMinAmount * howMuchMinHave;
       }
     }
+    //print("selam ben text: $text");
     return text.toString();
   }
 
