@@ -34,7 +34,7 @@ class _CustomSmokePageTopContainerState
   bool isClicked = false;
 
   List savedSmokeTimeTable = [];
-  List forCheckIsClicked = [];
+  List smokeProgressStatTable = [];
   int isClickedValue;
   Timer t;
   DateTime timeFromDB;
@@ -52,19 +52,19 @@ class _CustomSmokePageTopContainerState
         setState(() {
           if (isClickedValue == 1) {
             startStopWatch();
+            double oneMinAmountCount = context.read<Store>().smokeCount / 1440;
+            double oneMinAmountPrice = context.read<Store>().smokePrice / 1440;
 
-            if (context.read<Store>().smokeCount != 0 &&
-                startStopWatch() % 60 == 0) {
-              smokeAmountTextString =
-                  ((context.read<Store>().smokeCount / 1440) *
-                          (startStopWatch() / 60))
-                      .toString();
+            if (startStopWatch() % 60 == 0) {
+              print("buradayım");
+              smokeAmountText = oneMinAmountCount * (startStopWatch() / 60);
+              smokePriceText = oneMinAmountPrice * (startStopWatch() / 60);
+              print("smoke amount $smokeAmountText");
+              saveStatsToDB(smokePriceText, smokeAmountText);
             }
-
-            /*smokePriceTextString = minutelyInfoCalculator(
-                context.read<Store>().smokePrice, smokePriceText);
-
-            smokePriceText = double.parse(smokePriceTextString);*/
+            context.read<Store>().setDifferenceBetweenTime(startStopWatch());
+            /*minutelyInfoCalculator(
+                context.read<Store>().smokeCount, smokeAmountText);*/
           } else {
             totalString = "00:00:00:00:00:00";
             smokePriceTextString = "0";
@@ -78,13 +78,21 @@ class _CustomSmokePageTopContainerState
   @override
   void dispose() {
     super.dispose();
+
     t.cancel();
   }
 
   Future<void> getInitialValues() async {
     savedSmokeTimeTable = await dbHelper.getSavedSmokeTime();
+    smokeProgressStatTable = await dbHelper.getSmokeProgressData();
+
     isClickedValue = savedSmokeTimeTable[0]["is_clicked"];
-    //print(savedSmokeTimeTable);
+    smokeAmountText = (smokeProgressStatTable[0]["smoke_count"]).toDouble();
+    smokePriceText = (smokeProgressStatTable[0]["smoke_price"]).toDouble();
+  }
+
+  void saveStatsToDB(double price, double count) async {
+    await dbHelper.updateSmokeProgressData(price, count);
   }
 
   int startStopWatch() {
@@ -109,27 +117,17 @@ class _CustomSmokePageTopContainerState
     secondsStr = (difference % 60).floor().toString().padLeft(2, "0");
 
     totalString = "$yearStr:$monthStr:$dayStr:$hourStr:$minutesStr:$secondsStr";
+
     return difference;
   }
 
   void resetTimer() async {
     await dbHelper.updateSavedTime();
-  }
-
-  String minutelyInfoCalculator(int fromStateTarget, double text) {
-    double oneMinAmount = 0;
-    double howMuchMinHave = startStopWatch() / 60;
-    if (fromStateTarget == 0) {
-      text = 0;
-    } else {
-      oneMinAmount = (fromStateTarget / 1440);
-      //print("one min amount: $oneMinAmount");
-      if ((startStopWatch() % 60) == 0) {
-        text = oneMinAmount * howMuchMinHave;
-      }
-    }
-    //print("selam ben text: $text");
-    return text.toString();
+    await dbHelper.updateSmokeProgressData(0, 0);
+    setState(() {
+      smokeAmountText = 0;
+      smokePriceText = 0;
+    });
   }
 
   @override
@@ -168,13 +166,10 @@ class _CustomSmokePageTopContainerState
               if (isClickedValue == 0) {
                 newState = await dbHelper.insertIsClicked(1);
                 await dbHelper.insertSavedTimeToDB();
-                print("if = 0 isClicked $newState");
                 getInitialValues();
               } else {
                 newState = await dbHelper.insertIsClicked(0);
                 resetTimer();
-
-                print("if = 1 isClicked $newState");
               }
 
               setState(() {
@@ -194,7 +189,7 @@ class _CustomSmokePageTopContainerState
               Column(
                 children: [
                   Text(
-                    smokeAmountTextString,
+                    smokeAmountText.toString(),
                     style: kSmokePageParameterStyleNumeric,
                   ),
                   Text(
@@ -206,7 +201,7 @@ class _CustomSmokePageTopContainerState
               Column(
                 children: [
                   Text(
-                    smokePriceTextString,
+                    smokePriceText.toString() + "TL",
                     style: kSmokePageParameterStyleNumeric,
                   ),
                   Text(

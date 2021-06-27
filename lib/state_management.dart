@@ -18,11 +18,14 @@ class Store extends ChangeNotifier {
   int _smokeCount;
   int _smokePrice;
 
+  int _differenceBetweenTime;
+
   //Smoke
   List<dynamic> _smokeProgressData;
 
   //Smoke get func
   List<dynamic> get smokeProgressData => _smokeProgressData;
+  int get differenceBetweenTime => _differenceBetweenTime;
 
   //Nav index get func
   int get buttomNavIndex => _buttomNavIndex;
@@ -41,18 +44,23 @@ class Store extends ChangeNotifier {
   List<dynamic> get summaryFoods => _summaryFoods;
 
   Store(
-    this._buttomNavIndex,
-    this._mealsFromDBState,
-    this._categories,
-    this._summaryFoods,
-    this._currentAmount,
-    this._target,
-    this._summaryWater,
-    this._caloryTarget,
-    this._smokeCount,
-    this._smokePrice,
-    this._smokeProgressData,
-  );
+      this._buttomNavIndex,
+      this._mealsFromDBState,
+      this._categories,
+      this._summaryFoods,
+      this._currentAmount,
+      this._target,
+      this._summaryWater,
+      this._caloryTarget,
+      this._smokeCount,
+      this._smokePrice,
+      this._smokeProgressData,
+      this._differenceBetweenTime);
+
+  void setDifferenceBetweenTime(int diff) async {
+    _differenceBetweenTime = diff;
+    notifyListeners();
+  }
 
   void newSmokeProgress(List smokeProgress) async {
     _smokeProgressData = smokeProgress;

@@ -22,15 +22,15 @@ class Smoke extends StatelessWidget {
             SizedBox(
               height: 325,
               child: ListView.builder(
-                itemCount: 5,
+                itemCount: context.read<Store>().smokeProgressData.length,
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, int index) {
                   return CustomSmokePageInfoCard(
-                    context.read<Store>().smokeProgressData[index]
-                        ["appearing_text"],
-                    context.read<Store>().smokeProgressData[index]
-                        ["description"],
-                  );
+                      context.read<Store>().smokeProgressData[index]
+                          ["appearing_text"],
+                      context.read<Store>().smokeProgressData[index]
+                          ["description"],
+                      context.read<Store>().smokeProgressData[index]["hour"]);
                 },
               ),
             )

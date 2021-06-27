@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
   final int targetCalory = 0;
   final int smokeCount = 0;
   final int smokePrice = 0;
+  final int differenceBetweenTime = 0;
 
   final List<dynamic> smokeProgressData = [];
   @override
@@ -30,18 +31,18 @@ class MyApp extends StatelessWidget {
       providers: [
         ListenableProvider<Store>(
           create: (_) => Store(
-            index,
-            meals,
-            categories,
-            summaryFoods,
-            currentWater,
-            targetWater,
-            summaryWater,
-            targetCalory,
-            smokeCount,
-            smokePrice,
-            smokeProgressData,
-          ),
+              index,
+              meals,
+              categories,
+              summaryFoods,
+              currentWater,
+              targetWater,
+              summaryWater,
+              targetCalory,
+              smokeCount,
+              smokePrice,
+              smokeProgressData,
+              differenceBetweenTime),
         ),
       ],
       child: MaterialApp(

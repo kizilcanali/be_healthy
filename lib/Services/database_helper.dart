@@ -207,6 +207,20 @@ class DatabaseHelper {
     return targets.length == 0;
   }
 
+  Future<void> updateSmokeProgressData(
+      double priceStat, double countStat) async {
+    var db = await instance.database;
+    await db.rawQuery(
+        "UPDATE smoke_progress_stats SET smoke_price = ?, smoke_count = ?",
+        [priceStat, countStat]);
+  }
+
+  Future<List> getSmokeProgressData() async {
+    var db = await instance.database;
+    var progress = await db.query("smoke_progress_stats");
+    return progress;
+  }
+
   String getDate() {
     var nowDate = DateTime.now();
     String day = nowDate.day.toString() + " / " + nowDate.month.toString();

@@ -23,6 +23,6 @@ const kProfileInfoTextStyle = TextStyle(
   fontSize: 24,
 );
 const kSmokePageParameterStyleNumeric =
-    TextStyle(fontSize: 48, color: Colors.white);
+    TextStyle(fontSize: 12, color: Colors.white);
 const kSmokePageParameterStyleText =
     TextStyle(fontSize: 14, color: Color(0xFFADADAF));
