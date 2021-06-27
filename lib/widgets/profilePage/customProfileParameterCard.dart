@@ -25,68 +25,70 @@ class _CustomProfileParameterEditCardState
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
-      child: Stack(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 80),
-            width: double.infinity,
-            height: 140,
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: Stack(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 80),
+              width: double.infinity,
+              height: 140,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+              ),
             ),
-          ),
-          Positioned(
-            top: 50,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 80),
-              child: SizedBox(
-                width: 180,
-                child: TextFormField(
-                  onChanged: (newTargetAtFunc) {
-                    setState(() {
-                      newTarget = newTargetAtFunc;
-                    });
-                  },
-                  initialValue: widget.textValue,
-                  keyboardType: TextInputType.number,
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
+            Positioned(
+              top: 50,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 80),
+                child: SizedBox(
+                  width: 180,
+                  child: TextFormField(
+                    onChanged: (newTargetAtFunc) {
+                      setState(() {
+                        newTarget = newTargetAtFunc;
+                      });
+                    },
+                    initialValue: widget.textValue,
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Positioned(
-            top: 20,
-            left: 115,
-            child: Text(
-              widget.topic,
-              style: TextStyle(
-                fontSize: 20,
+            Positioned(
+              top: 20,
+              left: 115,
+              child: Text(
+                widget.topic,
+                style: TextStyle(
+                  fontSize: 20,
+                ),
               ),
             ),
-          ),
-          Positioned(
-            top: 45,
-            left: 290,
-            child: IconButton(
-              icon: Icon(Icons.send),
-              onPressed: () {
-                widget.stateChanger(int.parse(newTarget));
-                //print("profile yazılan hedef: $newTarget");
-              },
+            Positioned(
+              top: 45,
+              left: 290,
+              child: IconButton(
+                icon: Icon(Icons.send),
+                onPressed: () {
+                  widget.stateChanger(int.parse(newTarget));
+                  //print("profile yazılan hedef: $newTarget");
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
