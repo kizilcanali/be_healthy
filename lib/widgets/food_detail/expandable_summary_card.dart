@@ -24,24 +24,19 @@ class ExpandableSummaryCard extends StatelessWidget {
           collapsedBackgroundColor: Colors.white,
           title: Row(
             children: [
-              /*Lottie.asset(
-                'assets/images/okayicon.json',
-                width: 100,
-                height: 100,
-              ),*/
               SizedBox(
                 width: 10,
               ),
               context.read<Store>().caloryTarget < totalCal
                   ? Icon(
-                      Icons.thumb_up_off_alt,
-                      size: 50,
-                      color: Colors.green,
-                    )
-                  : Icon(
                       Icons.thumb_down_off_alt,
                       size: 50,
                       color: Colors.red,
+                    )
+                  : Icon(
+                      Icons.thumb_up_off_alt,
+                      size: 50,
+                      color: Colors.green,
                     ),
               SizedBox(
                 width: 50,

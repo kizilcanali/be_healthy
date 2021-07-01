@@ -58,8 +58,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             sumOfNutritions.add(sumCarb);
             sumOfNutritions.add(sumFat);
           }
-          //print("Sum $sumOfNutritions");
-          //print("Normal Liste: $nutritionOfFoods");
+
           return sumOfNutritions;
         }
 

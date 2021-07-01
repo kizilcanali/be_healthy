@@ -12,7 +12,7 @@ class food_list extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 4,
+      flex: 2,
       child: ListView.builder(
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),

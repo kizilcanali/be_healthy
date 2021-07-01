@@ -164,6 +164,10 @@ class _CustomSmokePageTopContainerState
             child: isClickedValue == 0 || isClickedValue == null
                 ? Text("Sayacı Başlat")
                 : Text("Sayacı Sıfırla"),
+            style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(Color(0xFFD14818)),
+            ),
           ),
           SizedBox(
             height: 40,

@@ -55,9 +55,7 @@ class _HomeState extends State<Home> {
             Expanded(
               child: CustomTitleForMainPage(),
             ),
-            Expanded(
-              child: CustomSearchBar(),
-            ),
+
             //Category selection place.
             DefaultTabController(
               length: context.read<Store>().categories.length,
