@@ -88,17 +88,14 @@ class Store extends ChangeNotifier {
 
   void newTarget(int targetWater) async {
     _target = targetWater;
-    //print("state management _target value: $_target");
     await dbHelper.updateTargetValue("water", _target);
     await dbHelper.updateLastTarget(_target);
-    //print("_summaryWater: $_summaryWater");
     _summaryWater[_summaryWater.length - 1]["target"] = _target;
     notifyListeners();
   }
 
   void newSummaryWater(List newWater) {
     _summaryWater = newWater;
-
     notifyListeners();
   }
 
@@ -152,8 +149,6 @@ class Store extends ChangeNotifier {
           _summaryWater[_summaryWater.length - 1]["current_amount"]);
       dbHelper.updateCurrentAmount(_currentAmount);
     }
-
-    //print(_summaryWater);
     notifyListeners();
   }
 }

@@ -43,9 +43,7 @@ class _CustomSmokePageTopContainerState
   @override
   void initState() {
     super.initState();
-
     getInitialValues();
-
     t = Timer.periodic(
       Duration(seconds: 1),
       (Timer timer) {
@@ -54,17 +52,12 @@ class _CustomSmokePageTopContainerState
             startStopWatch();
             double oneMinAmountCount = context.read<Store>().smokeCount / 1440;
             double oneMinAmountPrice = context.read<Store>().smokePrice / 1440;
-
             if (startStopWatch() % 60 == 0) {
-              print("buradayım");
               smokeAmountText = oneMinAmountCount * (startStopWatch() / 60);
               smokePriceText = oneMinAmountPrice * (startStopWatch() / 60);
-              print("smoke amount $smokeAmountText");
               saveStatsToDB(smokePriceText, smokeAmountText);
             }
             context.read<Store>().setDifferenceBetweenTime(startStopWatch());
-            /*minutelyInfoCalculator(
-                context.read<Store>().smokeCount, smokeAmountText);*/
           } else {
             totalString = "00:00:00:00:00:00";
             smokePriceTextString = "0";
@@ -73,13 +66,6 @@ class _CustomSmokePageTopContainerState
         });
       },
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    t.cancel();
   }
 
   Future<void> getInitialValues() async {
@@ -98,9 +84,7 @@ class _CustomSmokePageTopContainerState
   int startStopWatch() {
     var nowDate = DateTime.now();
     timeFromDB = DateTime.parse(savedSmokeTimeTable[0]["saved_time"]);
-
     var difference = nowDate.difference(timeFromDB).inSeconds;
-
     yearStr = (difference / (60 * 60 * 24 * 365) % 60)
         .floor()
         .toString()
@@ -124,6 +108,7 @@ class _CustomSmokePageTopContainerState
   void resetTimer() async {
     await dbHelper.updateSavedTime();
     await dbHelper.updateSmokeProgressData(0, 0);
+
     setState(() {
       smokeAmountText = 0;
       smokePriceText = 0;
@@ -215,5 +200,11 @@ class _CustomSmokePageTopContainerState
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    t.cancel();
+    super.dispose();
   }
 }

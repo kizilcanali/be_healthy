@@ -1,8 +1,0 @@
-[] Profi Sayfası Düzenleme -> Input alacak şekilde.
-[] Target ataması yapılması.
-[] Progress Bar anlık değişim meselesi.
-[] Water Summary Cardların bastırılması.
-[] DB Insert yapmıyor. (Water) Bunun fixlenmesi.
-[] Profil Input alma durumundan sonra consumption summary ikonun düzenlenmesi.
-[] Sigara Sayfasına reset butonu.
-[] Su Sayfasına reset butonu.

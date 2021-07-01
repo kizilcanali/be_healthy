@@ -44,7 +44,6 @@ class _SplashScreenState extends State<SplashScreen> {
     String day = nowDate.day.toString() + " / " + nowDate.month.toString();
 
     smokeProgressData = await dbHelper.getSmokeProgressTable();
-    context.read<Store>().newSmokeProgress(smokeProgressData);
 
     int caloryTarget = await dbHelper.getTargets("calory");
     int waterTarget = await dbHelper.getTargets("water");
@@ -73,8 +72,6 @@ class _SplashScreenState extends State<SplashScreen> {
         },
       );
     }
-
-    //print("calory target: $caloryTarget");
     if (tempWaterList.length == 0 ||
         tempWaterList[tempWaterList.length - 1]["date"] != day) {
       tempWaterList.add(
@@ -88,7 +85,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     context.read<Store>().newSummaryWater(tempWaterList);
-
+    context.read<Store>().newSmokeProgress(smokeProgressData);
     // GET TARGETS FROM DB
     context.read<Store>().newCaloryTarget(caloryTarget);
     context.read<Store>().newTarget(waterTarget);

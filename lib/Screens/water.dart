@@ -7,12 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../state_management.dart';
 
-class Water extends StatefulWidget {
-  @override
-  _WaterState createState() => _WaterState();
-}
-
-class _WaterState extends State<Water> {
+class Water extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
