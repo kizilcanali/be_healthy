@@ -34,11 +34,11 @@ class _LoginState extends State<Login> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 90),
+                    margin: EdgeInsets.only(top: 55),
                     child: Image.asset(
                       'assets/images/logo.png',
-                      width: 280,
-                      height: 150,
+                      width: 320,
+                      height: 190,
                     ),
                   ),
                   DefaultTabController(
