@@ -1,4 +1,4 @@
-# be_healthy
+# Be Healthy
 
 It is a mobile application where users can control their daily food and water consumption, as well as provide motivation to quit smoking with the cigarette counter in the application.
 
