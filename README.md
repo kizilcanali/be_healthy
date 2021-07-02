@@ -4,8 +4,8 @@ It is a mobile application where users can control their daily food and water co
 
 ## Screenshots
 
-<img>https://raw.githubusercontent.com/kizilcanali/be_healthy/main/assets/readme/home.JPG</img>
-<img>https://raw.githubusercontent.com/kizilcanali/be_healthy/main/assets/readme/smoke.JPG</img>
-<img>https://raw.githubusercontent.com/kizilcanali/be_healthy/main/assets/readme/summary.JPG</img>
-<img>https://raw.githubusercontent.com/kizilcanali/be_healthy/main/assets/readme/water.JPG</img>
+<img src = "https://raw.githubusercontent.com/kizilcanali/be_healthy/main/assets/readme/home.JPG"/>
+<img src = "https://raw.githubusercontent.com/kizilcanali/be_healthy/main/assets/readme/smoke.JPG"/>
+<img src = "https://raw.githubusercontent.com/kizilcanali/be_healthy/main/assets/readme/summary.JPG"/>
+<img src = "https://raw.githubusercontent.com/kizilcanali/be_healthy/main/assets/readme/water.JPG"/>
 
